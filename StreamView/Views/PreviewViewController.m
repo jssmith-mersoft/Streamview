@@ -7,6 +7,7 @@
 //
 
 #import "PreviewViewController.h"
+#import "SWRevealViewController.h"
 
 @interface PreviewViewController () <UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -30,7 +31,9 @@
 @synthesize Collection_view;
 
 - (void)viewDidLoad {
+    
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    /*
     if ([appDelegate moveClient] == nil || ![[appDelegate moveClient] isConnected]) {
         NSLog(@"Connecting to Move");
         // Set up Move Client
@@ -38,19 +41,26 @@
         [[appDelegate moveClient] setDelegate:self];
         [[appDelegate moveClient] setQuality:QualityHigh];
         [[appDelegate moveClient] connectToMove:kMoveURL];
-        
-        //parse the services to find the cameras
-
-        
-        [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(refreshThumbs) userInfo:nil repeats:YES];
-        //[timer invalidate];
-    
     }
+     */
+    
+     [[appDelegate moveClient] setDelegate:self];
 
-    _image_Arr = [[NSArray alloc] initWithObjects:@"STREAM-WHITE-0",@"STREAM-WHITE-1",@"STREAM-WHITE-2",@"STREAM-WHITE-GW-1",@"STREAM-RED-0",@"STREAM-RED-1",@"STREAM-RED-2",@"STREAM-RED-3",@"STREAM-RED-GW-1",@"ALL", nil];
-    _label_Arr = [[NSArray alloc] initWithObjects:@"WHITE-0",@"WHITE-1",@"WHITE-2",@"W-GW",@"RED-0",@"RED-1",@"RED-2",@"RED-3",@"R-GW",@"ALL", nil];
-     
+    //parse the services to find the cameras
+    _image_Arr = [[NSArray alloc] initWithObjects:@"STREAM-RED-3",@"STREAM-RED-2",@"STREAM-RED-1",@"ALL", nil];
+    _label_Arr = [[NSArray alloc] initWithObjects:@"RED-3",@"RED-2",@"RED-1",@"ALL", nil];
+    
+    [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(refreshThumbs) userInfo:nil repeats:YES];
+    //[timer invalidate];
+    
+   
+    
     [super viewDidLoad];
+    
+    _barButton.target = self.revealViewController;
+    _barButton.action = @selector(revealToggle:);
+    
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
 }
 
 -(void)refreshThumbs {
@@ -62,7 +72,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return _image_Arr.count;
@@ -138,7 +147,7 @@
     if (![deviceid isEqualToString:@"ALL"]) {
         [self setupOutgoingCall];
     } else {
-        [self joinRoom:@"RED"];
+        [self joinRoom:@"camera"];
     }
 }
 

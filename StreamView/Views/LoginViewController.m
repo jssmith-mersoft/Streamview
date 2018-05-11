@@ -8,17 +8,22 @@
 
 
 #import "LoginViewController.h"
-#import "PreviewViewController.h"
+#import "SWRevealViewController.h"
 
 @interface LoginViewController () <UITextFieldDelegate>
 @property (strong, nonatomic) IBOutlet UITextField *loginTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @end
 
-@implementation LoginViewController{}
+@implementation LoginViewController{
+     AppDelegate *appDelegate;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+     [[appDelegate moveClient] setDelegate:self];
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -29,19 +34,69 @@
 }
 
 - (IBAction)enteredPressed:(id)sender {
+    [[appDelegate moveClient] unregister];
+    [[appDelegate moveClient] register:_loginTextField.text];
+    /*
     if ([_loginTextField.text isEqualToString:@"a"] && [_passwordTextField.text isEqualToString:@"a"]) {
         NSLog(@"logged in");
         
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"StreamView" bundle:nil];
-        PreviewViewController *pvc = [storyboard instantiateViewControllerWithIdentifier:@"Preview"];
-        [pvc setModalPresentationStyle:UIModalPresentationFullScreen];
-        [self presentViewController:pvc animated:YES completion:nil];
+        [[appDelegate moveClient] unregister];
+        [[appDelegate moveClient] register:@"screen"];
+        
     } else {
          NSLog(@"Not Logged in");
     }
+     */
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     NSLog(@"Finsihed Editing");
+}
+
+- (void)connectionConnected {
+    NSLog(@"DEMO APP: Connection Connected");
+    
+}
+- (void)connectionFailed:(NSError *)message {
+    NSLog(@"DEMO APP: Connection Failed");
+}
+- (void)connectionClosed {
+    NSLog(@"DEMO APP: Connection Closed");
+}
+
+- (void)promptForAnswerCall:(NSString*)callId caller:(NSString*)CID {}
+- (void)onConnecting {}
+- (void)onDeclining {}
+- (void)onUnanswered {}
+- (void)onReset {}
+- (void)onError:(NSString*)message title:(NSString*)title {}
+- (void)onCallId:(NSString *)callId withPeer:(NSString*)peerId {}
+- (void)registrationBroken {}
+- (void)registrationReceived:(NSString *)id withReg:(MoveRegistration*)reg {
+    
+    NSLog(@"DEMO APP:Received Login (registration)");
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"StreamView" bundle:nil];
+    SWRevealViewController *pvc = [storyboard instantiateViewControllerWithIdentifier:@"Reveal"];
+    [pvc setModalPresentationStyle:UIModalPresentationFullScreen];
+    [self presentViewController:pvc animated:YES completion:nil];
+}
+- (void)registrationUpdate:(NSString *)id withReg:(MoveRegistration*)reg {
+    NSLog(@"DEMO APP:Received registration update");
+}
+- (void)registrationSubscribe:(NSString *)id withReg:(MoveRegistration*)reg {
+    NSLog(@"DEMO APP:Received Sub");
+}
+- (void)accountReceived:(MoveAccount *)account {}
+- (void)invalidAccountReceived:(NSString*)username contact:(NSString*)contact {
+    NSLog(@"DEMO APP:Received invalid account");
+}
+- (void)notificationReceived:(MoveNotification *)notification{
+    NSLog(@"DEMO APP:Received notification");
+}
+- (void)rawMessageReceived:(NSString *)message {
+        NSLog(@"DEMO APP: Raw Message Received: %@", message);
+}
+- (void)unexpectedMoveError:(NSString*)message title:(NSString*)title hangup:(BOOL)hangup {
+    NSLog(@"DEMO APP:Received unexpected Move Error");
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <UserNotifications/UserNotifications.h>
 #import "PreviewViewController.h"
 
 @interface AppDelegate ()
@@ -17,9 +18,23 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+
     [self setUpRechability];
     
+    if ([self moveClient] == nil || ![[self moveClient] isConnected]) {
+        NSLog(@"Connecting to Move");
+        // Set up Move Client
+        [self setMoveClient: [[MoveClient alloc] init]];
+        [[self moveClient] setQuality:QualityHigh];
+        [[self moveClient] connectToMove:kMoveURL];
+    }
+    //setup for APNS
+    // Override point for customization after application launch.
+    UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound)
+                          completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                              // Enable or disable features based on authorization.
+                          }];
     return YES;
 }
 

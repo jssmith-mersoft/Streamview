@@ -15,9 +15,29 @@
 #import <AVKit/AVKit.h>
 
 #import "AppDelegate.h"
+#import "MoveClient.h"
 
+@interface LoginViewController : UIViewController <UITextFieldDelegate, MoveConnectionDelegate>
 
-@interface LoginViewController : UIViewController <UITextFieldDelegate>
+#pragma mark - MoveConnectionDelegate
+- (void)connectionConnected;
+- (void)connectionFailed:(NSError *)message;
+- (void)connectionClosed;
+- (void)promptForAnswerCall:(NSString*)callId caller:(NSString*)CID;
+- (void)onConnecting;
+- (void)onDeclining;
+- (void)onUnanswered;
+- (void)onReset;
+- (void)onError:(NSString*)message title:(NSString*)title;
+- (void)onCallId:(NSString *)callId withPeer:(NSString*)peerId;
+- (void)registrationBroken;
+- (void)registrationReceived:(NSString *)id withReg:(MoveRegistration*)reg;
+- (void)registrationUpdate:(NSString *)id withReg:(MoveRegistration*)reg;
+- (void)registrationSubscribe:(NSString *)id withReg:(MoveRegistration*)reg;
+- (void)accountReceived:(MoveAccount *)account;
+- (void)invalidAccountReceived:(NSString*)username contact:(NSString*)contact;
+- (void)notificationReceived:(MoveNotification *)notification;
+- (void)rawMessageReceived:(NSString *)message;
+- (void)unexpectedMoveError:(NSString*)message title:(NSString*)title hangup:(BOOL)hangup;
 @end
-
 #endif /* LoginViewController_h */

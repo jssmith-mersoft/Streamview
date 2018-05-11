@@ -19,7 +19,7 @@
 @interface PreviewViewController : UIViewController  <MoveConnectionDelegate, DemoOnCallViewControllerDelegate, AVPlayerViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UICollectionView *Collection_view;
-
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *barButton;
 @property NSString *remoteConnectionId;
 @property NSString *localConnectionId;
 

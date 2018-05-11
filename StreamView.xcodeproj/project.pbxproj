@@ -11,6 +11,13 @@
 		6215639920763E1500362E83 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6215639820763E1500362E83 /* Reachability.m */; };
 		6215639C2076416C00362E83 /* DemoOnCallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6215639B2076416C00362E83 /* DemoOnCallView.xib */; };
 		621563A0207641C600362E83 /* DemoOnCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6215639D2076418800362E83 /* DemoOnCallViewController.m */; };
+		6272957A20A38F4B002122B1 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272957920A38F4B002122B1 /* MenuController.m */; };
+		6272957E20A3940D002122B1 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272957D20A3940D002122B1 /* SWRevealViewController.m */; };
+		6272958120A4C5BC002122B1 /* ProvisioningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272958020A4C5BC002122B1 /* ProvisioningViewController.m */; };
+		6272958420A5BB95002122B1 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272958320A5BB95002122B1 /* AccountViewController.m */; };
+		6272958720A5BBAF002122B1 /* RecordingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272958620A5BBAF002122B1 /* RecordingsViewController.m */; };
+		6272958A20A5BBBD002122B1 /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272958920A5BBBD002122B1 /* EventsViewController.m */; };
+		6272958D20A5BBE1002122B1 /* MersoftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272958C20A5BBE1002122B1 /* MersoftViewController.m */; };
 		62A22BA4207664E000B56AED /* include in Resources */ = {isa = PBXBuildFile; fileRef = 62A22BA2207664AF00B56AED /* include */; };
 		62A22BA5207664E000B56AED /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 62A22BA3207664E000B56AED /* lib */; };
 		62A22BAB2076769400B56AED /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A22BAA2076769400B56AED /* WebRTC.framework */; };
@@ -93,6 +100,20 @@
 		6215639A2076415200362E83 /* DemoOnCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoOnCallViewController.h; sourceTree = "<group>"; };
 		6215639B2076416C00362E83 /* DemoOnCallView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemoOnCallView.xib; sourceTree = "<group>"; };
 		6215639D2076418800362E83 /* DemoOnCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoOnCallViewController.m; sourceTree = "<group>"; };
+		6272957820A38F4B002122B1 /* MenuController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuController.h; sourceTree = "<group>"; };
+		6272957920A38F4B002122B1 /* MenuController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MenuController.m; sourceTree = "<group>"; };
+		6272957C20A3940D002122B1 /* SWRevealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		6272957D20A3940D002122B1 /* SWRevealViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		6272957F20A4C5BC002122B1 /* ProvisioningViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProvisioningViewController.h; sourceTree = "<group>"; };
+		6272958020A4C5BC002122B1 /* ProvisioningViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProvisioningViewController.m; sourceTree = "<group>"; };
+		6272958220A5BB95002122B1 /* AccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
+		6272958320A5BB95002122B1 /* AccountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountViewController.m; sourceTree = "<group>"; };
+		6272958520A5BBAF002122B1 /* RecordingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordingsViewController.h; sourceTree = "<group>"; };
+		6272958620A5BBAF002122B1 /* RecordingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordingsViewController.m; sourceTree = "<group>"; };
+		6272958820A5BBBD002122B1 /* EventsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsViewController.h; sourceTree = "<group>"; };
+		6272958920A5BBBD002122B1 /* EventsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsViewController.m; sourceTree = "<group>"; };
+		6272958B20A5BBE1002122B1 /* MersoftViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MersoftViewController.h; sourceTree = "<group>"; };
+		6272958C20A5BBE1002122B1 /* MersoftViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MersoftViewController.m; sourceTree = "<group>"; };
 		62A22BA2207664AF00B56AED /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
 		62A22BA3207664E000B56AED /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
 		62A22BA82076684500B56AED /* libmove-ios-sdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libmove-ios-sdk.a"; path = "MoveSDK/lib/libmove-ios-sdk.a"; sourceTree = SOURCE_ROOT; };
@@ -281,8 +302,22 @@
 				62D0A3D420727D6900B96CFC /* StreamView.storyboard */,
 				62B7A4C1207292AF005C5130 /* LoginViewController.m */,
 				62B7A4C3207292DF005C5130 /* LoginViewController.h */,
+				6272957C20A3940D002122B1 /* SWRevealViewController.h */,
+				6272957D20A3940D002122B1 /* SWRevealViewController.m */,
+				6272957820A38F4B002122B1 /* MenuController.h */,
+				6272957920A38F4B002122B1 /* MenuController.m */,
 				62B7A5182072B07C005C5130 /* PreviewViewController.m */,
 				62B7A51A2072B08D005C5130 /* PreviewViewController.h */,
+				6272957F20A4C5BC002122B1 /* ProvisioningViewController.h */,
+				6272958020A4C5BC002122B1 /* ProvisioningViewController.m */,
+				6272958220A5BB95002122B1 /* AccountViewController.h */,
+				6272958320A5BB95002122B1 /* AccountViewController.m */,
+				6272958520A5BBAF002122B1 /* RecordingsViewController.h */,
+				6272958620A5BBAF002122B1 /* RecordingsViewController.m */,
+				6272958820A5BBBD002122B1 /* EventsViewController.h */,
+				6272958920A5BBBD002122B1 /* EventsViewController.m */,
+				6272958B20A5BBE1002122B1 /* MersoftViewController.h */,
+				6272958C20A5BBE1002122B1 /* MersoftViewController.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -441,12 +476,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6272957A20A38F4B002122B1 /* MenuController.m in Sources */,
+				6272958D20A5BBE1002122B1 /* MersoftViewController.m in Sources */,
+				6272958A20A5BBBD002122B1 /* EventsViewController.m in Sources */,
 				62BF0C082072774D004ED41F /* main.m in Sources */,
 				62BF0BFA2072774D004ED41F /* AppDelegate.m in Sources */,
 				62B7A4C2207292AF005C5130 /* LoginViewController.m in Sources */,
+				6272958420A5BB95002122B1 /* AccountViewController.m in Sources */,
 				62B7A5192072B07C005C5130 /* PreviewViewController.m in Sources */,
+				6272957E20A3940D002122B1 /* SWRevealViewController.m in Sources */,
 				621563A0207641C600362E83 /* DemoOnCallViewController.m in Sources */,
 				6215639920763E1500362E83 /* Reachability.m in Sources */,
+				6272958720A5BBAF002122B1 /* RecordingsViewController.m in Sources */,
+				6272958120A4C5BC002122B1 /* ProvisioningViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,7 +649,7 @@
 		62BF0C222072774D004ED41F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P76NDY4BKW;
 				ENABLE_BITCODE = NO;
@@ -631,7 +673,7 @@
 		62BF0C232072774D004ED41F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P76NDY4BKW;
 				ENABLE_BITCODE = NO;
