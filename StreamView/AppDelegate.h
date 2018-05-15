@@ -12,7 +12,7 @@
 
 //#define kMoveURL @"wss://move-dev.mersoft.biz/ws"
 #define kStreamURL @"https://stream.mersoft.biz"
-//#define kMoveURL @"wss://192.168.86.21:3443/ws"
+//#define kMoveURL @"wss://172.16.30.66:3443/ws"
 #define kMoveURL @"wss://192.168.86.22:3443/ws"
 
 #define kImageURL @"http://192.168.86.22:3000"

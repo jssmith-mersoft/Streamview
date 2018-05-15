@@ -13,6 +13,7 @@
 @interface LoginViewController () <UITextFieldDelegate>
 @property (strong, nonatomic) IBOutlet UITextField *loginTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (strong, nonatomic) IBOutlet UILabel *errorMessageTextField;
 @end
 
 @implementation LoginViewController{
@@ -70,7 +71,11 @@
 - (void)onReset {}
 - (void)onError:(NSString*)message title:(NSString*)title {}
 - (void)onCallId:(NSString *)callId withPeer:(NSString*)peerId {}
-- (void)registrationBroken {}
+- (void)registrationBroken {
+     NSLog(@"DEMO APP:Received Bade Login (registrationBroken)");
+    //put up some message
+    _errorMessageTextField.hidden = NO;
+}
 - (void)registrationReceived:(NSString *)id withReg:(MoveRegistration*)reg {
     
     NSLog(@"DEMO APP:Received Login (registration)");

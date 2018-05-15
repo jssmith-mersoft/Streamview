@@ -9,23 +9,28 @@
 #import "ProvisioningViewController.h"
 #import "SWRevealViewController.h"
 
+
 @interface ProvisioningViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *ssidTextField;
 
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UITextField *serverTextField;
+@property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (strong, nonatomic) IBOutlet UISwitch *loggingSwitch;
 @property (strong, nonatomic) IBOutlet UIImageView *qrImageView;
 @end
 
-@implementation ProvisioningViewController
+@implementation ProvisioningViewController {
+    AppDelegate *appDelegate;
+}
 
 - (void)viewDidLoad {
     _barButton.target = self.revealViewController;
     _barButton.action = @selector(revealToggle:);
     
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
     [super viewDidLoad];
 }
 
@@ -40,8 +45,13 @@
     [qrMessage appendFormat:@"{\"ssid:\":\"%@\",",_ssidTextField.text];
     NSLog(@"the password is %@",_passwordTextField.text);
     [qrMessage appendFormat:@"\"password:\":\"%@\",",_passwordTextField.text];
-    NSLog(@"the account is %@",_passwordTextField.text);
-    [qrMessage appendFormat:@"\"account:\":\"%@\",",@"123"];
+    NSLog(@"the client is %@",appDelegate.moveClient.currentReg.registrationId);
+    [qrMessage appendFormat:@"\"name:\":\"%@\",",_nameTextField.text];
+    NSLog(@"the client is %@",appDelegate.moveClient.currentReg.registrationId);
+    [qrMessage appendFormat:@"\"client:\":\"%@\",",appDelegate.moveClient.currentReg.registrationId];
+    NSLog(@"the account is %@",appDelegate.moveClient.currentReg.registrationId);
+    [qrMessage appendFormat:@"\"account:\":\"%@\",",appDelegate.moveClient.currentReg.accountId];
+    
     if (_serverTextField.text.length > 0) {
         NSLog(@"the server is %@",_serverTextField.text);
         [qrMessage appendFormat:@"\"server:\":\"%@\",",_serverTextField.text];
