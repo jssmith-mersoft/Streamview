@@ -11,8 +11,9 @@
 
 @interface PreviewViewController () <UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
-@property NSArray *image_Arr;
-@property NSArray *label_Arr;
+@property NSMutableArray *image_Arr;
+@property NSMutableArray *label_Arr;
+@property NSMutableArray *url_Arr;
 @property (strong, nonatomic) IBOutlet UICollectionView *accountCameras;
 
 @end
@@ -32,6 +33,10 @@
 
 - (void)viewDidLoad {
     
+    _image_Arr = [[NSMutableArray alloc] init];
+    _label_Arr = [[NSMutableArray alloc] init];
+    _url_Arr   = [[NSMutableArray array] init];
+    
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     /*
     if ([appDelegate moveClient] == nil || ![[appDelegate moveClient] isConnected]) {
@@ -45,15 +50,31 @@
      */
     
      [[appDelegate moveClient] setDelegate:self];
+    
+    //get the camera servives
+    MoveRegistration* currReg = [[appDelegate moveClient] currentReg];
+    NSArray* cameraServiceArray = [currReg getCameras];
+         
+    for (MoveService* itService in cameraServiceArray) {
+        [_label_Arr addObject:[itService name]];
+       
+        //Ask for an URL
+        NSArray *addrArray = [[itService addresses] allObjects];
+        for (MoveServiceAddress* msa in addrArray) {
+             [_image_Arr addObject:[msa address]];
+            [[appDelegate moveClient] getCameraURL: [msa address]];
+        }
+    }
+    
+    if ([cameraServiceArray count] > 1) {
+        [_label_Arr addObject: @"ALL"];
+        [_image_Arr addObject: @"ALL"];
+    }
+    
 
     //parse the services to find the cameras
-    _image_Arr = [[NSArray alloc] initWithObjects:@"STREAM-RED-3",@"STREAM-RED-2",@"STREAM-RED-1",@"ALL", nil];
-    _label_Arr = [[NSArray alloc] initWithObjects:@"RED-3",@"RED-2",@"RED-1",@"ALL", nil];
-    
-    [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(refreshThumbs) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(refreshThumbs) userInfo:nil repeats:YES];
     //[timer invalidate];
-    
-   
     
     [super viewDidLoad];
     
@@ -91,7 +112,8 @@
         Image_View.image= [UIImage imageNamed:@"AllCameras"];
         Image_View.contentMode = UIViewContentModeScaleAspectFit;
     } else  {
-        [self loadImage:[_image_Arr objectAtIndex:indexPath.row] intoImageView:Image_View];
+        [self loadImage:indexPath.row intoImageView:Image_View];
+        Image_View.image = Nil;
         Image_View.contentMode = UIViewContentModeScaleAspectFill;
     }
     
@@ -102,28 +124,26 @@
     return 1;
 }
 
-- (void) loadImage:(NSString*)resourceName intoImageView:(UIImageView*)imageView {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyyMMddHHmmss"];
+- (void) loadImage:(NSInteger)row intoImageView:(UIImageView*)imageView {
+    //NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    //[formatter setDateFormat:@"yyyyMMddHHmmss"];
+    //NSDate *currentDate = [NSDate date];
+    //NSString *dateString = [formatter stringFromDate:currentDate];
     
-    NSDate *currentDate = [NSDate date];
-    NSString *dateString = [formatter stringFromDate:currentDate];
-    NSString *resourceString = @"/resource/jss";
-    
-    if ([resourceName containsString:@"GW"]) {
-        resourceString = @"/resource";
-    }
-    
-    dispatch_async(dispatch_get_global_queue(0,0), ^{
-        NSString *fileURL =[NSString stringWithFormat:@"%@/%@/%@?%@", kImageURL,resourceString,resourceName,dateString];
-        NSLog(@"the image URL is %@",fileURL);
-        NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:fileURL]];
-                         if ( data == nil )
-                         return;
-                         dispatch_async(dispatch_get_main_queue(), ^{
-                            imageView.image =  [UIImage imageWithData: data];
+    if ([_url_Arr count] > row) {
+        dispatch_async(dispatch_get_global_queue(0,0), ^{
+           // NSString *fileURL =[NSString stringWithFormat:@"%@&%@",_url_Arr[row],dateString];
+            NSLog(@"the image URL is %@",_url_Arr[row]);
+            NSError* error = nil;
+            NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_url_Arr[row]] options:NSDataReadingUncached error:&error];
+            //NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:_url_Arr[row]]];
+            if ( data == nil )
+                return;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                imageView.image =  [UIImage imageWithData: data];
+            });
         });
-    });
+    }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -627,6 +647,15 @@
     NSLog(@"DEMO APP: onCancelled: %@", callId);
 }
 
+- (void)cameraThumnailURLReceived:(NSString *)url cameraID:(NSString*)cameraID {
+    for (int i=0; i< [_image_Arr count]; i++) {
+        if ([(NSString*)_image_Arr[i] isEqualToString:cameraID]) {
+            NSLog(@"DEMO APP: got URL for : %@", cameraID);
+            [_url_Arr insertObject:url atIndex:i];
+        }
+    }
+    [self refreshThumbs];
+}
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

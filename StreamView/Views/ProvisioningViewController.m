@@ -31,6 +31,11 @@
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
+    //_ssidTextField.text = @"mersoft";
+    //_passwordTextField.text = @"p0p.c0rn";
+    _nameTextField.text = @"jeffCam1";
+    _serverTextField.text = @"ws://172.16.30.66:3000/ws";
+    
     [super viewDidLoad];
 }
 
@@ -39,12 +44,13 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)generate:(id)sender {
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
     NSMutableString* qrMessage = [NSMutableString new];
-
-    NSLog(@"the SSID is %@",_ssidTextField.text);
-    [qrMessage appendFormat:@"{\"ssid:\":\"%@\",",_ssidTextField.text];
-    NSLog(@"the password is %@",_passwordTextField.text);
-    [qrMessage appendFormat:@"\"password:\":\"%@\",",_passwordTextField.text];
+    [qrMessage appendString:@"{"];
+    NSLog(@"the SSID is %@ and  the password is %@",_ssidTextField.text,_passwordTextField.text);
+    if ([_ssidTextField.text length] > 0) {
+        [qrMessage appendFormat:@"\"wifi\":{\"ssid\":\"%@\",password\":\"%@\"},",_ssidTextField.text,_passwordTextField.text];
+    }
     NSLog(@"the client is %@",appDelegate.moveClient.currentReg.registrationId);
     [qrMessage appendFormat:@"\"name:\":\"%@\",",_nameTextField.text];
     NSLog(@"the client is %@",appDelegate.moveClient.currentReg.registrationId);
@@ -56,8 +62,8 @@
         NSLog(@"the server is %@",_serverTextField.text);
         [qrMessage appendFormat:@"\"server:\":\"%@\",",_serverTextField.text];
     }
-    [qrMessage appendFormat:@"\"logging\":%@}",(_loggingSwitch.isOn ? @"true":@"false")];
-    
+    [qrMessage appendFormat:@"\"logging\":%@",(_loggingSwitch.isOn ? @"true":@"false")];
+    [qrMessage appendString:@"}"];
     // Generation of QR code image
     NSData *qrCodeData = [qrMessage dataUsingEncoding:NSISOLatin1StringEncoding]; // recommended encoding
     CIFilter *qrCodeFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];

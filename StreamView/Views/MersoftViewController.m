@@ -11,6 +11,7 @@
 
 @interface MersoftViewController ()
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *barButton;
+@property (strong, nonatomic) IBOutlet UILabel *versionLabel;
 
 @end
 
@@ -22,6 +23,10 @@
     
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
+    NSString * appVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString * appBuildString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    NSString * versionBuildString = [NSString stringWithFormat:@"Version: %@ (%@)", appVersionString, appBuildString];
+    _versionLabel.text = versionBuildString;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }

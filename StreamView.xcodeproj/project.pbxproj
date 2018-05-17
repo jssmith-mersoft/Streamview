@@ -18,8 +18,6 @@
 		6272958720A5BBAF002122B1 /* RecordingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272958620A5BBAF002122B1 /* RecordingsViewController.m */; };
 		6272958A20A5BBBD002122B1 /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272958920A5BBBD002122B1 /* EventsViewController.m */; };
 		6272958D20A5BBE1002122B1 /* MersoftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272958C20A5BBE1002122B1 /* MersoftViewController.m */; };
-		62A22BA4207664E000B56AED /* include in Resources */ = {isa = PBXBuildFile; fileRef = 62A22BA2207664AF00B56AED /* include */; };
-		62A22BA5207664E000B56AED /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 62A22BA3207664E000B56AED /* lib */; };
 		62A22BAB2076769400B56AED /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A22BAA2076769400B56AED /* WebRTC.framework */; };
 		62A22BAC2076769400B56AED /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 62A22BAA2076769400B56AED /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		62B7A4C2207292AF005C5130 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62B7A4C1207292AF005C5130 /* LoginViewController.m */; };
@@ -114,6 +112,7 @@
 		6272958920A5BBBD002122B1 /* EventsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsViewController.m; sourceTree = "<group>"; };
 		6272958B20A5BBE1002122B1 /* MersoftViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MersoftViewController.h; sourceTree = "<group>"; };
 		6272958C20A5BBE1002122B1 /* MersoftViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MersoftViewController.m; sourceTree = "<group>"; };
+		628F381F20ADC69300447584 /* StreamView.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StreamView.entitlements; sourceTree = "<group>"; };
 		62A22BA2207664AF00B56AED /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
 		62A22BA3207664E000B56AED /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
 		62A22BA82076684500B56AED /* libmove-ios-sdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libmove-ios-sdk.a"; path = "MoveSDK/lib/libmove-ios-sdk.a"; sourceTree = SOURCE_ROOT; };
@@ -262,6 +261,7 @@
 		62BF0BF72072774D004ED41F /* StreamView */ = {
 			isa = PBXGroup;
 			children = (
+				628F381F20ADC69300447584 /* StreamView.entitlements */,
 				62BF0C2A207277D8004ED41F /* Views */,
 				62BF0BF82072774D004ED41F /* AppDelegate.h */,
 				62BF0BF92072774D004ED41F /* AppDelegate.m */,
@@ -332,6 +332,7 @@
 				62BF0BF12072774D004ED41F /* Sources */,
 				62BF0BF22072774D004ED41F /* Frameworks */,
 				62BF0BF32072774D004ED41F /* Resources */,
+				628F381E20ADBD1D00447584 /* ShellScript */,
 				62A22BAD2076769400B56AED /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -392,6 +393,14 @@
 					62BF0BF42072774D004ED41F = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 0;
+							};
+						};
 					};
 					62BF0C0C2072774D004ED41F = {
 						CreatedOnToolsVersion = 9.2;
@@ -446,11 +455,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62A22BA5207664E000B56AED /* lib in Resources */,
 				6215639C2076416C00362E83 /* DemoOnCallView.xib in Resources */,
 				62BF0C052072774D004ED41F /* LaunchScreen.storyboard in Resources */,
 				62BF0C022072774D004ED41F /* Assets.xcassets in Resources */,
-				62A22BA4207664E000B56AED /* include in Resources */,
 				62D0A3D520727D6900B96CFC /* StreamView.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -470,6 +477,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		628F381E20ADBD1D00447584 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		62BF0BF12072774D004ED41F /* Sources */ = {
@@ -650,6 +673,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = StreamView/StreamView.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P76NDY4BKW;
 				ENABLE_BITCODE = NO;
@@ -664,7 +688,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MoveSDK/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mersoft.MoveSDKDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mersoft.stream.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -674,6 +698,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = StreamView/StreamView.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P76NDY4BKW;
 				ENABLE_BITCODE = NO;
@@ -684,7 +709,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MoveSDK/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mersoft.MoveSDKDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mersoft.stream.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
