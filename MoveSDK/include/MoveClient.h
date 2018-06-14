@@ -113,8 +113,11 @@ typedef enum {
 - (void) sendMessages:(MoveMessage*)message;
 - (void) deleteMessages:(MoveMessage*)message;
 
+- (void) getCameraURL:(NSString *)CameraID;
+    
 - (void) getHistory;
 
+- (void)sendToService:(NSString*)toServiceID withData:(NSDictionary*)data withClass:(NSString*)className;
 - (void)sendP2PMessage:(NSString*)toPhoneNumber withMessage:(NSString*)message withCallerID:(NSString*)callerIdLabel;
 - (void)sendCallMessage:(NSString*)toPhoneNumber withMessage:(NSString*)message withCallerID:(NSString*)callerIdLabel;
 - (void)sendKeepAliveMessage;

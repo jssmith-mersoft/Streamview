@@ -17,6 +17,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *serverTextField;
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (strong, nonatomic) IBOutlet UISwitch *loggingSwitch;
+@property (strong, nonatomic) IBOutlet UILabel *serverLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *qrImageView;
 @end
 
@@ -31,10 +32,12 @@
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    //_ssidTextField.text = @"mersoft";
-    //_passwordTextField.text = @"p0p.c0rn";
-    _nameTextField.text = @"jeffCam1";
-    _serverTextField.text = @"ws://172.16.30.66:3000/ws";
+    //_ssidTextField.text = @"Clydasdale";
+    //_passwordTextField.text = @"coffeecup";
+    _ssidTextField.text = @"TOF-WiFi";
+    _passwordTextField.text = @"Tofasco1661";
+    _nameTextField.text = @"DemoCam1";
+    //_serverTextField.text = @"ws://move-dev.mersoft.biz/ws";
     
     [super viewDidLoad];
 }
@@ -43,26 +46,45 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)devbutton:(id)sender {
+    _ssidTextField.text = @"Mersoft";
+    _passwordTextField.text = @"p0p.c0rn";
+    _serverTextField.text = @"";
+    _serverLabel.hidden = true;
+    _serverTextField.hidden = true;
+}
+- (IBAction)prodbutton:(id)sender {
+    _ssidTextField.text = @"Demo-Devices";
+    _passwordTextField.text = @"coff33cup";
+    _serverTextField.hidden = false;
+    _serverLabel.hidden = false;
+    _serverTextField.text = @"ws://dev.mersoft.chat:3443/ws";
+}
+
 - (IBAction)generate:(id)sender {
     [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
     NSMutableString* qrMessage = [NSMutableString new];
     [qrMessage appendString:@"{"];
     NSLog(@"the SSID is %@ and  the password is %@",_ssidTextField.text,_passwordTextField.text);
     if ([_ssidTextField.text length] > 0) {
-        [qrMessage appendFormat:@"\"wifi\":{\"ssid\":\"%@\",password\":\"%@\"},",_ssidTextField.text,_passwordTextField.text];
+        NSString *trimmedSID = [_ssidTextField.text stringByTrimmingCharactersInSet:
+                                   [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString *trimmedPASS = [_passwordTextField.text stringByTrimmingCharactersInSet:
+                                [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        [qrMessage appendFormat:@"\"wifi\":{\"ssid\":\"%@\",\"password\":\"%@\"},",trimmedSID,trimmedPASS];
     }
     NSLog(@"the client is %@",appDelegate.moveClient.currentReg.registrationId);
-    [qrMessage appendFormat:@"\"name:\":\"%@\",",_nameTextField.text];
+    [qrMessage appendFormat:@"\"name\":\"%@\",",_nameTextField.text];
     NSLog(@"the client is %@",appDelegate.moveClient.currentReg.registrationId);
-    [qrMessage appendFormat:@"\"client:\":\"%@\",",appDelegate.moveClient.currentReg.registrationId];
+    [qrMessage appendFormat:@"\"client\":\"%@\",",appDelegate.moveClient.currentReg.registrationId];
     NSLog(@"the account is %@",appDelegate.moveClient.currentReg.registrationId);
-    [qrMessage appendFormat:@"\"account:\":\"%@\",",appDelegate.moveClient.currentReg.accountId];
+    [qrMessage appendFormat:@"\"account\":\"%@\",",appDelegate.moveClient.currentReg.accountId];
     
     if (_serverTextField.text.length > 0) {
         NSLog(@"the server is %@",_serverTextField.text);
-        [qrMessage appendFormat:@"\"server:\":\"%@\",",_serverTextField.text];
+        [qrMessage appendFormat:@"\"server\":\"%@\",",_serverTextField.text];
     }
-    [qrMessage appendFormat:@"\"logging\":%@",(_loggingSwitch.isOn ? @"true":@"false")];
+    [qrMessage appendFormat:@"\"debug\":%@",(_loggingSwitch.isOn ? @"true":@"false")];
     [qrMessage appendString:@"}"];
     // Generation of QR code image
     NSData *qrCodeData = [qrMessage dataUsingEncoding:NSISOLatin1StringEncoding]; // recommended encoding

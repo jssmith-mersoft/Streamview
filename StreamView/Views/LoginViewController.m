@@ -11,9 +11,12 @@
 #import "SWRevealViewController.h"
 
 @interface LoginViewController () <UITextFieldDelegate>
+@property (strong, nonatomic) IBOutlet UIButton *bigMButton;
 @property (strong, nonatomic) IBOutlet UITextField *loginTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UILabel *errorMessageTextField;
+
+@property (strong, nonatomic)  NSString *moveURL;
 @end
 
 @implementation LoginViewController{
@@ -23,9 +26,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-     [[appDelegate moveClient] setDelegate:self];
+    if ([appDelegate moveClient] == nil || ![[appDelegate moveClient] isConnected]) {
+        NSLog(@"Connecting to Move");
+        // Set up Move Client
+        [appDelegate setMoveClient: [[MoveClient alloc] init]];
+    }
+    [[appDelegate moveClient] setDelegate:self];
+    [[appDelegate moveClient] setQuality:QualityHigh];
+    
     
     // Do any additional setup after loading the view, typically from a nib.
+    _moveURL = kMoveURL;
 }
 
 
@@ -35,27 +46,33 @@
 }
 
 - (IBAction)enteredPressed:(id)sender {
-    [[appDelegate moveClient] unregister];
-    [[appDelegate moveClient] register:_loginTextField.text];
-    /*
-    if ([_loginTextField.text isEqualToString:@"a"] && [_passwordTextField.text isEqualToString:@"a"]) {
-        NSLog(@"logged in");
-        
-        [[appDelegate moveClient] unregister];
-        [[appDelegate moveClient] register:@"screen"];
-        
-    } else {
-         NSLog(@"Not Logged in");
-    }
-     */
+    [[appDelegate moveClient] connectToMove:_moveURL];
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     NSLog(@"Finsihed Editing");
 }
+- (IBAction)mPressed:(id)sender {
+    [UIView beginAnimations:@"Flip" context:nil];
+    [UIView setAnimationDuration:2.0];
+    _bigMButton.transform = CGAffineTransformMakeScale(-1.0, 1.0);
+    [UIView commitAnimations];
+    
+    _loginTextField.text = @"jssmith";
+    //_moveURL = @"wss://dev.mersoft.chat:3443/ws";
+    _moveURL = @"wss://172.16.30.66:3443/ws";
+    //_moveURL = @"wss://192.168.86.240:3443/ws";
+    NSLog(@"Switch to dev move server %@",_moveURL);
+    /*
+    [appDelegate setMoveClient: [[MoveClient alloc] init]];
+    [[appDelegate moveClient] setQuality:QualityHigh];
+    [[appDelegate moveClient] connectToMove:kAltMoveURL];
+     
+     */
+}
 
 - (void)connectionConnected {
     NSLog(@"DEMO APP: Connection Connected");
-    
+     [[appDelegate moveClient] register:_loginTextField.text];
 }
 - (void)connectionFailed:(NSError *)message {
     NSLog(@"DEMO APP: Connection Failed");
@@ -103,6 +120,7 @@
 - (void)unexpectedMoveError:(NSString*)message title:(NSString*)title hangup:(BOOL)hangup {
     NSLog(@"DEMO APP:Received unexpected Move Error");
 }
+
 
 @end
 

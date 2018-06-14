@@ -16,6 +16,11 @@ static CGFloat const kLocalViewPaddingBottom = 65;
 
 @interface DemoOnCallViewController ()
 
+//timer
+@property NSTimer *clockTicks;
+@property NSDate *start_date;
+@property (strong, nonatomic) IBOutlet UILabel *timerLabel;
+
 @end
 
 @implementation DemoOnCallViewController {
@@ -40,6 +45,7 @@ static CGFloat const kLocalViewPaddingBottom = 65;
     [self.view sendSubviewToBack:_localVideoView];
     _remoteViews = [[ NSMutableDictionary alloc] init];
     _remoteVideoTracks = [[ NSMutableDictionary alloc] init];
+    [self startTimer];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -69,7 +75,7 @@ static CGFloat const kLocalViewPaddingBottom = 65;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
     CGRect fullScreenFrame = CGRectMake(0, 0, screenWidth, screenHeight);
     RTCEAGLVideoView* newView = [[RTCEAGLVideoView alloc] initWithFrame:fullScreenFrame];
-    newView.transform = CGAffineTransformMakeScale(-1, 1);
+    //newView.transform = CGAffineTransformMakeScale(-1, 1);
     [self.view addSubview:newView];
     [self.view sendSubviewToBack:newView];
     
@@ -174,6 +180,7 @@ static CGFloat const kLocalViewPaddingBottom = 65;
 
 - (IBAction)endButtonTapped:(id)sender {
     [_delegate endCall:_callID];
+    [self stopTimer];
 }
 
 
@@ -186,6 +193,7 @@ static CGFloat const kLocalViewPaddingBottom = 65;
     } else {
         NSLog(@"DEMO APP: Remote Video View size has changed");
         _remoteVideoSize = size;
+         [self stopTimer];
     }
     
     [self updateVideoViewLayout];
@@ -200,6 +208,39 @@ static CGFloat const kLocalViewPaddingBottom = 65;
     // Pass the selected object to the new view controller.
 }
 */
+
+
+#pragma mark - Time
+-(void)startTimer{
+    _start_date = [NSDate date];
+    _clockTicks = [NSTimer scheduledTimerWithTimeInterval:1.0/100.0
+                                                   target:self
+                                                 selector:@selector(updateTimer)
+                                                 userInfo:nil
+                                                  repeats:YES];
+}
+-(void)stopTimer{
+    [_clockTicks invalidate];
+    _clockTicks = nil;
+     NSLog(@"***********************************************************************");
+    [self updateTimer];
+    NSLog(@"***********************************************************************");
+    
+}
+
+-(void)updateTimer{
+    NSDate *currentDate = [NSDate date];
+    NSTimeInterval timeInterval = [currentDate timeIntervalSinceDate:_start_date];
+    NSDate *timerDate = [NSDate dateWithTimeIntervalSince1970:timeInterval];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm:ss.SS"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0.0]];
+    NSString *timeString=[dateFormatter stringFromDate:timerDate];
+    _timerLabel.text = timeString;
+    NSLog(@"timer = %@",timeString);
+}
+
+
 
 @end
 

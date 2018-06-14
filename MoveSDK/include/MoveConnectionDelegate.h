@@ -329,5 +329,6 @@
 - (void)unexpectedMoveError:(NSString*)message title:(NSString*)title hangup:(BOOL)hangup;
 - (void)addVideoCallRecord:(NSString*)callHistoryID duration:(double)duration location:(NSString*)location
               dateReceived:(NSDate*)date dest:(NSString*)dest wasMissed:(BOOL)wasMissed wasOutgoing:(BOOL)wasOutgoing;
+- (void)cameraThumnailURLReceived:(NSString *)url cameraID:(NSString*)cameraID;
 
 @end

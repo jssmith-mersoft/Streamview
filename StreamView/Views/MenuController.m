@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    menu = @[@"account",@"camera",@"events",@"recordings",@"provisioning",@"mersoft"];
+    menu = @[@"account",@"camera",@"events",@"recordings",@"provisioningQR",@"provisioningAP",@"mersoft"];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     

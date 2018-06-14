@@ -11,9 +11,10 @@
 
 @interface PreviewViewController () <UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
-@property NSMutableArray *image_Arr;
+@property NSMutableArray *address_Arr;
 @property NSMutableArray *label_Arr;
 @property NSMutableArray *url_Arr;
+@property NSMutableArray *image_Arr;
 @property (strong, nonatomic) IBOutlet UICollectionView *accountCameras;
 
 @end
@@ -33,9 +34,12 @@
 
 - (void)viewDidLoad {
     
-    _image_Arr = [[NSMutableArray alloc] init];
-    _label_Arr = [[NSMutableArray alloc] init];
-    _url_Arr   = [[NSMutableArray array] init];
+    _address_Arr = [[NSMutableArray alloc] init];
+    _label_Arr   = [[NSMutableArray alloc] init];
+    _url_Arr     = [[NSMutableArray array] init];
+    _image_Arr   = [[NSMutableArray array] init];
+    
+    // lbl.text = @"00.00.00.000";
     
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     /*
@@ -57,21 +61,22 @@
          
     for (MoveService* itService in cameraServiceArray) {
         [_label_Arr addObject:[itService name]];
+        [_image_Arr addObject:[NSNull null]];
        
         //Ask for an URL
         NSArray *addrArray = [[itService addresses] allObjects];
         for (MoveServiceAddress* msa in addrArray) {
-             [_image_Arr addObject:[msa address]];
+             [_address_Arr addObject:[msa address]];
             [[appDelegate moveClient] getCameraURL: [msa address]];
         }
     }
-    
+    /*
     if ([cameraServiceArray count] > 1) {
         [_label_Arr addObject: @"ALL"];
-        [_image_Arr addObject: @"ALL"];
+        [_address_Arr addObject: @"ALL"];
     }
+     */
     
-
     //parse the services to find the cameras
     [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(refreshThumbs) userInfo:nil repeats:YES];
     //[timer invalidate];
@@ -82,6 +87,15 @@
     _barButton.action = @selector(revealToggle:);
     
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+}
+
+-(void)getCameraInfo {
+    /*JSS*/
+    for (NSString* cameraAddress in _address_Arr) {
+        NSLog(@"sending message to camera %@",cameraAddress);
+        [[appDelegate moveClient] sendToService:cameraAddress withData:@{ @"item1" : @"one", @"item2" : @"two"} withClass:@"getCameraInfo"];
+    }
+    //- (void)sendToService:(NSString*)toServiceID withData:(NSDictionary*)data withClass:(NSString*)className;
 }
 
 -(void)refreshThumbs {
@@ -95,7 +109,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _image_Arr.count;
+    return _address_Arr.count;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -106,15 +120,19 @@
     
     //load image
     Label.text = @""; //[_label_Arr objectAtIndex:indexPath.row];
-    if ([[_image_Arr objectAtIndex:indexPath.row] isEqualToString:@"ALL"]) {
+    if ([[_address_Arr objectAtIndex:indexPath.row] isEqualToString:@"ALL"]) {
         Image_View.image = Nil;
         NSLog(@"Load the ALL pictures");
         Image_View.image= [UIImage imageNamed:@"AllCameras"];
         Image_View.contentMode = UIViewContentModeScaleAspectFit;
     } else  {
         [self loadImage:indexPath.row intoImageView:Image_View];
-        Image_View.image = Nil;
-        Image_View.contentMode = UIViewContentModeScaleAspectFill;
+        if (_image_Arr[indexPath.row] != [NSNull null]) {
+            Image_View.image = _image_Arr[indexPath.row];
+            Image_View.contentMode = UIViewContentModeScaleAspectFill;
+        } else {
+            Image_View.image = nil;
+        }
     }
     
     return cell;
@@ -141,6 +159,7 @@
                 return;
             dispatch_async(dispatch_get_main_queue(), ^{
                 imageView.image =  [UIImage imageWithData: data];
+                _image_Arr[row] =  [UIImage imageWithData: data];
             });
         });
     }
@@ -155,7 +174,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSString* deviceid = [_image_Arr objectAtIndex:indexPath.row];
+    NSString* deviceid = [_address_Arr objectAtIndex:indexPath.row];
     NSLog(@"Touch happend on path %@",deviceid);
     
     [[appDelegate moveClient] setReceiveAudio:YES];
@@ -484,6 +503,7 @@
 }
 - (void)onHangup:(NSString*) callId {
     NSLog(@"DEMO APP: WebRTC Ending");
+    
     if ([UIApplication sharedApplication].keyWindow.rootViewController != self) {
         [onCallViewController dismissViewControllerAnimated:YES completion:nil];
         
@@ -626,6 +646,7 @@
 }
 - (void)notificationReceived:(MoveNotification *)notification {
     NSLog(@"DEMO APP: Notification Received: %@", notification);
+    [self getCameraInfo];
 }
 - (void)rawMessageReceived:(NSString *)message {
     //    NSLog(@"DEMO APP: Raw Message Received: %@", message);
@@ -647,10 +668,10 @@
     NSLog(@"DEMO APP: onCancelled: %@", callId);
 }
 
-- (void)cameraThumnailURLReceived:(NSString *)url cameraID:(NSString*)cameraID {
-    for (int i=0; i< [_image_Arr count]; i++) {
-        if ([(NSString*)_image_Arr[i] isEqualToString:cameraID]) {
-            NSLog(@"DEMO APP: got URL for : %@", cameraID);
+- (void)cameraThumnailURLReceived:(NSString *)url deviceID:(NSString*)deviceID {
+    for (int i=0; i< [_address_Arr count]; i++) {
+        if ([(NSString*)_address_Arr[i] isEqualToString:deviceID]) {
+            NSLog(@"DEMO APP: got URL for : %@", deviceID);
             [_url_Arr insertObject:url atIndex:i];
         }
     }

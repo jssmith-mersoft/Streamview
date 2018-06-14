@@ -11,6 +11,7 @@
 #import "Reachability.h"
 
 #define kMoveURL @"wss://move-dev.mersoft.biz/ws"
+//#define kMoveURL @"wss://172.16.30.66:3443/ws"
 #define kStreamURL @"https://stream.mersoft.biz"
 //#define kMoveURL @"wss://172.16.30.240:3443/ws"
 //#define kMoveURL @"wss://192.168.86.22:3443/ws"

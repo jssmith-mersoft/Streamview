@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		62103C94207692DD00B70142 /* libmove-ios-sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62103C912076924C00B70142 /* libmove-ios-sdk.a */; };
 		6215639920763E1500362E83 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6215639820763E1500362E83 /* Reachability.m */; };
 		6215639C2076416C00362E83 /* DemoOnCallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6215639B2076416C00362E83 /* DemoOnCallView.xib */; };
 		621563A0207641C600362E83 /* DemoOnCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6215639D2076418800362E83 /* DemoOnCallViewController.m */; };
+		623E1B9820D2C04000107C87 /* libmove-ios-sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A22BA82076684500B56AED /* libmove-ios-sdk.a */; };
 		6272957A20A38F4B002122B1 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272957920A38F4B002122B1 /* MenuController.m */; };
 		6272957E20A3940D002122B1 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272957D20A3940D002122B1 /* SWRevealViewController.m */; };
 		6272958120A4C5BC002122B1 /* ProvisioningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272958020A4C5BC002122B1 /* ProvisioningViewController.m */; };
@@ -37,6 +37,9 @@
 		62B7A5152072982F005C5130 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 62B7A5132072982E005C5130 /* libc++.tbd */; };
 		62B7A5162072982F005C5130 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 62B7A5142072982F005C5130 /* libicucore.tbd */; };
 		62B7A5192072B07C005C5130 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62B7A5182072B07C005C5130 /* PreviewViewController.m */; };
+		62B7C43620CD537B00336359 /* SoftAPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62B7C43520CD537B00336359 /* SoftAPViewController.m */; };
+		62B7C43820CECFA400336359 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62B7C43720CECFA400336359 /* NetworkExtension.framework */; };
+		62B7C43A20CED57F00336359 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62B7C43920CED57E00336359 /* ExternalAccessory.framework */; };
 		62BF0BFA2072774D004ED41F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BF0BF92072774D004ED41F /* AppDelegate.m */; };
 		62BF0C022072774D004ED41F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62BF0C012072774D004ED41F /* Assets.xcassets */; };
 		62BF0C052072774D004ED41F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62BF0C032072774D004ED41F /* LaunchScreen.storyboard */; };
@@ -47,20 +50,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		62103C902076924C00B70142 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 62103C8C2076924C00B70142 /* move-ios-sdk.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BDC62CCF1DD626FB009CC7F6;
-			remoteInfo = "move-ios-sdk";
-		};
-		62103C92207692B300B70142 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 62103C8C2076924C00B70142 /* move-ios-sdk.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = BDC62CCE1DD626FB009CC7F6;
-			remoteInfo = "move-ios-sdk";
-		};
 		62BF0C0E2072774D004ED41F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 62BF0BED2072774D004ED41F /* Project object */;
@@ -92,7 +81,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		62103C8C2076924C00B70142 /* move-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "move-ios-sdk.xcodeproj"; path = "../move-ios-sdk/move-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
 		6215639720763DF500362E83 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		6215639820763E1500362E83 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		6215639A2076415200362E83 /* DemoOnCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoOnCallViewController.h; sourceTree = "<group>"; };
@@ -136,6 +124,10 @@
 		62B7A5142072982F005C5130 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		62B7A5182072B07C005C5130 /* PreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
 		62B7A51A2072B08D005C5130 /* PreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
+		62B7C43420CD537B00336359 /* SoftAPViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoftAPViewController.h; sourceTree = "<group>"; };
+		62B7C43520CD537B00336359 /* SoftAPViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SoftAPViewController.m; sourceTree = "<group>"; };
+		62B7C43720CECFA400336359 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		62B7C43920CED57E00336359 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		62BF0BF52072774D004ED41F /* StreamView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreamView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62BF0BF82072774D004ED41F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		62BF0BF92072774D004ED41F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -157,7 +149,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62103C94207692DD00B70142 /* libmove-ios-sdk.a in Frameworks */,
+				623E1B9820D2C04000107C87 /* libmove-ios-sdk.a in Frameworks */,
+				62B7C43820CECFA400336359 /* NetworkExtension.framework in Frameworks */,
 				62A22BAB2076769400B56AED /* WebRTC.framework in Frameworks */,
 				62B7A5152072982F005C5130 /* libc++.tbd in Frameworks */,
 				62B7A5162072982F005C5130 /* libicucore.tbd in Frameworks */,
@@ -165,6 +158,7 @@
 				62B7A510207297D8005C5130 /* UIKit.framework in Frameworks */,
 				62B7A50E207297C8005C5130 /* QuartzCore.framework in Frameworks */,
 				62B7A50C207297C0005C5130 /* GLKit.framework in Frameworks */,
+				62B7C43A20CED57F00336359 /* ExternalAccessory.framework in Frameworks */,
 				62B7A50A207297B8005C5130 /* Foundation.framework in Frameworks */,
 				62B7A508207297A5005C5130 /* AVFoundation.framework in Frameworks */,
 				62B7A5062072978E005C5130 /* NotificationCenter.framework in Frameworks */,
@@ -194,14 +188,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		62103C8D2076924C00B70142 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				62103C912076924C00B70142 /* libmove-ios-sdk.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		62B7A4C42072939E005C5130 /* MoveSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,6 +200,8 @@
 		62B7A4F8207296DD005C5130 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				62B7C43920CED57E00336359 /* ExternalAccessory.framework */,
+				62B7C43720CECFA400336359 /* NetworkExtension.framework */,
 				62A22BAA2076769400B56AED /* WebRTC.framework */,
 				62A22BA82076684500B56AED /* libmove-ios-sdk.a */,
 				62B7A5132072982E005C5130 /* libc++.tbd */,
@@ -238,7 +226,6 @@
 		62BF0BEC2072774D004ED41F = {
 			isa = PBXGroup;
 			children = (
-				62103C8C2076924C00B70142 /* move-ios-sdk.xcodeproj */,
 				62BF0BF72072774D004ED41F /* StreamView */,
 				62BF0C102072774D004ED41F /* StreamViewTests */,
 				62BF0C1B2072774D004ED41F /* StreamViewUITests */,
@@ -318,6 +305,8 @@
 				6272958920A5BBBD002122B1 /* EventsViewController.m */,
 				6272958B20A5BBE1002122B1 /* MersoftViewController.h */,
 				6272958C20A5BBE1002122B1 /* MersoftViewController.m */,
+				62B7C43420CD537B00336359 /* SoftAPViewController.h */,
+				62B7C43520CD537B00336359 /* SoftAPViewController.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -338,7 +327,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				62103C93207692B300B70142 /* PBXTargetDependency */,
 			);
 			name = StreamView;
 			productName = StreamView;
@@ -394,7 +382,16 @@
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.HotspotConfiguration = {
+								enabled = 1;
+							};
+							com.apple.NetworkExtensions.iOS = {
+								enabled = 1;
+							};
 							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.WAC = {
 								enabled = 1;
 							};
 							com.apple.iCloud = {
@@ -425,12 +422,6 @@
 			mainGroup = 62BF0BEC2072774D004ED41F;
 			productRefGroup = 62BF0BF62072774D004ED41F /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 62103C8D2076924C00B70142 /* Products */;
-					ProjectRef = 62103C8C2076924C00B70142 /* move-ios-sdk.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				62BF0BF42072774D004ED41F /* StreamView */,
@@ -439,16 +430,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		62103C912076924C00B70142 /* libmove-ios-sdk.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libmove-ios-sdk.a";
-			remoteRef = 62103C902076924C00B70142 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		62BF0BF32072774D004ED41F /* Resources */ = {
@@ -500,6 +481,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6272957A20A38F4B002122B1 /* MenuController.m in Sources */,
+				62B7C43620CD537B00336359 /* SoftAPViewController.m in Sources */,
 				6272958D20A5BBE1002122B1 /* MersoftViewController.m in Sources */,
 				6272958A20A5BBBD002122B1 /* EventsViewController.m in Sources */,
 				62BF0C082072774D004ED41F /* main.m in Sources */,
@@ -534,11 +516,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		62103C93207692B300B70142 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "move-ios-sdk";
-			targetProxy = 62103C92207692B300B70142 /* PBXContainerItemProxy */;
-		};
 		62BF0C0F2072774D004ED41F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 62BF0BF42072774D004ED41F /* StreamView */;
