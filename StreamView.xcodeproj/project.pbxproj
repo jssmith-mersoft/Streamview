@@ -10,7 +10,6 @@
 		6215639920763E1500362E83 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6215639820763E1500362E83 /* Reachability.m */; };
 		6215639C2076416C00362E83 /* DemoOnCallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6215639B2076416C00362E83 /* DemoOnCallView.xib */; };
 		621563A0207641C600362E83 /* DemoOnCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6215639D2076418800362E83 /* DemoOnCallViewController.m */; };
-		623E1B9820D2C04000107C87 /* libmove-ios-sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A22BA82076684500B56AED /* libmove-ios-sdk.a */; };
 		6272957A20A38F4B002122B1 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272957920A38F4B002122B1 /* MenuController.m */; };
 		6272957E20A3940D002122B1 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272957D20A3940D002122B1 /* SWRevealViewController.m */; };
 		6272958120A4C5BC002122B1 /* ProvisioningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272958020A4C5BC002122B1 /* ProvisioningViewController.m */; };
@@ -18,6 +17,7 @@
 		6272958720A5BBAF002122B1 /* RecordingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272958620A5BBAF002122B1 /* RecordingsViewController.m */; };
 		6272958A20A5BBBD002122B1 /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272958920A5BBBD002122B1 /* EventsViewController.m */; };
 		6272958D20A5BBE1002122B1 /* MersoftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272958C20A5BBE1002122B1 /* MersoftViewController.m */; };
+		627FE22A20D3153E000503E2 /* CameraSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 627FE22920D3153E000503E2 /* CameraSettingsViewController.m */; };
 		62A22BAB2076769400B56AED /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A22BAA2076769400B56AED /* WebRTC.framework */; };
 		62A22BAC2076769400B56AED /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 62A22BAA2076769400B56AED /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		62B7A4C2207292AF005C5130 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62B7A4C1207292AF005C5130 /* LoginViewController.m */; };
@@ -47,6 +47,7 @@
 		62BF0C122072774D004ED41F /* StreamViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BF0C112072774D004ED41F /* StreamViewTests.m */; };
 		62BF0C1D2072774D004ED41F /* StreamViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BF0C1C2072774D004ED41F /* StreamViewUITests.m */; };
 		62D0A3D520727D6900B96CFC /* StreamView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62D0A3D420727D6900B96CFC /* StreamView.storyboard */; };
+		62E5772C20EA83C10045E2B1 /* libmove-ios-sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A22BA82076684500B56AED /* libmove-ios-sdk.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,8 @@
 		6272958920A5BBBD002122B1 /* EventsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsViewController.m; sourceTree = "<group>"; };
 		6272958B20A5BBE1002122B1 /* MersoftViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MersoftViewController.h; sourceTree = "<group>"; };
 		6272958C20A5BBE1002122B1 /* MersoftViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MersoftViewController.m; sourceTree = "<group>"; };
+		627FE22820D3153E000503E2 /* CameraSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraSettingsViewController.h; sourceTree = "<group>"; };
+		627FE22920D3153E000503E2 /* CameraSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraSettingsViewController.m; sourceTree = "<group>"; };
 		628F381F20ADC69300447584 /* StreamView.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StreamView.entitlements; sourceTree = "<group>"; };
 		62A22BA2207664AF00B56AED /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
 		62A22BA3207664E000B56AED /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
@@ -149,7 +152,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				623E1B9820D2C04000107C87 /* libmove-ios-sdk.a in Frameworks */,
+				62E5772C20EA83C10045E2B1 /* libmove-ios-sdk.a in Frameworks */,
 				62B7C43820CECFA400336359 /* NetworkExtension.framework in Frameworks */,
 				62A22BAB2076769400B56AED /* WebRTC.framework in Frameworks */,
 				62B7A5152072982F005C5130 /* libc++.tbd in Frameworks */,
@@ -307,6 +310,8 @@
 				6272958C20A5BBE1002122B1 /* MersoftViewController.m */,
 				62B7C43420CD537B00336359 /* SoftAPViewController.h */,
 				62B7C43520CD537B00336359 /* SoftAPViewController.m */,
+				627FE22820D3153E000503E2 /* CameraSettingsViewController.h */,
+				627FE22920D3153E000503E2 /* CameraSettingsViewController.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -489,6 +494,7 @@
 				62B7A4C2207292AF005C5130 /* LoginViewController.m in Sources */,
 				6272958420A5BB95002122B1 /* AccountViewController.m in Sources */,
 				62B7A5192072B07C005C5130 /* PreviewViewController.m in Sources */,
+				627FE22A20D3153E000503E2 /* CameraSettingsViewController.m in Sources */,
 				6272957E20A3940D002122B1 /* SWRevealViewController.m in Sources */,
 				621563A0207641C600362E83 /* DemoOnCallViewController.m in Sources */,
 				6215639920763E1500362E83 /* Reachability.m in Sources */,
@@ -649,6 +655,10 @@
 		62BF0C222072774D004ED41F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					arm7s,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StreamView/StreamView.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -665,6 +675,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MoveSDK/lib",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mersoft.stream.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -674,6 +685,10 @@
 		62BF0C232072774D004ED41F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					arm7s,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StreamView/StreamView.entitlements;
 				CODE_SIGN_STYLE = Automatic;

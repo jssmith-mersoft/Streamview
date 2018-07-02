@@ -78,6 +78,7 @@ typedef enum {
  */
 - (void)connectToMove:(NSString *)ipaddress;
 - (void)reconnect;
+- (NSString*)getServer;
 
 /**
  Move registers an account for notification. The account can provide a preset ID (like email address or telephone number) or dynamic IDs for notifications.
@@ -100,6 +101,13 @@ typedef enum {
  */
 - (void)unregister;
 
+
+- (void) getConfig:(NSString *)deviceID;
+
+- (void) getCameraURL:(NSString *)deviceID;
+- (void) retrieveEventHistory;
+- (void) retrieveEventById:(NSString *)eventID;
+
 - (void)join;
 
 - (void) addAccount:(NSDictionary*)accountInfo regId:(NSString*)regId;
@@ -113,7 +121,7 @@ typedef enum {
 - (void) sendMessages:(MoveMessage*)message;
 - (void) deleteMessages:(MoveMessage*)message;
 
-- (void) getCameraURL:(NSString *)CameraID;
+
     
 - (void) getHistory;
 

@@ -9,12 +9,14 @@
 #import "EventsViewController.h"
 #import "SWRevealViewController.h"
 
-@interface EventsViewController ()
+@interface EventsViewController () <UITableViewDelegate, UITableViewDataSource,MoveConnectionDelegate>
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *barButton;
 
 @end
 
-@implementation EventsViewController
+@implementation EventsViewController {
+        AppDelegate *appDelegate;
+}
 
 - (void)viewDidLoad {
     _barButton.target = self.revealViewController;
@@ -22,8 +24,14 @@
     
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
-    [super viewDidLoad];
+   
     // Do any additional setup after loading the view.
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [[appDelegate moveClient] setDelegate:self];
+    
+    [[appDelegate moveClient] retrieveEventHistory];
+    
+     [super viewDidLoad];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,4 +49,15 @@
 }
 */
 
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    return nil;
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 0;
+}
+
+- (void)notificationReceived:(MoveNotification *)notification {
+    NSLog(@"Got Notification");
+}
 @end

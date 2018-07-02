@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MoveClient.h"
+#import "AppDelegate.h"
 
 @interface EventsViewController : UIViewController
 

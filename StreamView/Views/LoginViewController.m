@@ -59,8 +59,9 @@
     
     _loginTextField.text = @"jssmith";
     //_moveURL = @"wss://dev.mersoft.chat:3443/ws";
-    _moveURL = @"wss://172.16.30.66:3443/ws";
+    //_moveURL = @"wss://move-dev.mersoft.biz/ws";
     //_moveURL = @"wss://192.168.86.240:3443/ws";
+     _moveURL = kMoveURLdev;
     NSLog(@"Switch to dev move server %@",_moveURL);
     /*
     [appDelegate setMoveClient: [[MoveClient alloc] init]];

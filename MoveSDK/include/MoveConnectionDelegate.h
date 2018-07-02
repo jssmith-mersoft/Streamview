@@ -319,16 +319,44 @@
  */
 - (void)registrationSubscribe:(NSString *)id withReg:(MoveRegistration*)reg;
 
+/**
+ The callback after the moveClient has request Thumbnails for a device
+ 
+ 
+ @param url The URL of the Image
+ @param deviceID The device that the thumbnail image belongs to
+ @par Example:
+ @code{.m}
+ - (void)cameraThumnailURLReceived:(NSString *))url deviceID:(NSString*)deviceID;
+ {
+ NSLog(@"Move Client:received a cameraThumnailURLReceived for %@",deviceID);
+ }
+ @endcode
+ */
+- (void)cameraThumnailURLReceived:(NSString *)url deviceID:(NSString*)deviceID;
+/**
+ The callback for unsolsited notifications
+ 
+ @param notification The move notification object
+ @par Example:
+ @code{.m}
+ - (void)notificationReceived:(MoveNotification *)notification
+ {
+ NSLog(@"Move Client:received a notification");
+ }
+ @endcode
+ */
+- (void)notificationReceived:(MoveNotification *)notification;
+
 - (void)accountReceived:(MoveAccount *)account;
 - (void)invalidAccountReceived:(NSString*)username contact:(NSString*)contact;
 - (void)historyReceived:(NSArray *)history;
 - (void)contactsReceived:(NSArray *)contacts;
 - (void)messagesReceived:(NSArray *)messages;
-- (void)notificationReceived:(MoveNotification *)notification;
 - (void)rawMessageReceived:(NSString *)message;
 - (void)unexpectedMoveError:(NSString*)message title:(NSString*)title hangup:(BOOL)hangup;
 - (void)addVideoCallRecord:(NSString*)callHistoryID duration:(double)duration location:(NSString*)location
               dateReceived:(NSDate*)date dest:(NSString*)dest wasMissed:(BOOL)wasMissed wasOutgoing:(BOOL)wasOutgoing;
-- (void)cameraThumnailURLReceived:(NSString *)url cameraID:(NSString*)cameraID;
+
 
 @end

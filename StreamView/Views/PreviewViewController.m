@@ -8,6 +8,7 @@
 
 #import "PreviewViewController.h"
 #import "SWRevealViewController.h"
+#import "CameraSettingsViewController.h"
 
 @interface PreviewViewController () <UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -56,29 +57,11 @@
      [[appDelegate moveClient] setDelegate:self];
     
     //get the camera servives
-    MoveRegistration* currReg = [[appDelegate moveClient] currentReg];
-    NSArray* cameraServiceArray = [currReg getCameras];
-         
-    for (MoveService* itService in cameraServiceArray) {
-        [_label_Arr addObject:[itService name]];
-        [_image_Arr addObject:[NSNull null]];
-       
-        //Ask for an URL
-        NSArray *addrArray = [[itService addresses] allObjects];
-        for (MoveServiceAddress* msa in addrArray) {
-             [_address_Arr addObject:[msa address]];
-            [[appDelegate moveClient] getCameraURL: [msa address]];
-        }
-    }
-    /*
-    if ([cameraServiceArray count] > 1) {
-        [_label_Arr addObject: @"ALL"];
-        [_address_Arr addObject: @"ALL"];
-    }
-     */
+    [self getCameraThumbURL];
     
     //parse the services to find the cameras
-    [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(refreshThumbs) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(refreshThumbs) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:(20*60.0) target:self selector:@selector(getCameraThumbURL) userInfo:nil repeats:YES];
     //[timer invalidate];
     
     [super viewDidLoad];
@@ -90,10 +73,9 @@
 }
 
 -(void)getCameraInfo {
-    /*JSS*/
     for (NSString* cameraAddress in _address_Arr) {
         NSLog(@"sending message to camera %@",cameraAddress);
-        [[appDelegate moveClient] sendToService:cameraAddress withData:@{ @"item1" : @"one", @"item2" : @"two"} withClass:@"getCameraInfo"];
+       // [[appDelegate moveClient] sendToService:cameraAddress withData:@{ @"item1" : @"one", @"item2" : @"two"} withClass:@"getCameraInfo"];
     }
     //- (void)sendToService:(NSString*)toServiceID withData:(NSDictionary*)data withClass:(NSString*)className;
 }
@@ -101,6 +83,32 @@
 -(void)refreshThumbs {
     NSLog(@"Refreshing images");
     [_accountCameras reloadItemsAtIndexPaths:_accountCameras.indexPathsForVisibleItems];
+}
+
+-(void)getCameraThumbURL {
+    NSLog(@"get images urls");
+    MoveRegistration* currReg = [[appDelegate moveClient] currentReg];
+    NSArray* cameraServiceArray = [currReg getCameras];
+    
+    //clear all arrays
+    [_label_Arr removeAllObjects];
+    [_image_Arr removeAllObjects];
+    [_url_Arr removeAllObjects];
+    [_address_Arr removeAllObjects];
+    
+    for (MoveService* itService in cameraServiceArray) {
+        [_label_Arr addObject:[itService name]];
+        [_image_Arr addObject:[NSNull null]];
+        [_url_Arr addObject:[NSNull null]];
+        
+        
+        //Ask for an URL
+        NSArray *addrArray = [[itService addresses] allObjects];
+        for (MoveServiceAddress* msa in addrArray) {
+            [_address_Arr addObject:[msa address]];
+            [[appDelegate moveClient] getCameraURL: [msa address]];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -117,9 +125,10 @@
     
     UIImageView *Image_View = ( UIImageView *)[cell viewWithTag:100];
     UILabel *Label = (UILabel *) [cell viewWithTag:101];
+    UIButton *ConfigButton = (UIButton *) [cell viewWithTag:101];
     
     //load image
-    Label.text = @""; //[_label_Arr objectAtIndex:indexPath.row];
+    Label.text = [_address_Arr objectAtIndex:indexPath.row];
     if ([[_address_Arr objectAtIndex:indexPath.row] isEqualToString:@"ALL"]) {
         Image_View.image = Nil;
         NSLog(@"Load the ALL pictures");
@@ -151,16 +160,23 @@
     if ([_url_Arr count] > row) {
         dispatch_async(dispatch_get_global_queue(0,0), ^{
            // NSString *fileURL =[NSString stringWithFormat:@"%@&%@",_url_Arr[row],dateString];
-            NSLog(@"the image URL is %@",_url_Arr[row]);
+            NSLog(@"the image for row %d",(long)row);
             NSError* error = nil;
-            NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_url_Arr[row]] options:NSDataReadingUncached error:&error];
-            //NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:_url_Arr[row]]];
-            if ( data == nil )
-                return;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                imageView.image =  [UIImage imageWithData: data];
-                _image_Arr[row] =  [UIImage imageWithData: data];
-            });
+            if (_url_Arr[row] != [NSNull null]) {
+                NSLog(@"***********************************************************************************");
+                NSLog(@"URL is %@",_url_Arr[row]);
+                NSLog(@"***********************************************************************************");
+                NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_url_Arr[row]] options:NSDataReadingUncached error:&error];
+                //NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:_url_Arr[row]]];
+                if ( data == nil )
+                    return;
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    imageView.image =  [UIImage imageWithData: data];
+                    _image_Arr[row] =  [UIImage imageWithData: data];
+                });
+            }
+        
         });
     }
 }
@@ -187,6 +203,25 @@
         [self setupOutgoingCall];
     } else {
         [self joinRoom:@"camera"];
+    }
+}
+- (IBAction)cameraConfigButtonDown:(id)sender {
+     [self performSegueWithIdentifier:@"showDeviceDetails" sender:sender];
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+
+    if ([[segue identifier] isEqualToString:@"showDeviceDetails"]) {
+        
+        UICollectionViewCell* cell = (UICollectionViewCell*)[[sender superview] superview];
+        NSIndexPath *indexPath = [self.Collection_view indexPathForCell:cell];
+        NSInteger  selectedDeviceRow= [indexPath row];
+        
+        CameraSettingsViewController* cameraSettingViewController = [segue destinationViewController];
+        
+        
+        cameraSettingViewController.deviceID = [_address_Arr objectAtIndex:selectedDeviceRow];
     }
 }
 
@@ -258,6 +293,10 @@
     NSLog(@"DEMO APP: Setting up call to %@", [self remoteConnectionId]);
     
     [self initOnCallViewController];
+    [[appDelegate moveClient] setReceiveAudio:YES];
+    [[appDelegate moveClient] setReceiveVideo:YES];
+    [[appDelegate moveClient] setSendAudio:YES];
+    [[appDelegate moveClient] setSendVideo:NO];
     [[appDelegate moveClient] setupWithPreviewLayer:[onCallViewController localVideoView] camera:YES];
     
     if([[appDelegate moveClient] isWebRTCSetup]) {
@@ -670,9 +709,13 @@
 
 - (void)cameraThumnailURLReceived:(NSString *)url deviceID:(NSString*)deviceID {
     for (int i=0; i< [_address_Arr count]; i++) {
+        NSLog(@"DEMO APP: trying to match deviceIDs to store URL %@ = %@", (NSString*)_address_Arr[i], deviceID);
         if ([(NSString*)_address_Arr[i] isEqualToString:deviceID]) {
             NSLog(@"DEMO APP: got URL for : %@", deviceID);
-            [_url_Arr insertObject:url atIndex:i];
+            NSString *unEncodeURL = [url stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+            NSLog(@"URL for getting camera %@ thumbmail is %@",deviceID,unEncodeURL);
+            [_url_Arr insertObject:unEncodeURL atIndex:i];
+            break;
         }
     }
     [self refreshThumbs];

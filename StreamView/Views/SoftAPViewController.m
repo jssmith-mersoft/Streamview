@@ -12,6 +12,7 @@
 @import NetworkExtension;
 
 @interface SoftAPViewController () <UITableViewDelegate,UITableViewDataSource,NSStreamDelegate>
+@property (strong, nonatomic) IBOutlet UITextField *softAPssid;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *barButton;
 @property (strong, nonatomic) IBOutlet UITextField *txtPassword;
 @property (strong, nonatomic) IBOutlet UITextField *txtSSID;
@@ -54,6 +55,7 @@
     [super viewDidLoad];
     
     onRealWifi = TRUE;
+    
     NSArray *ifs = (__bridge_transfer id)CNCopySupportedInterfaces();
     NSLog(@" network interfaces count %d", [ifs count]);
     for (NSString *ifnam in ifs) {
@@ -65,13 +67,14 @@
         }
         
     }
+     
     sendReady = FALSE;
 }
 -(void)viewWillDisappear:(BOOL)animated{
     //Put the network back
     //reconnect to Move
     if (onRealWifi == FALSE) {
-        NSLog(@"removign Config for SID :%@",provisioningSSID);
+        NSLog(@"removing Config for SID :%@",provisioningSSID);
         [[NEHotspotConfigurationManager sharedManager] removeConfigurationForSSID:provisioningSSID];
     }
 }
@@ -93,13 +96,15 @@
 - (IBAction)ConnectToSoftAP:(id)sender {
     NSLog(@"connect to SoftAP");
     
-    provisioningSSID = @"KNOX-DB4A064D2PAZ7D883";
+    provisioningSSID = _softAPssid.text;
     NEHotspotConfiguration *configuration = [[NEHotspotConfiguration
                                               alloc] initWithSSID:provisioningSSID];
     configuration.joinOnce = YES;
     
+    [[appDelegate moveClient] close];
     [[NEHotspotConfigurationManager sharedManager] applyConfiguration:configuration completionHandler:^(NSError *_Nullable error){
         NSLog(@"Conn to SoftAP");   // anInteger outside variables
+    
         _WaitView.hidden=NO;
         //_spinner.startAnimating();
         [NSTimer scheduledTimerWithTimeInterval:2.0f
@@ -108,7 +113,9 @@
                                        userInfo:nil
                                         repeats:NO];
         onRealWifi = FALSE;
-     }];
+     
+    
+    }];
 }
 
 
@@ -132,11 +139,11 @@
     [self sendToAP:command];
     //Disconnect
     if (onRealWifi == FALSE) {
-        NSLog(@"removign Config for SID :%@",provisioningSSID);
+        NSLog(@"removing Config for SID :%@",provisioningSSID);
         [[NEHotspotConfigurationManager sharedManager] removeConfigurationForSSID:provisioningSSID];
     }
     //connect to Move again
-    //[[appDelegate moveClient] reconnect];
+    [[appDelegate moveClient] reconnect];
 }
 - (IBAction)GetCameraID:(id)sender {
     NSLog(@"get camera ID");
@@ -148,13 +155,10 @@
     [self sendToAP:command];
 }
 
-
 - (IBAction)SetServer:(id)sender {
     NSLog(@"set server");
-    //NSString* command = [NSString stringWithFormat:@"{\"req\": \"set server\",\"value\":\"ws://192.168.86.240:3000/ws\"}"];
-    NSString* command = [NSString stringWithFormat:@"{\"req\": \"set server\",\"value\":\"ws://172.16.30.66:3000/ws\"}"];
+    NSString* command = [NSString stringWithFormat:@"{\"req\": \"set server\",\"value\":\"%@\"}",[[appDelegate moveClient] ipaddress]];
     [self sendToAP:command];
-    
 }
 - (IBAction)ExitSsoftAP:(id)sender {
     NSLog(@"exit soft AP");
@@ -331,12 +335,12 @@
         }
         [_tblNetworks reloadData];
         
-        [self SetAccountID:nil];
+        //[self SetAccountID:nil];
     } else if ([res caseInsensitiveCompare: @"get device id"]==NSOrderedSame) {
         _lblCameraID.text = [NSString stringWithFormat:@"Camera ID is %@",jsonObject[@"value"]];
     }else if ([res caseInsensitiveCompare: @"set account id"]==NSOrderedSame) {
         NSLog(@"account ID is set");
-        [self SetServer:nil];
+        //[self SetServer:nil];
     }
 }
 
