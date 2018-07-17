@@ -15,8 +15,11 @@
 @property (strong, nonatomic) IBOutlet UITextField *loginTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UILabel *errorMessageTextField;
+@property (strong, nonatomic) IBOutlet UISwitch *switchPepper;
+
 
 @property (strong, nonatomic)  NSString *moveURL;
+@property (strong, nonatomic)  NSString *token;
 @end
 
 @implementation LoginViewController{
@@ -46,7 +49,59 @@
 }
 
 - (IBAction)enteredPressed:(id)sender {
-    [[appDelegate moveClient] connectToMove:_moveURL];
+    
+    if(_switchPepper.enabled) {
+    //if(false) {
+        NSString* url = @"https://dev.api.pepperos.io/authentication/byEmail";
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+        [request setHTTPMethod:@"POST"];
+        
+        // 64bit encode momentum:username and password to make the basic auth header
+        NSString *authStr = [NSString stringWithFormat:@"momentum:%@:%@", _loginTextField.text, _passwordTextField.text];
+        NSData *authData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *authValue = [NSString stringWithFormat:@"Basic %@", [authData base64EncodedStringWithOptions:0]];
+       // [request setValue:authValue forHTTPHeaderField:@"Authorization"];
+         NSLog(@" the auth header is %@",authValue);
+        
+        //[request setAllHTTPHeaderFields:@{@"authorization":@"Basic bW9tZW50dW06c3RhZ2luZzMucGVwcGVyQGdtYWlsLmNvbTpQZXBwZXIxMjM0NQ==",@"content-type":@"application/json"}];
+        [request setAllHTTPHeaderFields:@{@"authorization":authValue,@"content-type":@"application/json"}];
+        //[request setHTTPBody:body];
+       // [request setValue:[NSString stringWithFormat:@"%d", [body length]] forHTTPHeaderField:@"Content-Length"];
+        [request setURL:[NSURL URLWithString:url]];
+        
+        NSError *error = nil;
+        NSHTTPURLResponse *responseCode = nil;
+        
+        NSData *oResponseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
+        
+        if([responseCode statusCode] != 200){
+            NSLog(@"Error getting %@, HTTP status code %li", url, [responseCode statusCode]);
+            return;
+        }
+        NSError *err = nil;
+        //NSString *output = [[NSString alloc] initWithData:oResponseData encoding:NSUTF8StringEncoding];
+        
+        NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:oResponseData options:NSJSONReadingAllowFragments error:&err];
+        
+        //NSLog(@"the results are %@",jsonData[@"token"]);
+        NSLog(@"the results are %@",jsonData);
+        NSDictionary *pepperUser = jsonData[@"pepperUser"];
+        NSLog(@"the accountID are %@",pepperUser[@"account_id"]);
+        
+         _token = pepperUser[@"account_id"];
+        
+        if ([appDelegate moveClient].connected){
+            [[appDelegate moveClient] register:_loginTextField.text withToken:_token vendor:@"pepper"];
+        } else {
+            [[appDelegate moveClient] connectToMove:_moveURL];
+        }
+    } else {
+        if ([appDelegate moveClient].connected){
+            [[appDelegate moveClient] register:_loginTextField.text];
+        } else {
+            [[appDelegate moveClient] connectToMove:_moveURL];
+        }
+    }
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     NSLog(@"Finsihed Editing");
@@ -58,22 +113,25 @@
     [UIView commitAnimations];
     
     _loginTextField.text = @"jssmith";
-    //_moveURL = @"wss://dev.mersoft.chat:3443/ws";
-    //_moveURL = @"wss://move-dev.mersoft.biz/ws";
-    //_moveURL = @"wss://192.168.86.240:3443/ws";
+
      _moveURL = kMoveURLdev;
     NSLog(@"Switch to dev move server %@",_moveURL);
     /*
     [appDelegate setMoveClient: [[MoveClient alloc] init]];
     [[appDelegate moveClient] setQuality:QualityHigh];
     [[appDelegate moveClient] connectToMove:kAltMoveURL];
-     
      */
 }
 
 - (void)connectionConnected {
     NSLog(@"DEMO APP: Connection Connected");
-     [[appDelegate moveClient] register:_loginTextField.text];
+    //if (false) {
+    if (_switchPepper.enabled) {
+        [[appDelegate moveClient] register:_loginTextField.text withToken:_token vendor:@"pepper"];
+    } else {
+        [[appDelegate moveClient] register:_loginTextField.text];
+    }
+    
 }
 - (void)connectionFailed:(NSError *)message {
     NSLog(@"DEMO APP: Connection Failed");
@@ -90,7 +148,7 @@
 - (void)onError:(NSString*)message title:(NSString*)title {}
 - (void)onCallId:(NSString *)callId withPeer:(NSString*)peerId {}
 - (void)registrationBroken {
-     NSLog(@"DEMO APP:Received Bade Login (registrationBroken)");
+     NSLog(@"DEMO APP:Received Bad Login (registrationBroken)");
     //put up some message
     _errorMessageTextField.hidden = NO;
 }

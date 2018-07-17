@@ -13,7 +13,6 @@
 #define kMoveURL @"wss://dev.move.pepperos.io/ws"
 //#define kMoveURLdev @"wss://move-dev.mersoft.biz/ws"
 #define kMoveURLdev @"wss://172.16.30.66:3443/ws"
-
 #define kStreamURL @"https://stream.mersoft.biz"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>

@@ -40,7 +40,7 @@
     _emailLabel.text = emailadd;
 
     NSMutableString* rawInfo = [NSMutableString new];
-    [rawInfo appendFormat:@"server = %@",kMoveURL];
+    [rawInfo appendFormat:@"server = %@\r\n",[[appDelegate moveClient] ipaddress]];
     [rawInfo appendFormat:@"CID = %@\r\n",appDelegate.moveClient.currentReg.registrationId];
     
     _rawOut.text = rawInfo;

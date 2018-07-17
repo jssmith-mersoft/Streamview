@@ -14,7 +14,10 @@
 @interface SoftAPViewController () <UITableViewDelegate,UITableViewDataSource,NSStreamDelegate>
 @property (strong, nonatomic) IBOutlet UITextField *softAPssid;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *barButton;
+@property (strong, nonatomic) IBOutlet UITextField *txtName;
 @property (strong, nonatomic) IBOutlet UITextField *txtPassword;
+@property (strong, nonatomic) IBOutlet UITextField *txtServer;
+@property (strong, nonatomic) IBOutlet UITextField *txtVendor;
 @property (strong, nonatomic) IBOutlet UITextField *txtSSID;
 @property (strong, nonatomic) IBOutlet UILabel *lblCameraID;
 @property (strong, nonatomic) IBOutlet UITableView *tblNetworks;
@@ -69,7 +72,9 @@
     }
      
     sendReady = FALSE;
+    _txtServer.text =[[appDelegate moveClient] ipaddress];
 }
+
 -(void)viewWillDisappear:(BOOL)animated{
     //Put the network back
     //reconnect to Move
@@ -133,22 +138,36 @@
 
 }
 
+- (NSString*)offsetStringBy4:(NSString*)source{
+    unsigned long len = [source length];
+    char buffer[len];
+    strncpy(buffer, [source UTF8String],len);
+    
+    for(int i = 0; i < len; ++i) {
+        char current = buffer[i];
+        buffer[i] = current+4;
+        NSLog(@"%d %c => %c",i,current,current+4);
+    }
+    buffer[len] = 0;
+    return [NSString stringWithUTF8String:buffer];
+}
+
 - (IBAction)SetNetwork:(id)sender {
     NSLog(@"set network %@ %@",_txtSSID.text,_txtPassword.text);
-    NSString* command = [NSString stringWithFormat:@"{\"req\": \"set wifi\", \"ssid\": \"%@\", \"password\": \"%@\"}",_txtSSID.text,_txtPassword.text];
+    
+    //need to shift it 4 characters
+     NSLog(@"set network %@ %@",[self offsetStringBy4:_txtSSID.text],[self offsetStringBy4:_txtPassword.text]);
+
+    NSString* command = [NSString stringWithFormat:@"{\"req\": \"set wifi\", \"ssid\": \"%@\", \"password\": \"%@\"}",[self offsetStringBy4:_txtSSID.text],[self offsetStringBy4:_txtPassword.text]];
     [self sendToAP:command];
-    //Disconnect
-    if (onRealWifi == FALSE) {
-        NSLog(@"removing Config for SID :%@",provisioningSSID);
-        [[NEHotspotConfigurationManager sharedManager] removeConfigurationForSSID:provisioningSSID];
-    }
-    //connect to Move again
-    [[appDelegate moveClient] reconnect];
+    
 }
+
 - (IBAction)GetCameraID:(id)sender {
     NSLog(@"get camera ID");
     [self sendToAP:@"{\"req\": \"get device id\"}"];
 }
+
 - (IBAction)SetAccountID:(id)sender {
     NSLog(@"set accoount");
     NSString* command = [NSString stringWithFormat:@"{\"req\": \"set account id\",\"value\":\"%@\"}",[[appDelegate moveClient] currentReg].accountId];
@@ -160,10 +179,29 @@
     NSString* command = [NSString stringWithFormat:@"{\"req\": \"set server\",\"value\":\"%@\"}",[[appDelegate moveClient] ipaddress]];
     [self sendToAP:command];
 }
+
+- (IBAction)SetName:(id)sender {
+    NSLog(@"set Name");
+    NSString* command = [NSString stringWithFormat:@"{\"req\": \"set name\",\"value\":\"%@\"}",_txtName.text];
+    [self sendToAP:command];
+}
+
+- (IBAction)SetVendor:(id)sender {
+    NSLog(@"set server");
+    NSString* command = [NSString stringWithFormat:@"{\"req\": \"set vendor\",\"value\":\"%@\"}",_txtVendor.text];
+    [self sendToAP:command];
+}
+
 - (IBAction)ExitSsoftAP:(id)sender {
     NSLog(@"exit soft AP");
     NSString* command = [NSString stringWithFormat:@"{\"req\": \"exit\"}"];
     [self sendToAP:command];
+    if (onRealWifi == FALSE) {
+        NSLog(@"removing Config for SID :%@",provisioningSSID);
+        [[NEHotspotConfigurationManager sharedManager] removeConfigurationForSSID:provisioningSSID];
+        onRealWifi = TRUE;
+        [[appDelegate moveClient] reconnect];
+    }
 }
 
 
@@ -223,6 +261,7 @@
         [inputStream open];
         [outputStream open];
         
+        //background this or hand error???
         NSLog(@"Get the Network list in one sec");
         [NSTimer scheduledTimerWithTimeInterval:1.0f
                                          target:self
@@ -335,12 +374,20 @@
         }
         [_tblNetworks reloadData];
         
-        //[self SetAccountID:nil];
+        [self SetAccountID:nil];
     } else if ([res caseInsensitiveCompare: @"get device id"]==NSOrderedSame) {
         _lblCameraID.text = [NSString stringWithFormat:@"Camera ID is %@",jsonObject[@"value"]];
     }else if ([res caseInsensitiveCompare: @"set account id"]==NSOrderedSame) {
         NSLog(@"account ID is set");
-        //[self SetServer:nil];
+        [self SetServer:nil];
+    }else if ([res caseInsensitiveCompare: @"set wifi"]==NSOrderedSame) {
+        //Disconnect
+        if (onRealWifi == FALSE) {
+            NSLog(@"removing Config for SID :%@",provisioningSSID);
+            [[NEHotspotConfigurationManager sharedManager] removeConfigurationForSSID:provisioningSSID];
+        }
+        //connect to Move again
+        [[appDelegate moveClient] reconnect];
     }
 }
 
