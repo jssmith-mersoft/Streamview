@@ -98,6 +98,9 @@
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gvv-Ax-YYt">
                                         <rect key="frame" x="112" y="190" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="VendorSwitchUpdate:" destination="mwU-8J-cLs" eventType="valueChanged" id="lvA-dO-Vij"/>
+                                        </connections>
                                     </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pepper" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S3e-l6-hUS">
                                         <rect key="frame" x="175" y="198" width="43.5" height="16"/>

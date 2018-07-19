@@ -37,9 +37,11 @@
     [[appDelegate moveClient] setDelegate:self];
     [[appDelegate moveClient] setQuality:QualityHigh];
     
-    
-    // Do any additional setup after loading the view, typically from a nib.
-    _moveURL = kMoveURL;
+    if ([_switchPepper isOn]) {
+        _moveURL = kMoveURLPepper;
+    } else {
+        _moveURL = kMoveURL;
+    }
 }
 
 
@@ -50,8 +52,7 @@
 
 - (IBAction)enteredPressed:(id)sender {
     
-    if(_switchPepper.enabled) {
-    //if(false) {
+    if([_switchPepper isOn]) {
         NSString* url = @"https://dev.api.pepperos.io/authentication/byEmail";
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
         [request setHTTPMethod:@"POST"];
@@ -89,6 +90,7 @@
         NSLog(@"the accountID are %@",pepperUser[@"account_id"]);
         
          _token = pepperUser[@"account_id"];
+        appDelegate.vendor = YES;
         
         if ([appDelegate moveClient].connected){
             [[appDelegate moveClient] register:_loginTextField.text withToken:_token vendor:@"pepper"];
@@ -122,13 +124,16 @@
     [[appDelegate moveClient] connectToMove:kAltMoveURL];
      */
 }
+- (IBAction)VendorSwitchUpdate:(id)sender {
+    _loginTextField.text = @"demo";
+     _moveURL = kMoveURL;
+}
 
 - (void)connectionConnected {
-    NSLog(@"DEMO APP: Connection Connected");
-    //if (false) {
-    if (_switchPepper.enabled) {
+    if (appDelegate.vendor) {
         [[appDelegate moveClient] register:_loginTextField.text withToken:_token vendor:@"pepper"];
     } else {
+         NSLog(@"DEMO APP: Connected to MersoftMove - registering as %@",_loginTextField.text);
         [[appDelegate moveClient] register:_loginTextField.text];
     }
     

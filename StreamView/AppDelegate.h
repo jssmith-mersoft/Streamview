@@ -10,8 +10,9 @@
 #import "MoveClient.h" 
 #import "Reachability.h"
 
-#define kMoveURL @"wss://dev.move.pepperos.io/ws"
-//#define kMoveURLdev @"wss://move-dev.mersoft.biz/ws"
+#define kMoveURL @"wss://move-dev.mersoft.biz/ws"
+#define kMoveURLPepper @"wss://dev.move.pepperos.io/ws"
+
 #define kMoveURLdev @"wss://172.16.30.66:3443/ws"
 #define kStreamURL @"https://stream.mersoft.biz"
 
@@ -20,6 +21,7 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property MoveClient *moveClient;
+@property (nonatomic, assign) BOOL vendor;
 @property (nonatomic, assign) BOOL hasInet;
 
 @end

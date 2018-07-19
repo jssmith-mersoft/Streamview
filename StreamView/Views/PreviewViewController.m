@@ -712,9 +712,9 @@
         NSLog(@"DEMO APP: trying to match deviceIDs to store URL %@ = %@", (NSString*)_address_Arr[i], deviceID);
         if ([(NSString*)_address_Arr[i] isEqualToString:deviceID]) {
             NSLog(@"DEMO APP: got URL for : %@", deviceID);
-            NSString *unEncodeURL = [url stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-            NSLog(@"URL for getting camera %@ thumbmail is %@",deviceID,unEncodeURL);
-            [_url_Arr insertObject:unEncodeURL atIndex:i];
+            //NSString *unEncodeURL = [url stringByRemovingPercentEncoding];
+            NSLog(@"URL for getting camera %@ thumbmail is %@",deviceID,url);
+            [_url_Arr insertObject:url atIndex:i];
             break;
         }
     }
