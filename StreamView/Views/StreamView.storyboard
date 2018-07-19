@@ -234,6 +234,28 @@
                                                         <action selector="cameraConfigButtonDown:" destination="ZNW-x5-fa5" eventType="touchDown" id="1ax-1J-gR8"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" tag="105" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z61-zo-G75">
+                                                    <rect key="frame" x="7" y="89" width="49" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                    <state key="normal" image="alert-icon"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="deviceID" value=""/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="manualSnapShot:" destination="ZNW-x5-fa5" eventType="touchDown" id="KRz-83-Utx"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" tag="105" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cDd-zO-lNh">
+                                                    <rect key="frame" x="63" y="89" width="49" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                    <state key="normal" image="camera-icon"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="deviceID" value=""/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="manualRecord:" destination="ZNW-x5-fa5" eventType="touchDown" id="sNM-ED-VLT"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </view>
                                         <viewLayoutGuide key="safeArea" id="mnO-cl-dA6"/>

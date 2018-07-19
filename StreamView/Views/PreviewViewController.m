@@ -208,6 +208,21 @@
 - (IBAction)cameraConfigButtonDown:(id)sender {
      [self performSegueWithIdentifier:@"showDeviceDetails" sender:sender];
 }
+- (IBAction)manualSnapShot:(id)sender {
+    UICollectionViewCell* cell = (UICollectionViewCell*)[[sender superview] superview];
+    NSIndexPath *indexPath = [self.Collection_view indexPathForCell:cell];
+    NSInteger  selectedDeviceRow= [indexPath row];
+    
+    [[appDelegate moveClient] createEvent:@"SnapShot" forDevice:[_address_Arr objectAtIndex:selectedDeviceRow]];
+}
+- (IBAction)manualRecord:(id)sender {
+    UICollectionViewCell* cell = (UICollectionViewCell*)[[sender superview] superview];
+    NSIndexPath *indexPath = [self.Collection_view indexPathForCell:cell];
+    NSInteger  selectedDeviceRow= [indexPath row];
+    
+    [[appDelegate moveClient] createEvent:@"RecordVideo" forDevice:[_address_Arr objectAtIndex:selectedDeviceRow]];
+}
+
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
