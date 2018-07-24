@@ -90,6 +90,7 @@ typedef enum {
  @endcode
  */
 - (void)register:(NSString*)userId;
+- (void)register:(NSString*)userId withToken:(NSString*)token vendor:(NSString*)vendor;
 
 /**
  Unregisters the move session to prevent future notifications.  
@@ -103,10 +104,12 @@ typedef enum {
 
 
 - (void) getConfig:(NSString *)deviceID;
+- (void) updateConfig:(NSString *)deviceID  withData:(NSDictionary *)data;
 
 - (void) getCameraURL:(NSString *)deviceID;
 - (void) retrieveEventHistory;
 - (void) retrieveEventById:(NSString *)eventID;
+- (void) createEvent:(NSString *)eventType forDevice:(NSString*)deviceID;
 
 - (void)join;
 

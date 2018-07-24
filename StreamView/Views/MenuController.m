@@ -8,6 +8,7 @@
 
 #import "MenuController.h"
 #import "SWRevealViewController.h"
+#import "AppDelegate.h"
 
 @implementation MenuTableViewCell
 @end
@@ -18,12 +19,18 @@
 
 @implementation MenuController {
     NSArray *menu;
+    AppDelegate *appDelegate;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    menu = @[@"account",@"camera",@"events",@"recordings",@"provisioningQR",@"provisioningAP",@"mersoft"];
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (appDelegate.vendor) {
+        menu = @[@"account",@"camera",@"provisioningQR",@"provisioningAP"];
+    } else {
+        menu = @[@"account",@"camera",@"events",@"recordings",@"provisioningQR",@"provisioningAP",@"mersoft"];
+    }
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     

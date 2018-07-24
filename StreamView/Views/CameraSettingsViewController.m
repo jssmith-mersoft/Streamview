@@ -73,8 +73,11 @@
     [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"name": _textName.text}];
 }
 - (IBAction)changedDND:(id)sender {
-    [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"DND": @false}];
-    //[[appDelegate moveClient] updateConfig:_deviceID withData:@{@"DND": true}];
+    if ([_switchDND isOn]) {
+        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"DND": @true}];
+    } else {
+         [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"DND": @false}];
+    }
 }
 - (IBAction)changedPIRDistance:(id)sender {
     if (_switchPIRDistance.selectedSegmentIndex == 0) {
@@ -89,30 +92,47 @@
 }
 - (IBAction)changedPIRZone:(id)sender {
     [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"PIRZoneMode": @"7"}];
-    //[[appDelegate moveClient] updateConfig:_deviceID withData:@{@"PIRdistance": "HIGHT"}];
 }
 - (IBAction)changedFlipImage:(id)sender {
-    [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"FLIP": @"1"}];
-    //[[appDelegate moveClient] updateConfig:_deviceID withData:@{@"FLIP": "2"}];
-}
-- (IBAction)changedPrivacyMode:(id)sender {
-    if (_switchPrivacyMode.enabled) {
-        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"privacyMode": @true}];
+    if ([_switchImageFlip isOn]) {
+        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"FLIP": @"1"}];
     } else {
-        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"privacyMode": @false}];
+        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"FLIP": @"0"}];
     }
 }
+- (IBAction)changedPrivacyMode:(id)sender {
+     if ([_switchPrivacyMode isOn]) {
+         [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"privacyMode": @true}];
+     } else {
+         [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"privacyMode": @false}];
+     }
+}
 - (IBAction)changedRecordDur:(id)sender {
-    [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"recordDur": @"SHORT"}];
+    if (_switchRecordDur.selectedSegmentIndex == 0) {
+        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"recordDur": @"SHORT"}];
+    } else if (_switchRecordDur.selectedSegmentIndex == 1) {
+        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"recordDur": @"LONG"}];
+    }
 }
 - (IBAction)changedSirenDur:(id)sender {
     [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"sirenDur": @"SHORT"}];
 }
 - (IBAction)changedVideoImage:(id)sender {
-     [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"videoImage": @"SHORT"}];
+    if (_switchVideoImage.selectedSegmentIndex == 0) {
+        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"videoImage": @"LOW"}];
+    } else if (_switchVideoImage.selectedSegmentIndex == 2) {
+         [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"videoImage": @"MEDIUM"}];
+    } else if (_switchVideoImage.selectedSegmentIndex == 3) {
+         [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"videoImage": @"HIGH"}];
+    }
 }
 - (IBAction)changedNightVision:(id)sender {
-     [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"nightVision": @"SHORT"}];
+    if ([_switchNightVision isOn]) {
+        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"nightVision": @true}];
+    } else {
+        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"nightVision": @false}];
+    }
+        
 }
 - (IBAction)changedDebug:(id)sender {
     [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"debug": @false}];

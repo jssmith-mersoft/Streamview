@@ -115,7 +115,7 @@
  @endcode
  */
 - (void)onReady;
-
+@optional
 - (void)onCalling;
 
 /**
@@ -253,7 +253,7 @@
  */
 - (void)onCallNotify:(NSString *)name value:(NSString *)value  connection:(NSString *)connectionId;
 
-@optional
+
 /**
  Called upon pausing a remote or local video stream.
 
@@ -347,6 +347,66 @@
  @endcode
  */
 - (void)notificationReceived:(MoveNotification *)notification;
+/**
+ The callback for unsolsited notifications
+ 
+ @param notification The move notification object
+ @par Example:
+ @code{.m}
+ - (void)notificationReceived:(MoveNotification *)notification
+ {
+ NSLog(@"Move Client:received a notification");
+ }
+ @endcode
+ */
+- (void)retrieveEventHistory:(NSArray *)events;
+
+/**
+ The callback for a comfig change
+ 
+ @param data The a dictionary of the changes to the device Configuration
+ @par Example:
+ @code{.m}
+ - (void)configChange:(NSDictionary *)device
+ {
+ NSLog(@"Yea...I got a config change");
+ }
+ 
+ Device looks like
+ {
+ "account":"5b0e21af9398812031b6aca0",
+ "camera_id":"DB4D016B5PAZ57E4C",
+ "created":"2018-06-27T13:04:43.34-05:00",
+ "device_id":"Stream-DB11-bcpt3eqe0a5pjcfiov5g",
+ "id":"5b33d1bb4e028b99b1eab6ce",
+ "parms":{
+ "DND":false,
+ "PIRZoneMode":7,
+ "PIRdistance":"LOW",
+ "debug":false,
+ "description":null,
+ "imageFlip":"1",
+ "language":"eng",
+ "name":"camera-DB4D016B5PAZ57E4C",
+ "nightVision":false,
+ "privacyMode":false,
+ "recordDur":"SHORT",
+ "sirenDur":"SHORT",
+ "timezone":"-7",
+ "videoImage":"HIGH",
+ "wifi":{
+ "password":"coff33cup",
+ "ssid":"Demo Devices"
+ }
+ },
+ "type":"DB11",
+ "updated":"2018-06-29T10:51:47.114-05:00",
+ "version":"0.0.92"
+ }
+ ]
+ @endcode
+ */
+- (void)configChange:(NSDictionary *)data;
 
 - (void)accountReceived:(MoveAccount *)account;
 - (void)invalidAccountReceived:(NSString*)username contact:(NSString*)contact;

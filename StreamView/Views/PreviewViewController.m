@@ -736,6 +736,10 @@
     [self refreshThumbs];
 }
 
+- (void)configChange:(NSDictionary *)data {
+     NSLog(@"DEMO APP: got configupdate : %@", data);
+}
+
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
