@@ -108,6 +108,7 @@ typedef enum {
 
 - (void) getCameraURL:(NSString *)deviceID;
 - (void) retrieveEventHistory;
+- (void) retrieveEventHistoryByDevice:(NSString *)deviceID;
 - (void) retrieveEventById:(NSString *)eventID;
 - (void) createEvent:(NSString *)eventType forDevice:(NSString*)deviceID;
 

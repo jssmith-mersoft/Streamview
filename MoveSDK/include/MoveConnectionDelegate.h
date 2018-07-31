@@ -362,7 +362,7 @@
 - (void)retrieveEventHistory:(NSArray *)events;
 
 /**
- The callback for a comfig change
+ The callback for a config change
  
  @param data The a dictionary of the changes to the device Configuration
  @par Example:

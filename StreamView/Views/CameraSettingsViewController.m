@@ -95,9 +95,9 @@
 }
 - (IBAction)changedFlipImage:(id)sender {
     if ([_switchImageFlip isOn]) {
-        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"FLIP": @"1"}];
+        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"imageFlip": @"2"}];
     } else {
-        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"FLIP": @"0"}];
+        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"imageFlip": @"0"}];
     }
 }
 - (IBAction)changedPrivacyMode:(id)sender {

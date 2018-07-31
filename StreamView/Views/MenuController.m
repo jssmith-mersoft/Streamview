@@ -29,7 +29,8 @@
     if (appDelegate.vendor) {
         menu = @[@"account",@"camera",@"provisioningQR",@"provisioningAP"];
     } else {
-        menu = @[@"account",@"camera",@"events",@"recordings",@"provisioningQR",@"provisioningAP",@"mersoft"];
+        menu = @[@"account",@"camera",@"events",@"provisioningQR",@"provisioningAP",@"mersoft"];
+        //@"recordings",
     }
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

@@ -84,12 +84,14 @@
         
         NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:oResponseData options:NSJSONReadingAllowFragments error:&err];
         
-        //NSLog(@"the results are %@",jsonData[@"token"]);
-        NSLog(@"the results are %@",jsonData);
+        NSLog(@"the token is %@",jsonData[@"token"]);
+        NSLog(@"the data are %@",jsonData);
         NSDictionary *pepperUser = jsonData[@"pepperUser"];
-        NSLog(@"the accountID are %@",pepperUser[@"account_id"]);
         
-         _token = pepperUser[@"account_id"];
+        NSLog(@"the accountID are %@",pepperUser[@"account_id"]);
+        NSDictionary *cognitoProfile = jsonData[@"cognitoProfile"];
+        
+         _token = cognitoProfile[@"Token"];
         appDelegate.vendor = YES;
         
         if ([appDelegate moveClient].connected){
@@ -136,8 +138,8 @@
          NSLog(@"DEMO APP: Connected to MersoftMove - registering as %@",_loginTextField.text);
         [[appDelegate moveClient] register:_loginTextField.text];
     }
-    
 }
+
 - (void)connectionFailed:(NSError *)message {
     NSLog(@"DEMO APP: Connection Failed");
 }

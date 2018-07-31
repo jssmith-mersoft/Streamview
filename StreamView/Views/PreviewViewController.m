@@ -33,6 +33,11 @@
 
 @synthesize Collection_view;
 
+- (void)viewDidAppear:(BOOL)animated {
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [[appDelegate moveClient] setDelegate:self];
+}
+
 - (void)viewDidLoad {
     
     _address_Arr = [[NSMutableArray alloc] init];
