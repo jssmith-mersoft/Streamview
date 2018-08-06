@@ -407,6 +407,7 @@
  @endcode
  */
 - (void)configChange:(NSDictionary *)data;
+- (void)configChange:(NSDictionary *)data deviceID:(NSString*)deviceID;
 
 - (void)accountReceived:(MoveAccount *)account;
 - (void)invalidAccountReceived:(NSString*)username contact:(NSString*)contact;
