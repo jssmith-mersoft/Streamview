@@ -325,77 +325,77 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="cameraID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="loX-7z-NxF">
-                                <rect key="frame" x="114" y="84" width="245" height="21"/>
+                                <rect key="frame" x="114" y="76" width="245" height="21"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="created" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cb6-Wc-ULt">
-                                <rect key="frame" x="114" y="113" width="245" height="21"/>
+                                <rect key="frame" x="114" y="98" width="245" height="21"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9jV-YM-TkD">
-                                <rect key="frame" x="114" y="141" width="245" height="21"/>
+                                <rect key="frame" x="114" y="122" width="245" height="21"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9Y-6k-2D1">
-                                <rect key="frame" x="114" y="171" width="245" height="21"/>
+                                <rect key="frame" x="114" y="145" width="245" height="21"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NQv-Ob-pti">
-                                <rect key="frame" x="114" y="200" width="245" height="21"/>
+                                <rect key="frame" x="113" y="174" width="245" height="21"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Camera ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t9b-sT-fnU">
-                                <rect key="frame" x="16" y="84" width="81" height="21"/>
+                                <rect key="frame" x="16" y="76" width="81" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Created" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLl-86-Hf6">
-                                <rect key="frame" x="16" y="113" width="61" height="21"/>
+                                <rect key="frame" x="16" y="98" width="61" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sla-ns-gaS">
-                                <rect key="frame" x="16" y="142" width="64" height="21"/>
+                                <rect key="frame" x="16" y="123" width="64" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lgk-6y-BP4">
-                                <rect key="frame" x="16" y="171" width="38" height="21"/>
+                                <rect key="frame" x="16" y="145" width="38" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SHm-jY-hDt">
-                                <rect key="frame" x="16" y="200" width="57" height="21"/>
+                                <rect key="frame" x="16" y="174" width="57" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DND" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U7F-j0-MLL">
-                                <rect key="frame" x="16" y="273" width="37" height="21"/>
+                                <rect key="frame" x="16" y="235" width="37" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -465,14 +465,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPq-sT-B8w">
-                                <rect key="frame" x="16" y="235" width="45" height="21"/>
+                                <rect key="frame" x="16" y="201" width="45" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bln-MA-RLf">
-                                <rect key="frame" x="110" y="232" width="249" height="30"/>
+                                <rect key="frame" x="109" y="198" width="249" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -482,17 +482,31 @@
                                 </connections>
                             </textField>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="BOJ-jk-WS2">
-                                <rect key="frame" x="139" y="268" width="49" height="31"/>
+                                <rect key="frame" x="138" y="230" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="changedDND:" destination="Oun-Ce-4au" eventType="valueChanged" id="uzN-QK-RJb"/>
                                 </connections>
                             </switch>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tuQ-kr-WST">
-                                <rect key="frame" x="139" y="338" width="49" height="31"/>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="wuL-B7-nhq">
+                                <rect key="frame" x="139" y="269" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <action selector="changedFlipImage:" destination="Oun-Ce-4au" eventType="valueChanged" id="L74-hk-Llm"/>
+                                    <action selector="changedPIRZone:" destination="Oun-Ce-4au" eventType="valueChanged" id="2P7-0f-ZfW"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="id5-hH-HXn">
+                                <rect key="frame" x="227" y="269" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="changedPIRZone:" destination="Oun-Ce-4au" eventType="valueChanged" id="42h-9g-3gb"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EPM-84-ba0">
+                                <rect key="frame" x="319" y="269" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="changedPIRZone:" destination="Oun-Ce-4au" eventType="valueChanged" id="Fwc-nI-HDd"/>
                                 </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="abx-sL-yBI">
@@ -509,41 +523,50 @@
                                     <action selector="changedNightVision:" destination="Oun-Ce-4au" eventType="valueChanged" id="hON-Oj-NiC"/>
                                 </connections>
                             </switch>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="UFM-OT-FdU">
-                                <rect key="frame" x="139" y="307" width="220" height="29"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="UFM-OT-FdU">
+                                <rect key="frame" x="120" y="304" width="246" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="Long"/>
-                                    <segment title="Short"/>
+                                    <segment title="LOW"/>
+                                    <segment title="MEDL"/>
+                                    <segment title="MED"/>
+                                    <segment title="MEDH"/>
+                                    <segment title="HIGH"/>
                                 </segments>
                                 <connections>
                                     <action selector="changedPIRDistance:" destination="Oun-Ce-4au" eventType="valueChanged" id="4s6-RD-3g6"/>
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0Lg-Mp-Og4">
-                                <rect key="frame" x="139" y="437" width="220" height="29"/>
+                                <rect key="frame" x="120" y="437" width="246" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="Long"/>
-                                    <segment title="Short"/>
+                                    <segment title="5s"/>
+                                    <segment title="10s"/>
+                                    <segment title="15s"/>
+                                    <segment title="30s"/>
+                                    <segment title="1m"/>
+                                    <segment title="2m"/>
+                                    <segment title="5m"/>
                                 </segments>
                                 <connections>
                                     <action selector="changedSirenDur:" destination="Oun-Ce-4au" eventType="valueChanged" id="x8q-Hu-SWW"/>
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Acr-oF-Zb7">
-                                <rect key="frame" x="139" y="473" width="220" height="29"/>
+                                <rect key="frame" x="120" y="472" width="246" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="Long"/>
-                                    <segment title="Short"/>
+                                    <segment title="Low"/>
+                                    <segment title="Med"/>
+                                    <segment title="High"/>
                                 </segments>
                                 <connections>
                                     <action selector="changedVideoImage:" destination="Oun-Ce-4au" eventType="valueChanged" id="AfK-A1-GLU"/>
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="R69-TU-xbf">
-                                <rect key="frame" x="139" y="540" width="220" height="29"/>
+                                <rect key="frame" x="120" y="540" width="246" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="PST"/>
@@ -556,7 +579,7 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gf4-NJ-krr">
-                                <rect key="frame" x="139" y="403" width="220" height="29"/>
+                                <rect key="frame" x="120" y="403" width="246" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Long"/>
@@ -566,9 +589,51 @@
                                     <action selector="changedRecordDur:" destination="Oun-Ce-4au" eventType="valueChanged" id="T3G-HI-Lpl"/>
                                 </connections>
                             </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="zOl-Qy-Ywz">
+                                <rect key="frame" x="120" y="340" width="246" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="0"/>
+                                    <segment title="90"/>
+                                    <segment title="180"/>
+                                    <segment title="270"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changedFlipImage:" destination="Oun-Ce-4au" eventType="valueChanged" id="9ex-rP-LiL"/>
+                                    <action selector="changedRecordDur:" destination="Oun-Ce-4au" eventType="valueChanged" id="0uc-qO-1du"/>
+                                </connections>
+                            </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ssid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsk-nz-aqk">
                                 <rect key="frame" x="139" y="575" width="223" height="21"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PIR Zones" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5lq-J5-qUX">
+                                <rect key="frame" x="17" y="272" width="78" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E0V-3u-B3K">
+                                <rect key="frame" x="127" y="272" width="8" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8md-x8-6fc">
+                                <rect key="frame" x="215" y="272" width="10" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0mr-1P-eAq">
+                                <rect key="frame" x="303" y="272" width="11" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -585,14 +650,14 @@
                     <connections>
                         <outlet property="barButton" destination="2Ym-e9-7eG" id="SNg-Y2-NA9"/>
                         <outlet property="labelAccount" destination="9jV-YM-TkD" id="JyX-Hp-h0W"/>
-                        <outlet property="labelCamerID" destination="loX-7z-NxF" id="C1w-vU-Kqm"/>
+                        <outlet property="labelCameraID" destination="loX-7z-NxF" id="rr5-8R-Loo"/>
                         <outlet property="labelCreated" destination="Cb6-Wc-ULt" id="Jkt-bF-xDI"/>
                         <outlet property="labelDeviceID" destination="pec-db-ytk" id="C4V-aN-NaE"/>
                         <outlet property="labelType" destination="S9Y-6k-2D1" id="xdh-Xj-Vbt"/>
                         <outlet property="labelVersion" destination="NQv-Ob-pti" id="kx2-md-dyE"/>
                         <outlet property="labelWifiSSID" destination="Vsk-nz-aqk" id="jN7-VV-pzg"/>
                         <outlet property="switchDND" destination="BOJ-jk-WS2" id="1Un-ug-JpP"/>
-                        <outlet property="switchImageFlip" destination="tuQ-kr-WST" id="6dO-NP-2nh"/>
+                        <outlet property="switchImageFlip" destination="zOl-Qy-Ywz" id="yHf-XR-NLi"/>
                         <outlet property="switchNightVision" destination="mMD-HG-puf" id="VAm-eo-WFF"/>
                         <outlet property="switchPIRDistance" destination="UFM-OT-FdU" id="GEt-5R-8eK"/>
                         <outlet property="switchPrivacyMode" destination="abx-sL-yBI" id="Png-VV-lN8"/>
@@ -600,7 +665,11 @@
                         <outlet property="switchSirenDur" destination="0Lg-Mp-Og4" id="Yig-jc-AcH"/>
                         <outlet property="switchTimeZone" destination="R69-TU-xbf" id="MF5-CG-CAR"/>
                         <outlet property="switchVideoImage" destination="Acr-oF-Zb7" id="nAP-DZ-bxH"/>
+                        <outlet property="switchZone1" destination="wuL-B7-nhq" id="TVA-tn-OfI"/>
+                        <outlet property="switchZone2" destination="id5-hH-HXn" id="ZVk-iz-8ra"/>
+                        <outlet property="switchZone3" destination="EPM-84-ba0" id="CWd-Sc-cAL"/>
                         <outlet property="textFieldName" destination="bln-MA-RLf" id="Usu-dg-BKZ"/>
+                        <outlet property="textName" destination="bln-MA-RLf" id="FgF-fD-YBJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qtc-au-Hn6" userLabel="First Responder" sceneMemberID="firstResponder"/>

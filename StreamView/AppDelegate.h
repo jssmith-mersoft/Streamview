@@ -12,6 +12,7 @@
 
 #define kMoveURL @"wss://move-dev.mersoft.biz/ws"
 #define kMoveURLPepper @"wss://dev.move.pepperos.io/ws"
+//#define kMoveURLPepper @"wss://172.16.30.66:3443/ws"
 
 #define kMoveURLdev @"wss://172.16.30.66:3443/ws"
 #define kStreamURL @"https://stream.mersoft.biz"

@@ -16,6 +16,8 @@
 @property NSMutableArray *label_Arr;
 @property NSMutableArray *url_Arr;
 @property NSMutableArray *image_Arr;
+@property NSTimer *thumbNailTimer;
+@property NSTimer *refreshTimer;
 @property (strong, nonatomic) IBOutlet UICollectionView *accountCameras;
 
 @end
@@ -37,6 +39,7 @@
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [[appDelegate moveClient] setDelegate:self];
 }
+
 
 - (void)viewDidLoad {
     
@@ -65,9 +68,9 @@
     [self getCameraThumbURL];
     
     //parse the services to find the cameras
-    [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(refreshThumbs) userInfo:nil repeats:YES];
-    [NSTimer scheduledTimerWithTimeInterval:(20*60.0) target:self selector:@selector(getCameraThumbURL) userInfo:nil repeats:YES];
-    //[timer invalidate];
+    _refreshTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(refreshThumbs) userInfo:nil repeats:YES];
+    _thumbNailTimer = [NSTimer scheduledTimerWithTimeInterval:(20*60.0) target:self selector:@selector(getCameraThumbURL) userInfo:nil repeats:YES];
+ 
     
     [super viewDidLoad];
     

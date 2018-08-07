@@ -12,7 +12,7 @@
 @interface CameraSettingsViewController ()
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *barButton;
 @property (strong, nonatomic) IBOutlet UILabel *labelDeviceID;
-@property (strong, nonatomic) IBOutlet UILabel *labelCamerID;
+@property (strong, nonatomic) IBOutlet UILabel *labelCameraID;
 @property (strong, nonatomic) IBOutlet UILabel *labelCreated;
 @property (strong, nonatomic) IBOutlet UILabel *labelAccount;
 @property (strong, nonatomic) IBOutlet UILabel *labelType;
@@ -22,7 +22,8 @@
 @property (strong, nonatomic) IBOutlet UITextField *textFieldName;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *switchPIRDistance;
 @property (strong, nonatomic) IBOutlet UISwitch *switchDND;
-@property (strong, nonatomic) IBOutlet UISwitch *switchImageFlip;
+//@property (strong, nonatomic) IBOutlet UISwitch *switchImageFlip;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *switchImageFlip;
 @property (strong, nonatomic) IBOutlet UISwitch *switchPrivacyMode;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *switchRecordDur;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *switchSirenDur;
@@ -30,6 +31,9 @@
 @property (strong, nonatomic) IBOutlet UISwitch *switchNightVision;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *switchTimeZone;
 @property (strong, nonatomic) IBOutlet UITextField *textName;
+@property (strong, nonatomic) IBOutlet UISwitch *switchZone1;
+@property (strong, nonatomic) IBOutlet UISwitch *switchZone2;
+@property (strong, nonatomic) IBOutlet UISwitch *switchZone3;
 
 @end
 
@@ -69,6 +73,68 @@
 - (void)notificationReceived:(MoveNotification *)notification  {
     NSLog(@"Got notification");
 }
+
+- (void)configChange:(NSDictionary *)data {
+    NSLog(@"DEMO APP: got configupdate : %@", data);
+    /*
+     account = 5b23227fb534b60007b7181b;
+     "camera_id" = 4D016B7PAZCCF3C;
+     created = "2018-08-03T01:43:33.454Z";
+     "device_id" = "Stream-DB11-bdhr6h9sj49ds5arcoug";
+     id = 5b63b345fdeeca000b713196;
+     parms =     {
+     DND = 0;
+     PIRZoneMode = 7;
+     PIRdistance = MEDIUM;
+     debug = 0;
+     description = "<null>";
+     imageFlip = 0;
+     language = eng;
+     motion = 0;
+     name = lobby;
+     nightVision = 0;
+     privacyMode = 0;
+     recordDur = SHORT;
+     sirenDur = SHORT;
+     timezone = "-7";
+     videoImage = HIGH;
+     wifi =         {
+     password = "p0p.c0rn";
+     ssid = Mersoft;
+     };
+     };
+     type = DB11;
+     updated = "2018-08-06T22:40:16.653Z";
+     version = "0.1.12";
+     */
+    
+    if (data[@"account"] != nil) {
+        _labelAccount.text = (NSString*)data[@"account"];
+    }
+    if (data[@"camera_id"] != nil) {
+        _labelCameraID.text = (NSString*)data[@"camera_id"];
+    }
+    if (data[@"type"] != nil) {
+        _labelType.text = (NSString*)data[@"type"];
+    }
+    if (data[@"version"] != nil) {
+        _labelVersion.text = (NSString*)data[@"version"];
+    }
+    if (data[@"updated"] != nil) {
+        _labelCreated.text = (NSString*)data[@"updated"];
+    }
+    if (data[@"parms"] != nil) {
+        NSDictionary* parms = (NSDictionary*)data[@"parms"];
+        
+        if (parms[@"name"] != nil) {
+            _textName.text = (NSString*)parms[@"name"];
+        }
+    }
+}
+
+- (void)configChange:(NSDictionary *)data deviceID:(NSString*)deviceID {
+    NSLog(@"DEMO APP: got configupdate : %@", data);
+}
 - (IBAction)changedName:(id)sender {
     [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"name": _textName.text}];
 }
@@ -83,21 +149,42 @@
     if (_switchPIRDistance.selectedSegmentIndex == 0) {
          [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"PIRdistance": @"LOW"}];
     } else if(_switchPIRDistance.selectedSegmentIndex == 1) {
-         [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"PIRdistance": @"MEDIUM"}];
+         [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"PIRdistance": @"MEDL"}];
     } else if(_switchPIRDistance.selectedSegmentIndex == 2) {
+        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"PIRdistance": @"MEDIUM"}];
+    } else if(_switchPIRDistance.selectedSegmentIndex == 3) {
+        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"PIRdistance": @"MEDH"}];
+    } else if(_switchPIRDistance.selectedSegmentIndex == 4) {
          [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"PIRdistance": @"HIGH"}];
     }
    
     //[[appDelegate moveClient] updateConfig:_deviceID withData:@{@"PIRdistance": "HIGHT"}];
 }
 - (IBAction)changedPIRZone:(id)sender {
-    [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"PIRZoneMode": @"7"}];
+    
+    int zoneValue = 0;
+    if ([_switchZone1 isOn]) {
+        zoneValue +=1;
+    }
+    if ([_switchZone2 isOn]) {
+        zoneValue +=2;
+    }
+    if ([_switchZone3 isOn]) {
+        zoneValue +=4;
+    }
+    NSString* ZoneString = [NSString stringWithFormat:@"%i", zoneValue];
+
+    [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"PIRZoneMode": ZoneString}];
 }
 - (IBAction)changedFlipImage:(id)sender {
-    if ([_switchImageFlip isOn]) {
-        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"imageFlip": @"2"}];
-    } else {
+    if (_switchImageFlip.selectedSegmentIndex == 0) {
         [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"imageFlip": @"0"}];
+    } else if (_switchImageFlip.selectedSegmentIndex == 2) {
+        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"imageFlip": @"1"}];
+    } else if (_switchImageFlip.selectedSegmentIndex == 3) {
+        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"imageFlip": @"2"}];
+    } else if (_switchImageFlip.selectedSegmentIndex == 4) {
+        [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"imageFlip": @"3"}];
     }
 }
 - (IBAction)changedPrivacyMode:(id)sender {
