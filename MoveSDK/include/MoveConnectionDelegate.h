@@ -346,11 +346,11 @@
  }
  @endcode
  */
-- (void)notificationReceived:(MoveNotification *)notification;
+- (void)notificationReceived:(NSDictionary*)notification;
 /**
  The callback for unsolsited notifications
  
- @param notification The move notification object
+ @param notification The move NSDictionary object
  @par Example:
  @code{.m}
  - (void)notificationReceived:(MoveNotification *)notification
@@ -364,12 +364,12 @@
 /**
  The callback for a config change
  
- @param data The a dictionary of the changes to the device Configuration
+ @param data The a dictionary of the device Configuration
  @par Example:
  @code{.m}
  - (void)configChange:(NSDictionary *)device
  {
- NSLog(@"Yea...I got a config change");
+ NSLog(@"Yea...I got a config");
  }
  
  Device looks like
@@ -407,7 +407,62 @@
  @endcode
  */
 - (void)configChange:(NSDictionary *)data;
+
+/*
+ **
+ The callback for a config change
+ 
+ @param data The a dictionary of the changes to the device Configuration
+ @param deviceID The devicesID for what is getting changes
+ @par Example:
+ @code{.m}
+ - (void)configChange:(NSDictionary *)data
+ {
+ NSLog(@"Yea...I got a config change");
+ }
+ 
+ Data looks like
+ {
+ "imageFlip":"1",
+ }
+ ]
+ @endcode
+ */
 - (void)configChange:(NSDictionary *)data deviceID:(NSString*)deviceID;
+
+/*
+ **
+ The callback for a RecordVideoEvent
+ 
+ @param eventID The event that holds the recordings
+ @param deviceID The devicesID for what is doing the recording
+ @param deviceID The thumbnamilURL for the thumbnail of the event
+ @param deviceID The recordedVideoURL for the recording of the event
+ @par Example:
+ @code{.m}
+ - (void)RecordVideoEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnamilURL:(NSString*)thumbnamilURL recordedVideoURL:(NSString*)recordedVideoURL
+ {
+    NSLog(@"Yea...I got a RecordVideoEvent");
+ }
+ @endcode
+ */
+- (void)RecordVideoEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnamilURL:(NSString*)thumbnamilURL recordedVideoURL:(NSString*)recordedVideoURL;
+/*
+ **
+ The callback for a SnapShotEvent
+ 
+ @param eventID The event that holds the recordings
+ @param deviceID The devicesID for what is doing the recording
+ @param deviceID The thumbnamilURL for the thumbnail of the event
+ @par Example:
+ @code{.m}
+ - (void)SnapShotEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnamilURL:(NSString*)thumbnamilURL
+ {
+ NSLog(@"Yea...I got a RecordVideoEvent");
+ }
+ @endcode
+ */
+- (void)SnapShotEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnamilURL:(NSString*)thumbnamilURL;
 
 - (void)accountReceived:(MoveAccount *)account;
 - (void)invalidAccountReceived:(NSString*)username contact:(NSString*)contact;

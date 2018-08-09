@@ -748,6 +748,12 @@
      NSLog(@"DEMO APP: got configupdate : %@", data);
 }
 
+-(void)RecordVideoEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnamilURL:(NSString*)thumbnamilURL recordedVideoURL:(NSString*)recordedVideoURL {
+     NSLog(@"DEMO APP: got RecordVideoEvent : %@", deviceID);
+}
+- (void)SnapShotEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnamilURL:(NSString*)thumbnamilURL {
+     NSLog(@"DEMO APP: got SnapShotEvent : %@", deviceID);
+}
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
