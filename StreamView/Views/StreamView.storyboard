@@ -223,19 +223,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" tag="105" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L9S-jK-bO7">
-                                                    <rect key="frame" x="229" y="86" width="49" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                    <state key="normal" image="gear"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="deviceID" value=""/>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="cameraConfigButtonDown:" destination="ZNW-x5-fa5" eventType="touchDown" id="1ax-1J-gR8"/>
-                                                    </connections>
-                                                </button>
                                                 <button opaque="NO" tag="105" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z61-zo-G75">
-                                                    <rect key="frame" x="7" y="89" width="49" height="43"/>
+                                                    <rect key="frame" x="145" y="97" width="36" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                     <state key="normal" image="alert-icon"/>
                                                     <userDefinedRuntimeAttributes>
@@ -245,15 +234,50 @@
                                                         <action selector="manualSnapShot:" destination="ZNW-x5-fa5" eventType="touchDown" id="KRz-83-Utx"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="105" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cDd-zO-lNh">
-                                                    <rect key="frame" x="63" y="89" width="49" height="43"/>
+                                                <button opaque="NO" tag="105" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dE5-NG-LzV">
+                                                    <rect key="frame" x="102" y="97" width="36" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                    <state key="normal" image="recording-icon"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="deviceID" value=""/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="manualSnapShot:" destination="ZNW-x5-fa5" eventType="touchDown" id="chV-OA-C5h"/>
+                                                        <action selector="playSiren:" destination="ZNW-x5-fa5" eventType="touchUpInside" id="WnW-td-fpE"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" tag="105" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l7j-Jw-jCa">
+                                                    <rect key="frame" x="60" y="97" width="36" height="32"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                    <state key="normal" image="icon-mute"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="deviceID" value=""/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="manualSnapShot:" destination="ZNW-x5-fa5" eventType="touchDown" id="w2w-vt-dW8"/>
+                                                        <action selector="stopSiren:" destination="ZNW-x5-fa5" eventType="touchUpInside" id="MmB-HI-3gK"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" tag="105" contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cDd-zO-lNh">
+                                                    <rect key="frame" x="186" y="97" width="35" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <state key="normal" image="camera-icon"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="deviceID" value=""/>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="manualRecord:" destination="ZNW-x5-fa5" eventType="touchDown" id="sNM-ED-VLT"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" tag="105" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L9S-jK-bO7">
+                                                    <rect key="frame" x="230" y="97" width="39" height="34"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                    <state key="normal" image="gear"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="deviceID" value=""/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="cameraConfigButtonDown:" destination="ZNW-x5-fa5" eventType="touchDown" id="1ax-1J-gR8"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -1600,6 +1624,7 @@
         <image name="alert-icon" width="250" height="250"/>
         <image name="camera-icon" width="250" height="250"/>
         <image name="gear" width="60" height="62"/>
+        <image name="icon-mute" width="44" height="44"/>
         <image name="recording-icon" width="250" height="250"/>
         <image name="reveal-icon" width="22" height="17"/>
     </resources>

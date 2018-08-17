@@ -230,7 +230,21 @@
     
     [[appDelegate moveClient] createEvent:@"RecordVideo" forDevice:[_address_Arr objectAtIndex:selectedDeviceRow]];
 }
+- (IBAction)playSiren:(id)sender {
+    UICollectionViewCell* cell = (UICollectionViewCell*)[[sender superview] superview];
+    NSIndexPath *indexPath = [self.Collection_view indexPathForCell:cell];
+    NSInteger  selectedDeviceRow= [indexPath row];
+    
+    [[appDelegate moveClient] createEvent:@"PlaySiren" forDevice:[_address_Arr objectAtIndex:selectedDeviceRow]];
+}
 
+- (IBAction)stopSiren:(id)sender {
+    UICollectionViewCell* cell = (UICollectionViewCell*)[[sender superview] superview];
+    NSIndexPath *indexPath = [self.Collection_view indexPathForCell:cell];
+    NSInteger  selectedDeviceRow= [indexPath row];
+    
+    [[appDelegate moveClient] createEvent:@"StopSiren" forDevice:[_address_Arr objectAtIndex:selectedDeviceRow]];
+}
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -746,6 +760,9 @@
 
 - (void)configChange:(NSDictionary *)data {
      NSLog(@"DEMO APP: got configupdate : %@", data);
+}
+- (void)configChange:(NSDictionary *)data deviceID:(NSString*)deviceID {
+    NSLog(@"DEMO APP: got configupdate : %@   %d", data, deviceID);
 }
 
 -(void)RecordVideoEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnamilURL:(NSString*)thumbnamilURL recordedVideoURL:(NSString*)recordedVideoURL {

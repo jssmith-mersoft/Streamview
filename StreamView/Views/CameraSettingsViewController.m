@@ -133,7 +133,7 @@
 }
 
 - (void)configChange:(NSDictionary *)data deviceID:(NSString*)deviceID {
-    NSLog(@"DEMO APP: got configupdate : %@", data);
+    NSLog(@"DEMO APP: got configupdate : %@    %@", data, deviceID);
 }
 - (IBAction)changedName:(id)sender {
     [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"name": _textName.text}];
