@@ -464,6 +464,10 @@
  */
 - (void)SnapShotEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnamilURL:(NSString*)thumbnamilURL;
 
+-(void)StopRecordVideoEvent:(NSString *)eventID  deviceID:(NSString*)deviceID;
+-(void)PlaySirenEvent:(NSString *)eventID  deviceID:(NSString*)deviceID;
+-(void)StopPlaySirenEvent:(NSString *)eventID  deviceID:(NSString*)deviceID;
+
 - (void)accountReceived:(MoveAccount *)account;
 - (void)invalidAccountReceived:(NSString*)username contact:(NSString*)contact;
 - (void)historyReceived:(NSArray *)history;
