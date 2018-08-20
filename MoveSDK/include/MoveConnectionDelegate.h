@@ -440,13 +440,13 @@
  @param deviceID The recordedVideoURL for the recording of the event
  @par Example:
  @code{.m}
- - (void)RecordVideoEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnamilURL:(NSString*)thumbnamilURL recordedVideoURL:(NSString*)recordedVideoURL
+ - (void)RecordVideoEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnailURL:(NSString*)thumbnailURL recordedVideoURL:(NSString*)recordedVideoURL
  {
     NSLog(@"Yea...I got a RecordVideoEvent");
  }
  @endcode
  */
-- (void)RecordVideoEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnamilURL:(NSString*)thumbnamilURL recordedVideoURL:(NSString*)recordedVideoURL;
+- (void)RecordVideoEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnailURL:(NSString*)thumbnailURL recordedVideoURL:(NSString*)recordedVideoURL;
 /*
  **
  The callback for a SnapShotEvent
@@ -456,13 +456,13 @@
  @param deviceID The thumbnamilURL for the thumbnail of the event
  @par Example:
  @code{.m}
- - (void)SnapShotEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnamilURL:(NSString*)thumbnamilURL
+ - (void)SnapShotEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnailURL:(NSString*)thumbnailURL
  {
  NSLog(@"Yea...I got a RecordVideoEvent");
  }
  @endcode
  */
-- (void)SnapShotEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnamilURL:(NSString*)thumbnamilURL;
+- (void)SnapShotEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnailURL:(NSString*)thumbnailURL;
 
 -(void)StopRecordVideoEvent:(NSString *)eventID  deviceID:(NSString*)deviceID;
 -(void)PlaySirenEvent:(NSString *)eventID  deviceID:(NSString*)deviceID;

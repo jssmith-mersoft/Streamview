@@ -739,7 +739,6 @@
     NSLog(@"DEMO APP: oncall notify: %@", value);
 }
 
-
 - (void)onCancelled:(NSString *)callId {
     NSLog(@"DEMO APP: onCancelled: %@", callId);
 }
@@ -765,12 +764,25 @@
     NSLog(@"DEMO APP: got configupdate : %@   %d", data, deviceID);
 }
 
--(void)RecordVideoEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnamilURL:(NSString*)thumbnamilURL recordedVideoURL:(NSString*)recordedVideoURL {
+-(void)RecordVideoEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnailURL:(NSString*)thumbnailURL recordedVideoURL:(NSString*)recordedVideoURL {
      NSLog(@"DEMO APP: got RecordVideoEvent : %@", deviceID);
 }
-- (void)SnapShotEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnamilURL:(NSString*)thumbnamilURL {
+- (void)SnapShotEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnailURL:(NSString*)thumbnailURL {
      NSLog(@"DEMO APP: got SnapShotEvent : %@", deviceID);
 }
+
+-(void)StopRecordVideoEvent:(NSString *)eventID  deviceID:(NSString*)deviceID {
+    NSLog(@"DEMO APP: got StopRecordVideoEvent: %@", deviceID);
+}
+
+-(void)PlaySirenEvent:(NSString *)eventID  deviceID:(NSString*)deviceID {
+    NSLog(@"DEMO APP: got PlaySirenEvent: %@", deviceID);
+}
+
+-(void)StopPlaySirenEvent:(NSString *)eventID  deviceID:(NSString*)deviceID {
+    NSLog(@"DEMO APP: got StopPlaySirenEvent: %@", deviceID);
+}
+
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
