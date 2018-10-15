@@ -317,6 +317,9 @@ typedef enum {
  */
 - (void) flipCamera:(BOOL)front;
 
+- (void) setToken:(NSString *)token;
+- (void) deleteToken:(NSString *)token;
+
 ////////////////////////
 
 //helpers
