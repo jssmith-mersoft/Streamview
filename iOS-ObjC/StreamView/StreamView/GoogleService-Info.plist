@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>184101069325-4gc1ovkd20gskoa7k6o6qfb99icbrqvg.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.184101069325-4gc1ovkd20gskoa7k6o6qfb99icbrqvg</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAul8IjxnIGkCgn-3SQWZdaeHU2MSDaMtM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>184101069325</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.mersoft.stream.Demo</string>
+	<key>PROJECT_ID</key>
+	<string>mersoft-streamview</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mersoft-streamview.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:184101069325:ios:284c9c8a5f6a9027</string>
+	<key>DATABASE_URL</key>
+	<string>https://mersoft-streamview.firebaseio.com</string>
+</dict>
+</plist>

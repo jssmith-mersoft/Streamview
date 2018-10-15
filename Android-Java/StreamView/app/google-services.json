@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "184101069325",
+    "firebase_url": "https://mersoft-streamview.firebaseio.com",
+    "project_id": "mersoft-streamview",
+    "storage_bucket": "mersoft-streamview.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184101069325:android:f6fd1a9905797ee6",
+        "android_client_info": {
+          "package_name": "streamview.mersoft.com.streamview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184101069325-vffr8asa2qv694h2ti2rmsn9c4o9054g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "streamview.mersoft.com.streamview",
+            "certificate_hash": "1f1b193151dc53976e1f87b672423ccb5dfe6d8d"
+          }
+        },
+        {
+          "client_id": "184101069325-7d0ct3uh5ikpgh2mgusadvd52sjgecec.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbRHL8Xilr3gUe61yFDj4y8WWXzJ-pYag"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184101069325-7d0ct3uh5ikpgh2mgusadvd52sjgecec.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "184101069325-4gc1ovkd20gskoa7k6o6qfb99icbrqvg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mersoft.stream.Demo",
+                "app_store_id": "1386243354"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
