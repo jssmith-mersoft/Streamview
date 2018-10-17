@@ -14,6 +14,7 @@
 - (void)sendIceCandidate:(NSString *)candidate withId:(NSString*)id  withLabel:(NSNumber*)label call:(NSString*)callID peer:(NSString*)CID;
 - (void)updateIce:(NSString *)message call:(NSString*)callID peer:(NSString*)CID;
 - (void)didReceiveRemoteVideoTrack:(id)remoteVideoTrack call:(NSString*)callID peer:(NSString*)CID;
+- (void)didReceiveRemoteAudioTrack:(id)remoteAudioTrack call:(NSString*)callID peer:(NSString*)CID;
 - (void)didReceiveLocalVideoTrack:(id)localVideoTrack call:(NSString*)callID peer:(NSString*)CID;
 // - (void)removePeerConnection:(id)peerConnection;
 - (void)unexpectedMoveMessageError:(NSString*)message title:(NSString*)title;

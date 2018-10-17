@@ -12,6 +12,7 @@
 @protocol DemoOnCallViewControllerDelegate <NSObject>
 
 - (void)muteCall:(BOOL)muted;
+- (void)muteRemoteCall:(BOOL)muted callId:(NSString*)callId;
 - (void)freezeCall:(BOOL)frozen;
 - (void)flipCamera:(BOOL)cameraIsFront;
 - (void)endCall:(NSString*)callId;

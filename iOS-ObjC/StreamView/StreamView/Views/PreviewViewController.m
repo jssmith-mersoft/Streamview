@@ -801,6 +801,10 @@
     [[appDelegate moveClient] mute:muted];
 }
 
+- (void)muteRemoteCall:(BOOL)muted callId:(NSString*)callId{
+    [[appDelegate moveClient] muteRemote:muted call:callId];
+}
+
 - (void)freezeCall:(BOOL)frozen {
     [[appDelegate moveClient] freeze:frozen];
 }

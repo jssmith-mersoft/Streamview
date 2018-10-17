@@ -26,6 +26,7 @@ static CGFloat const kLocalViewPaddingBottom = 65;
 @implementation DemoOnCallViewController {
     CGSize _localVideoSize;
     CGSize _remoteVideoSize;
+    BOOL remoteMuted;
     BOOL muted;
     BOOL frozen;
     BOOL cameraIsFront;
@@ -149,11 +150,22 @@ static CGFloat const kLocalViewPaddingBottom = 65;
     if(!muted) {
         muted = YES;
         [_delegate muteCall:muted];
-        [sender setImage:[UIImage imageNamed:@"icon-mute"] forState:UIControlStateNormal];
+        [sender setImage:[UIImage imageNamed:@"icon_mic_off"] forState:UIControlStateNormal];
     } else {
         muted = NO;
         [_delegate muteCall:muted];
-        [sender setImage:[UIImage imageNamed:@"icon-speaker"] forState:UIControlStateNormal];
+        [sender setImage:[UIImage imageNamed:@"icon_mic_on"] forState:UIControlStateNormal];
+    }
+}
+- (IBAction)remoteMuteButtonTapped:(UIButton*)sender {
+    if(!remoteMuted) {
+        remoteMuted = YES;
+        [_delegate muteRemoteCall:remoteMuted callId:_callID];
+        [sender setImage:[UIImage imageNamed:@"icon_speaker_off"] forState:UIControlStateNormal];
+    } else {
+        remoteMuted = NO;
+         [_delegate muteRemoteCall:remoteMuted callId:_callID];
+        [sender setImage:[UIImage imageNamed:@"icon_speaker_on"] forState:UIControlStateNormal];
     }
 }
 
