@@ -348,12 +348,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            //String pepperAuthURL = "https://dev.api.pepperos.io/authentication/byEmail";
-            String pepperAuthURL = "https://staging.api.pepperos.io/authentication/byEmail";
+            String pepperAuthURL = "https://dev.api.pepperos.io/authentication/byEmail";
+            //String pepperAuthURL = "https://staging.api.pepperos.io/authentication/byEmail";
 
             if (mVendor == "pepper") {
                 String jsonResponse = null;
-                //URL pepperAuth = new URL("https://dev.api.pepperos.io/authentication/byEmail");
                 try {
                     String postData = "";
                     URL myURL = new URL(pepperAuthURL);
@@ -416,8 +415,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             String moveURL = "wss://move-dev.mersoft.biz/ws";
             if(!moveClient.isRegistered()) {
                 if (mVendor == "pepper") {
-                    //moveURL = "wss://dev.move.pepperos.io/ws";
-                    moveURL = "wss://stage.move.pepperos.io/ws";
+                    moveURL = "wss://dev.move.pepperos.io/ws";
+                    //moveURL = "wss://stage.move.pepperos.io/ws";
                 } else {
 
                 }

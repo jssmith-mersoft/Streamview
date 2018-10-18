@@ -432,7 +432,7 @@
 
 - (void)addDevice:(NSDictionary *)data deviceID:(NSString*)deviceID;
 
-- (void)addDeviceFail:cameraID:(NSString*)cameraID ErrorMessage:(NSString*)errorMessage;
+- (void)addDeviceFail:(NSString*)cameraID ErrorMessage:(NSString*)errorMessage;
 
 /*
  **

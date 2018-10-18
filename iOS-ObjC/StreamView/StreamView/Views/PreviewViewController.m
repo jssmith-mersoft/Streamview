@@ -789,6 +789,14 @@
     NSLog(@"DEMO APP: got StopPlaySirenEvent: %@", deviceID);
 }
 
+- (void)addDevice:(NSDictionary *)data deviceID:(NSString*)deviceID{
+    NSLog(@"DEMO APP: got addDevice: %@", deviceID);
+}
+
+- (void)addDeviceFail:(NSString*)cameraID ErrorMessage:(NSString*)errorMessage{
+    NSLog(@"DEMO APP: got addDeviceFail: %@ - %@", cameraID, errorMessage);
+}
+
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];

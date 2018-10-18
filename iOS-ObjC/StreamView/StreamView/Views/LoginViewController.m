@@ -58,9 +58,7 @@
 - (IBAction)enteredPressed:(id)sender {
     
     if([_switchPepper isOn]) {
-        //NSString* url = @"https://api.pepperos.io/authentication/byEmail";
-        NSString* url = @"https://staging.api.pepperos.io/authentication/byEmail";
-        //NSString* url = @"https://dev.api.pepperos.io/authentication/byEmail";
+        NSString* url =  kPepperAPIURL;
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
         [request setHTTPMethod:@"POST"];
         

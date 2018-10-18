@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -170,6 +169,21 @@ public class MainStreamViewActivity extends AppCompatActivity
                 i.putExtra("callID", callId);
                 startActivity(i);
             }
+
+            @Override
+            public void addDevice(MoveDevice data, String deviceID){
+                Log.d("DEMO", "addDevice for new deivce "+deviceID);
+
+                // Update the devices array to get images for new device
+                cameraIDs.add(deviceID);
+            }
+
+            @Override
+            public void addDeviceFail(String cameraID, String errorMessage){
+                Log.d("DEMO", "addDeviceFail for camera "+cameraID+" with error "+errorMessage);
+            }
+
+
 /*
             @Override
             public void onHangup(String callID) {

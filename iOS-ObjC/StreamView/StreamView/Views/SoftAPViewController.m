@@ -45,13 +45,11 @@
 - (void)viewDidLoad {
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-   // [[appDelegate moveClient] close];
      _networkArray = [[NSMutableArray alloc] init];
     _barButton.target = self.revealViewController;
     _barButton.action = @selector(revealToggle:);
     
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-    
     
     [_tblNetworks setDelegate:self];
     [_tblNetworks setDataSource:self];
@@ -106,7 +104,7 @@
                                               alloc] initWithSSID:provisioningSSID];
     configuration.joinOnce = YES;
     
-    [[appDelegate moveClient] close];
+    //[[appDelegate moveClient] close];
     [[NEHotspotConfigurationManager sharedManager] applyConfiguration:configuration completionHandler:^(NSError *_Nullable error){
         NSLog(@"Conn to SoftAP");   // anInteger outside variables
     
