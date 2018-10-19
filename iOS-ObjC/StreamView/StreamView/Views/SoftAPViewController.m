@@ -332,6 +332,8 @@
             }
             if(stream == outputStream) {
                 NSLog(@"NSStreamEventErrorOccurred outputStream.");
+                
+                [self reconnectionToMove];
             }
             break;
         }
@@ -381,13 +383,7 @@
         NSLog(@"account ID is set");
         [self SetServer:nil];
     }else if ([res caseInsensitiveCompare: @"set wifi"]==NSOrderedSame) {
-        //Disconnect
-        if (onRealWifi == FALSE) {
-            NSLog(@"removing Config for SID :%@",provisioningSSID);
-            [[NEHotspotConfigurationManager sharedManager] removeConfigurationForSSID:provisioningSSID];
-        }
-        //connect to Move again
-        [[appDelegate moveClient] reconnect];
+          NSLog(@"wifi info is set");
     }
 }
 
@@ -425,5 +421,32 @@
     Apple80211Close(airportHandle);
     */
 }
+
+- (void)reconnectionToMove {
+    //Disconnect
+    if (onRealWifi == FALSE) {
+        NSLog(@"removing Config for SID :%@",provisioningSSID);
+        [[NEHotspotConfigurationManager sharedManager] removeConfigurationForSSID:provisioningSSID];
+        onRealWifi = TRUE;
+    }
+    
+    NSLog(@"has network %@",appDelegate.hasInet ? @"true" : @"false");
+    if (appDelegate.hasInet) {
+        
+        //connect to Move again
+        [[appDelegate moveClient] reconnect];
+        
+        //Change Screens
+        
+    } else {
+        NSLog(@"Waiting for WIFI Network");
+        [NSTimer scheduledTimerWithTimeInterval:0.5f
+                                         target:self
+                                       selector: @selector(reconnectionToMove)
+                                       userInfo:nil
+                                        repeats:NO];
+    }
+}
+
 
 @end
