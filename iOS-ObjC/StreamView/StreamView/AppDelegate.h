@@ -15,8 +15,8 @@
 //#define kMoveURLPepper @"wss://dev.move.pepperos.io/ws"
 #define kMoveURLPepper @"wss://stage.move.pepperos.io/ws"
 //#define kMoveURLPepper @"wss://prod.move.pepperos.io/ws"
-#define kPepperAPIURL @"https://dev.api.pepperos.io/authentication/byEmail";
-//#define kPepperAPIURL @"https://staging.api.pepperos.io/authentication/byEmail";
+//#define kPepperAPIURL @"https://dev.api.pepperos.io/authentication/byEmail";
+#define kPepperAPIURL @"https://staging.api.pepperos.io/authentication/byEmail";
 //#define kPepperAPIURL @"https://api.pepperos.io/authentication/byEmail";
 
 #define kMoveURLdev @"wss://172.16.30.66:3443/ws"
