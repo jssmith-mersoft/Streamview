@@ -416,8 +416,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if(!moveClient.isRegistered()) {
                 if (mVendor == "pepper") {
                     //moveURL = "wss://dev.move.pepperos.io/ws";
-                    //moveURL = "wss://stage.move.pepperos.io/ws";
-                    moveURL = "ws://172.16.30.66:3000/ws";
+                    moveURL = "wss://stage.move.pepperos.io/ws";
                 } else {
 
                 }

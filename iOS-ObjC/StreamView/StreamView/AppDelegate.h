@@ -13,11 +13,7 @@
 
 #define kMoveURL @"wss://move-dev.mersoft.biz/ws"
 //#define kMoveURLPepper @"wss://dev.move.pepperos.io/ws"
-
-//-jss
-#define kMoveURLPepper @"ws://172.16.30.66:3000/ws"
-
-//#define kMoveURLPepper @"wss://stage.move.pepperos.io/ws"
+#define kMoveURLPepper @"wss://stage.move.pepperos.io/ws"
 //#define kMoveURLPepper @"wss://prod.move.pepperos.io/ws"
 #define kPepperAPIURL @"https://dev.api.pepperos.io/authentication/byEmail";
 //#define kPepperAPIURL @"https://staging.api.pepperos.io/authentication/byEmail";
