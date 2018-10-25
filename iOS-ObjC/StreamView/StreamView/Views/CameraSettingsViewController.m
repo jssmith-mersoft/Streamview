@@ -77,7 +77,7 @@
 }
 
 - (void)notificationReceived:(MoveNotification *)notification  {
-    NSLog(@"Got notification");
+    NSLog(@"Got notification - camera settings");
 }
 
 - (void)configChange:(NSDictionary *)data {
@@ -266,6 +266,41 @@
 - (void)configChange:(NSDictionary *)data deviceID:(NSString*)deviceID {
     NSLog(@"DEMO APP: got configupdate : %@    %@", data, deviceID);
 }
+
+- (void)SdCardInfo:(NSDictionary *)data{
+    NSLog(@"DEMO APP: got configupdate ");
+    if (data != nil) {
+        /*
+         "available":"4036032",
+         "files":["image","kernel.img"],
+         "kind":"msdos",
+         "percent":"1%",
+         "size":"4095680",
+         "used":"59648"
+         */
+        NSLog(@"======================== SD-card info ==================================");
+        NSLog(@"avaiable Space in bytes: %@",data[@"available"]);
+        NSLog(@"used Space in bytes: %@",data[@"used"]);
+        NSLog(@"total Space in bytes: %@",data[@"size"]);
+        NSLog(@"percent Space used: %@",data[@"percent"]);
+        NSLog(@"List of files: %@",data[@"files"]);
+        NSLog(@"Kinda of SD-card: %@",data[@"kind"]);
+    } else {
+        NSLog(@"No SD-Card Present");
+    }
+}
+- (void)SdCardFormat:(NSString*)status{
+    
+}
+- (void)SdCardDeleteFile:(NSString*)status{
+    ///UGH---what's the filename???
+    if ([status isEqualToString:@"true"]){
+        NSLog(@"file files was deleted");
+    } else {
+        NSLog(@"file files was deleted");
+    }
+}
+
 - (IBAction)changedName:(id)sender {
     if (!_setup) {
         [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"name": _textName.text}];
@@ -412,6 +447,9 @@
             [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"timeZone": @"HIGH"}];
         }
     }
+}
+- (IBAction)miscDevButton:(id)sender {
+    [[appDelegate moveClient] sdCardInfo:_deviceID];
 }
 
 /*

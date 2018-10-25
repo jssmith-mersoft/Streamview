@@ -192,7 +192,7 @@
     NSLog(@"DEMO APP:Received invalid account");
 }
 - (void)notificationReceived:(MoveNotification *)notification{
-    NSLog(@"DEMO APP:Received notification");
+    NSLog(@"DEMO APP:Received notification - Login View");
 }
 - (void)rawMessageReceived:(NSString *)message {
         NSLog(@"DEMO APP: Raw Message Received: %@", message);

@@ -60,6 +60,7 @@ typedef enum {
 @property (nonatomic, copy) NSString* deviceToken;
 @property (nonatomic, copy) NSString* deviceId;
 @property (readonly) MoveRegistration* currentReg;
+@property (nonatomic) NSTimer* registration_refreshTimer;
 
 /**
  Creates websocket and connects to move server. When the connection is connected the MoveConnectionDelegate method of connectionConnected will be called.
@@ -113,6 +114,14 @@ typedef enum {
 - (void) retrieveEventById:(NSString *)eventID;
 - (void) createEvent:(NSString *)eventType forDevice:(NSString*)deviceID;
 - (void) deleteEvent:(NSString*)id;
+
+- (void)sendCameraNotif:(NSString *)deviceID class:(NSString*)class data:(NSDictionary*)data;
+- (void)sdCardInfo:(NSString *)deviceID;
+- (void)sdCardFormat:(NSString *)deviceID;
+- (void)sdCardDeleteFile:(NSString *)deviceID filename:(NSString *)filename;
+- (void)sdCardUploadFile:(NSString *)deviceID filename:(NSString *)filename;
+
+
 
 - (void)join;
 

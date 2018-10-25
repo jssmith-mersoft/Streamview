@@ -104,7 +104,7 @@
                                               alloc] initWithSSID:provisioningSSID];
     configuration.joinOnce = YES;
     
-    //[[appDelegate moveClient] close];
+    [[appDelegate moveClient] close];
     [[NEHotspotConfigurationManager sharedManager] applyConfiguration:configuration completionHandler:^(NSError *_Nullable error){
         NSLog(@"Conn to SoftAP");   // anInteger outside variables
     
@@ -197,8 +197,10 @@
     if (onRealWifi == FALSE) {
         NSLog(@"removing Config for SID :%@",provisioningSSID);
         [[NEHotspotConfigurationManager sharedManager] removeConfigurationForSSID:provisioningSSID];
-        onRealWifi = TRUE;
-        [[appDelegate moveClient] reconnect];
+        if (!onRealWifi) {
+            onRealWifi = TRUE;
+            [[appDelegate moveClient] reconnect];
+        }
     }
 }
 
@@ -241,6 +243,9 @@
 {
     NSLog(@"has network %@",appDelegate.hasInet ? @"true" : @"false");
     if (appDelegate.hasInet) {
+        
+        //todo: verify it's the wifi you think it is?
+        
          NSLog(@"setting up telnet connection");
         //_spinner.stopAnimating()
         _WaitView.hidden=YES;
@@ -428,8 +433,8 @@
         NSLog(@"removing Config for SID :%@",provisioningSSID);
         [[NEHotspotConfigurationManager sharedManager] removeConfigurationForSSID:provisioningSSID];
         onRealWifi = TRUE;
-    }
     
+    }
     NSLog(@"has network %@",appDelegate.hasInet ? @"true" : @"false");
     if (appDelegate.hasInet) {
         
@@ -437,6 +442,10 @@
         [[appDelegate moveClient] reconnect];
         
         //Change Screens
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"StreamView" bundle:nil];
+        SWRevealViewController *pvc = [storyboard instantiateViewControllerWithIdentifier:@"Reveal"];
+        [pvc setModalPresentationStyle:UIModalPresentationFullScreen];
+        [self presentViewController:pvc animated:YES completion:nil];
         
     } else {
         NSLog(@"Waiting for WIFI Network");

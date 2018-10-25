@@ -482,5 +482,10 @@
 - (void)addVideoCallRecord:(NSString*)callHistoryID duration:(double)duration location:(NSString*)location
               dateReceived:(NSDate*)date dest:(NSString*)dest wasMissed:(BOOL)wasMissed wasOutgoing:(BOOL)wasOutgoing;
 
+- (void)SdCardInfo:(NSDictionary *)data;
+- (void)SdCardFormat:(NSString*)status;
+- (void)SdCardDeleteFile:(NSString*)status;
+
+- (void)messagesReceived:(NSArray *)messages;
 
 @end

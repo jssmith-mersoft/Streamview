@@ -170,24 +170,27 @@
     
     if ([_url_Arr count] > row) {
         dispatch_async(dispatch_get_global_queue(0,0), ^{
-           // NSString *fileURL =[NSString stringWithFormat:@"%@&%@",_url_Arr[row],dateString];
-            //NSLog(@"the image for row %@",(long)row);
-            NSError* error = nil;
-            if (_url_Arr[row] != [NSNull null]) {
-                NSLog(@"***********************************************************************************");
-                NSLog(@"URL is %@",_url_Arr[row]);
-                NSLog(@"***********************************************************************************");
-                NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_url_Arr[row]] options:NSDataReadingUncached error:&error];
-                //NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:_url_Arr[row]]];
-                if ( data == nil )
-                    return;
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    imageView.image =  [UIImage imageWithData: data];
-                    _image_Arr[row] =  [UIImage imageWithData: data];
-                });
+            @try {
+               // NSString *fileURL =[NSString stringWithFormat:@"%@&%@",_url_Arr[row],dateString];
+                //NSLog(@"the image for row %@",(long)row);
+                NSError* error = nil;
+                if (_url_Arr[row] != [NSNull null]) {
+                    //NSLog(@"***********************************************************************************");
+                    NSLog(@"URL is %@",_url_Arr[row]);
+                    //NSLog(@"***********************************************************************************");
+                    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_url_Arr[row]] options:NSDataReadingUncached error:&error];
+                    //NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:_url_Arr[row]]];
+                    if ( data == nil )
+                        return;
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        imageView.image =  [UIImage imageWithData: data];
+                        _image_Arr[row] =  [UIImage imageWithData: data];
+                    });
+                }
+            } @catch (NSException* e) {
+                NSLog(@"Error loading URL %@",e);
             }
-        
         });
     }
 }
@@ -510,9 +513,6 @@
 #pragma mark - MoveConnectionDelegate
 - (void)connectionConnected {
     NSLog(@"DEMO APP: Connection Connected");
-    
-    [[appDelegate moveClient] unregister];
-    [[appDelegate moveClient] register:@"screen"];
 }
 - (void)connectionFailed:(NSError *)message {
     NSLog(@"DEMO APP: Connection Failed");
@@ -607,7 +607,7 @@
     onCallViewController = nil;
 }
 - (void)onError:(NSString*)message title:(NSString*)title {
-    NSLog(@"DEMO APP: WebRTC Error: %@: %@", title, message);
+    NSLog(@"DEMO APP: Error: %@: %@", title, message);
 }
 - (void)addLocalVideoTrack:(id)localVideoTrack {
     NSLog(@"DEMO APP: Adding Local Video Track");
@@ -700,10 +700,7 @@
     NSLog(@"DEMO APP: Registration Broken");
 }
 - (void)registrationReceived:(NSString *)id withReg:(MoveRegistration*)reg {
-    NSLog(@"DEMO APP: Registration Received. REG: %@", reg.tn);
-    
-    [self setLocalConnectionId:reg.tn];
-    //[_localConnectionIdLabel setText:[NSString stringWithFormat:@"Connection ID: %@", [self localConnectionId]]];
+    NSLog(@"DEMO APP: Registration Received. REG: %@", reg.registrationId);
 }
 - (void)registrationUpdate:(NSString *)id withReg:(MoveRegistration*)reg {
     NSLog(@"DEMO APP: Registration Updated. ID: %@ | REG: %@", id, reg);
@@ -767,8 +764,43 @@
      NSLog(@"DEMO APP: got configupdate : %@", data);
 }
 - (void)configChange:(NSDictionary *)data deviceID:(NSString*)deviceID {
-    NSLog(@"DEMO APP: got configupdate : %@   %d", data, deviceID);
+    NSLog(@"DEMO APP: got configupdate : %@   %@", data, deviceID);
 }
+
+- (void)SdCardInfo:(NSDictionary *)data{
+    NSLog(@"DEMO APP: got configupdate ");
+    if (data != nil) {
+        /*
+         "available":"4036032",
+         "files":["image","kernel.img"],
+         "kind":"msdos",
+         "percent":"1%",
+         "size":"4095680",
+         "used":"59648"
+         */
+        NSLog(@"======================== SD-card info ==================================");
+        NSLog(@"avaiable Space in bytes: %@",data[@"available"]);
+        NSLog(@"used Space in bytes: %@",data[@"used"]);
+        NSLog(@"total Space in bytes: %@",data[@"size"]);
+        NSLog(@"percent Space used: %@",data[@"percent"]);
+        NSLog(@"List of files: %@",data[@"files"]);
+        NSLog(@"Kinda of SD-card: %@",data[@"files"]);
+    } else {
+         NSLog(@"No SD-Card Present");
+    }
+}
+- (void)SdCardFormat:(NSString*)status{
+    
+}
+- (void)SdCardDeleteFile:(NSString*)status{
+    ///UGH---what's the filename???
+    if ([status isEqualToString:@"true"]){
+        NSLog(@"file files was deleted");
+    } else {
+        NSLog(@"file files was deleted");
+    }
+}
+
 
 -(void)RecordVideoEvent:(NSString *)eventID  deviceID:(NSString*)deviceID  thumbnailURL:(NSString*)thumbnailURL recordedVideoURL:(NSString*)recordedVideoURL {
      NSLog(@"DEMO APP: got RecordVideoEvent : %@", deviceID);
