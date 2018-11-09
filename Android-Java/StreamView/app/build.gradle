@@ -24,7 +24,7 @@ android {
 
 dependencies {
     //implementation project(":move")
-    implementation(name: 'move-debug', ext: 'aar')
+    implementation(name: 'move-release', ext: 'aar')
     //implementation(name: 'libwebrtc', ext: 'aar')
     //implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
