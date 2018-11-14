@@ -3,26 +3,26 @@ package streamview.mersoft.com.streamview;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.mersoft.move.MoveClient;
 import com.mersoft.move.MoveListener;
 
-import org.webrtc.AudioTrack;
 import org.webrtc.EglBase;
-import org.webrtc.RendererCommon.ScalingType;
 import org.webrtc.SurfaceViewRenderer;
 import org.webrtc.VideoRenderer;
 import org.webrtc.VideoTrack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class MoveCall extends Activity {
     final static String TAG = "CallActivity";
@@ -37,6 +37,9 @@ public class MoveCall extends Activity {
     boolean muteState = true;
     boolean remoteMuteState = true;
     private EglBase rootEglBase;
+
+    private ScaleGestureDetector mScaleGestureDetector;
+
 
     //MoveClient.ProxyRenderer localRender;
     //VideoRenderer localRenderer;
@@ -85,6 +88,7 @@ public class MoveCall extends Activity {
         moveClient.setEglBase(rootEglBase.getEglBaseContext());
 
         Log.d(TAG, "Set activity");
+        mScaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
 
         MoveClient.VideoTrackCallback onAdd = new MoveClient.VideoTrackCallback() {
             @Override
@@ -137,7 +141,7 @@ public class MoveCall extends Activity {
                         Renderers removedRenderer = remoteRenderers.remove(callId + ":" + peerId);
                         if(removedRenderer != null){
                             remoteViewsParent.removeView(removedRenderer.viewRenderer);
-                            resizeRemote();
+                            //resizeRemote();
                         }
                     }
                 });
@@ -204,7 +208,7 @@ public class MoveCall extends Activity {
                         Log.d(TAG,"the Hangup button pressed");
                         for(SurfaceViewRenderer rendererView : remoteRendererViews) {
                             remoteViewsParent.removeView(rendererView);
-                            resizeRemote();
+                            //resizeRemote();
                         }
                         remoteRenderers.clear();
                     }
@@ -242,17 +246,21 @@ public class MoveCall extends Activity {
                 }
             }
         });
+    }
 
-        //
-
+    @Override
+    public boolean onTouchEvent(MotionEvent motionEvent) {
+        // Dispatch activity on touch event to the scale gesture detector.
+        mScaleGestureDetector.onTouchEvent(motionEvent);
+        return true;
     }
 
     public SurfaceViewRenderer createNewRemote(){
         SurfaceViewRenderer renderer = new SurfaceViewRenderer(this);
         remoteRendererViews.add(renderer);
-        resizeRemote();
+        //resizeRemote();
         renderer.init(rootEglBase.getEglBaseContext(), null);
-        renderer.setScalingType(ScalingType.SCALE_ASPECT_FILL);
+        //renderer.setScalingType(RendererCommon.ScalingType.SCALE_ASPECT_FIT);
         renderer.setEnableHardwareScaler(true);
         return renderer;
     }
@@ -265,4 +273,26 @@ public class MoveCall extends Activity {
         }
     }
 
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+
+        private float mScaleFactor = 1.0f;
+
+        @Override
+        public boolean onScale(ScaleGestureDetector scaleGestureDetector){
+            mScaleFactor *= scaleGestureDetector.getScaleFactor();
+            mScaleFactor = Math.max(0.1f, Math.min(mScaleFactor, 10.0f));
+
+            Iterator it = remoteRenderers.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry) it.next();
+                Renderers videoRender = (Renderers) pair.getValue();
+
+                if (videoRender.viewRenderer != null) {
+                    videoRender.viewRenderer.setScaleX(mScaleFactor);
+                    videoRender.viewRenderer.setScaleY(mScaleFactor);
+                }
+            }
+            return true;
+        }
+    }
 }

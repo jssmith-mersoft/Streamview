@@ -57,7 +57,8 @@
     <string name="account_updatedDate">Updated Date</string>
     <string name="account_server">Server</string>
     <string name="account_cid">CID</string>
-    <string name="account_logout">Logged out</string>
+    <string name="account_logout">Log out</string>
+    <string name="account_loggedout">Logged out</string>
 
 
 </resources>

@@ -315,38 +315,6 @@ public class MainStreamViewActivity extends AppCompatActivity
             return imageView;
         }
     }
-    /*
-    class GridAdapter extends BaseAdapter{
-        @Override
-        public int getCount() {
-            return cameraIDs.size();
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            Log.d(TAG,"fetching the pic");
-            view = getLayoutInflater().inflate(R.layout.single_grid, viewGroup, false);
-            ImageView snap = (ImageView) view.findViewById(R.id.snapshot);
-
-            //for each camera service go
-            if ((cameraIDs.size() > i) && (thumbnails.size() >i)) {
-                snap.setImageBitmap(thumbnails.get(cameraIDs.get(i)));
-            }
-            return view;
-        }
-    }
-    */
-
 
     @Override
     protected void onStart() {
@@ -470,7 +438,7 @@ public class MainStreamViewActivity extends AppCompatActivity
         protected Bitmap doInBackground( Object... params ) {
             deviceId = (String) params[0];
             String url = imageURLs.get(deviceId);
-
+            Log.d(TAG,"URL is "+url);
             if (url == null) {
                 return null;
             } else {
@@ -485,7 +453,7 @@ public class MainStreamViewActivity extends AppCompatActivity
                 if (visiible) {
                     Log.d(TAG, "The bitmap loaded into the array");
                     thumbnails.put(deviceId, result);
-                    gv.setAdapter(gridviewAdpt);
+                    gridviewAdpt.notifyDataSetChanged();
                 } else {
                     Log.d(TAG,"preview is not visible");
                 }

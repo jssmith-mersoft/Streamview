@@ -83,7 +83,7 @@ public class Account extends AppCompatActivity
             public void onClick(View v) {
                 moveClient.unRegister();
                 if (moveClient.isRegistered() == false) {
-                    Toast.makeText(Account.this, R.string.account_logout, Toast.LENGTH_LONG).show();
+                    Toast.makeText(Account.this, R.string.account_loggedout, Toast.LENGTH_LONG).show();
                 }
                 Intent e=new Intent(Account.this,LoginActivity.class);
                 startActivity(e);
