@@ -160,7 +160,10 @@
         if (parms[@"imageFlip"] != nil) {
             NSLog(@"imageFlip is a %@ %@", [parms valueForKey:@"imageFlip"], NSStringFromClass([[parms valueForKey:@"imageFlip"] class]));
             
-            NSString *imageFlip = parms[@"imageFlip"];
+            NSString *imageFlip; //= (NSString*) parms[@"imageFlip"];
+            if ([NSStringFromClass([[parms valueForKey:@"imageFlip"] class]) containsString:@"NSCFNumber"]) {
+                imageFlip = [(NSNumber*)parms[@"imageFlip"] stringValue];
+            }
             
             if ([imageFlip isEqualToString:@"0"]) {
                 [_switchImageFlip setSelectedSegmentIndex:0];
@@ -177,7 +180,7 @@
         if (parms[@"imageMotion"] != nil) {
             NSLog(@"imageMotion is a %@ %@", [parms valueForKey:@"imageMotion"], NSStringFromClass([[parms valueForKey:@"imageMotion"] class]));
             
-            NSString *imageMotion = parms[@"imageMotion"];
+            NSString *imageMotion = (NSString*) parms[@"imageMotion"];
             if ([imageMotion isEqualToString:@"LOW"]) {
                 [_switchImageMotion setSelectedSegmentIndex:0];
             } else if ([imageMotion isEqualToString:@"MED"]) {
@@ -190,7 +193,7 @@
         if (parms[@"imageQuality"] != nil) {
             NSLog(@"imageQuality is a %@ %@", [parms valueForKey:@"imageQuality"], NSStringFromClass([[parms valueForKey:@"imageQuality"] class]));
             
-            NSString *imageQuality = parms[@"imageQuality"];
+            NSString *imageQuality =  (NSString*) parms[@"imageQuality"];
             if ([imageQuality isEqualToString:@"LOW"]) {
                 [_switchVideoImage setSelectedSegmentIndex:0];
             } else if ([imageQuality isEqualToString:@"MED"]) {
@@ -202,7 +205,7 @@
         
         if (parms[@"sirenDur"] != nil) {
              NSLog(@"sirenDur is a %@ %@", [parms valueForKey:@"sirenDur"], NSStringFromClass([[parms valueForKey:@"sirenDur"] class]));
-             NSString *imageQuality = parms[@"sirenDur"];
+             NSString *imageQuality =  (NSString*) parms[@"sirenDur"];
              if ([imageQuality isEqualToString:@"5 secs"]) {
                  [_switchVideoImage setSelectedSegmentIndex:0];
              } else if ([imageQuality isEqualToString:@"10 secs"]) {
@@ -223,7 +226,7 @@
         if (parms[@"recordDur"] != nil) {
             NSLog(@"recordDur is a %@ %@", [parms valueForKey:@"recordDur"], NSStringFromClass([[parms valueForKey:@"recordDur"] class]));
             
-             NSString *imageQuality = parms[@"recordDur"];
+             NSString *imageQuality =  (NSString*) parms[@"recordDur"];
              if ([imageQuality isEqualToString:@"SHORT"]) {
              [_switchRecordDur setSelectedSegmentIndex:1];
              } else if ([imageQuality isEqualToString:@"LONG"]) {
@@ -430,10 +433,20 @@
 
 - (IBAction)changeWaterMark:(id)sender {
     if (!_setup) {
+         if ( [_switchWaterMark isOn]) {
+             [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"watermark": @"true"}];
+         } else {
+              [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"watermark": @"false"}];
+         }
     }
 }
 - (IBAction)changeTimeStamp:(id)sender {
     if (!_setup) {
+        if ( [_switchTimeStamp isOn]) {
+            [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"timeStamp": @"true"}];
+        } else {
+            [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"timeStamp": @"false"}];
+        }
     }
 }
 

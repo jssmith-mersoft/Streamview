@@ -8,8 +8,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.mersoft.move.MoveClient;
 
 public class Account extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -21,16 +30,6 @@ public class Account extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        */
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -39,6 +38,62 @@ public class Account extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Set the Contents
+        MoveClient moveClient = StreamView.getMoveClient();
+        LinearLayout viewContents = (LinearLayout) findViewById(R.id.viewContent);
+
+        LinearLayout a = new LinearLayout(this);
+        a.setOrientation(LinearLayout.HORIZONTAL);
+        // Create TextView programmatically.
+        TextView textLabel = new TextView(this);
+        //textLabel.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        //textLabel.setGravity(Gravity.LEFT);
+        textLabel.setText(R.string.account_name);
+        a.addView(textLabel);
+
+        if (moveClient.getCurrentRegistration() != null) {
+            textLabel = new TextView(this);
+            //textLabel.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            //textLabel.setGravity(Gravity.LEFT);
+            textLabel.setText(moveClient.getCurrentRegistration().getName());
+            a.addView(textLabel);
+            viewContents.addView(a);
+        }
+
+/*
+        // Create TextView programmatically.
+        TextView textView = new TextView(this);
+        textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        textView.setGravity(Gravity.LEFT);
+        textView.setText(R.string.account_name);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, R.string.clicked_on_me, Toast.LENGTH_LONG).show();
+            }
+        });
+*/
+
+        Button btnSignOut = new Button(this);
+        btnSignOut.setText(R.string.account_logout);
+
+        btnSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moveClient.unRegister();
+                if (moveClient.isRegistered() == false) {
+                    Toast.makeText(Account.this, R.string.account_logout, Toast.LENGTH_LONG).show();
+                }
+                Intent e=new Intent(Account.this,LoginActivity.class);
+                startActivity(e);
+                finish();
+            }
+        });
+
+        viewContents.addView(btnSignOut);
+
+
     }
 
     @Override

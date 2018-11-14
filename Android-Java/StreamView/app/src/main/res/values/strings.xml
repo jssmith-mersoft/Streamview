@@ -46,4 +46,18 @@
 
     <string name="notifications_admin_channel_name">StreamView Events</string>
     <string name="notifications_admin_channel_description">StreamView Events</string>
+    <item type="id" name="previewGridView" />
+
+    <!-- Account Screen -->
+    <string name="account_name">Name</string>
+    <string name="account_userName">UserName</string>
+    <string name="account_email">Email</string>
+    <string name="account_accountId">Account ID</string>
+    <string name="account_createDate">Create Date</string>
+    <string name="account_updatedDate">Updated Date</string>
+    <string name="account_server">Server</string>
+    <string name="account_cid">CID</string>
+    <string name="account_logout">Logged out</string>
+
+
 </resources>

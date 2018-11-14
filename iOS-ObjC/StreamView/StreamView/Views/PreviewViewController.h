@@ -69,7 +69,7 @@
 #pragma mark - OnCallViewContollerDelegate
 - (void)muteCall:(BOOL)muted;
 - (void)freezeCall:(BOOL)frozen;
-- (void)flipCamera:(BOOL)cameraIsFront;
+- (void)flipCamera:(NSString*)deviceID;
 - (void)endCall:(NSString*)callId;
 
 

@@ -8,4 +8,13 @@
     tools:context=".Account"
     tools:showIn="@layout/app_bar_main_stream_view">
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="102dp"
+        tools:layout_editor_absoluteY="382dp" />
+
+
 </android.support.constraint.ConstraintLayout>

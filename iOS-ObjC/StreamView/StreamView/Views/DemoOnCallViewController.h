@@ -14,7 +14,7 @@
 - (void)muteCall:(BOOL)muted;
 - (void)muteRemoteCall:(BOOL)muted callId:(NSString*)callId;
 - (void)freezeCall:(BOOL)frozen;
-- (void)flipCamera:(BOOL)cameraIsFront;
+- (void)flipCamera:(NSString*)deviceID;
 - (void)endCall:(NSString*)callId;
 
 @end
@@ -30,6 +30,7 @@
 @property (nonatomic, copy) NSMutableDictionary* remoteVideoTracks;
 
 @property (nonatomic) NSString *callID;
+@property (nonatomic) NSString *deviceID;
 @property IBOutlet UILabel *callIDLabel;
 
 - (void) setLocalVideoView:(RTCEAGLVideoView *)localVideoView;

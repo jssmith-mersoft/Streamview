@@ -849,8 +849,9 @@
     [[appDelegate moveClient] freeze:frozen];
 }
 
-- (void)flipCamera:(BOOL)cameraIsFront {
-    [[appDelegate moveClient] flipCamera:cameraIsFront];
+- (void)flipCamera:(NSString*)deviceID {
+    //[[appDelegate moveClient] flipCamera:cameraIsFront];
+     [[appDelegate moveClient] updateConfig:self.remoteConnectionId withData:@{@"imageFlip": @"0"}];
 }
 
 - (void)endCall:(NSString*)callId {

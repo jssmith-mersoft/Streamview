@@ -243,36 +243,49 @@
 {
     NSLog(@"has network %@",appDelegate.hasInet ? @"true" : @"false");
     if (appDelegate.hasInet) {
+        NSArray *ifs = (__bridge_transfer id)CNCopySupportedInterfaces();
+        NSLog(@" network interfaces count %d", [ifs count]);
+        for (NSString *ifnam in ifs) {
+            NSDictionary *info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
+            if (info[@"SSID"]) {
+                NSLog(@"ifnam= %@",ifnam);
+                NSLog(@"info= %@",info);
+                currentSSID = info[@"SSID"];
+            }
+        }
+        if ([currentSSID isEqualToString:provisioningSSID]) {
         
-        //todo: verify it's the wifi you think it is?
-        
-         NSLog(@"setting up telnet connection");
-        //_spinner.stopAnimating()
-        _WaitView.hidden=YES;
-        if(inputStream && outputStream)
-            [self close];
+             NSLog(@"setting up telnet connection");
+            //_spinner.stopAnimating()
+            _WaitView.hidden=YES;
+            if(inputStream && outputStream)
+                [self close];
 
-        CFReadStreamRef readStream;
-        CFWriteStreamRef writeStream;
-        CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)@"192.168.8.1", 5053, &readStream, &writeStream);
-       
-        inputStream = (__bridge_transfer NSInputStream *)readStream;
-        outputStream = (__bridge_transfer NSOutputStream *)writeStream;
+            CFReadStreamRef readStream;
+            CFWriteStreamRef writeStream;
+            CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)@"192.168.8.1", 5053, &readStream, &writeStream);
         
-        [inputStream setDelegate:self];
-        [outputStream setDelegate:self];
-        [inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-        [outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-        [inputStream open];
-        [outputStream open];
+            inputStream = (__bridge_transfer NSInputStream *)readStream;
+            outputStream = (__bridge_transfer NSOutputStream *)writeStream;
         
-        //background this or hand error???
-        NSLog(@"Get the Network list in one sec");
-        [NSTimer scheduledTimerWithTimeInterval:1.0f
-                                         target:self
-                                       selector: @selector(GetNetworks)
-                                       userInfo:nil
-                                        repeats:NO];
+            [inputStream setDelegate:self];
+            [outputStream setDelegate:self];
+            [inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+            [outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+            [inputStream open];
+            [outputStream open];
+        
+            //background this or hand error???
+            NSLog(@"Get the Network list in one sec");
+            [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                             target:self
+                                           selector: @selector(GetNetworks)
+                                           userInfo:nil
+                                            repeats:NO];
+        } else {
+            _WaitView.hidden=YES;
+            NSLog(@"could not connect to %@ network",provisioningSSID);
+        }
     } else {
         NSLog(@"Waiting for AP Network");
         [NSTimer scheduledTimerWithTimeInterval:0.5f

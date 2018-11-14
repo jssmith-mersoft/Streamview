@@ -1,9 +1,11 @@
 package streamview.mersoft.com.streamview;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.mersoft.move.MoveClient;
 import com.mersoft.move.MoveDevice;
@@ -58,6 +62,7 @@ public class MainStreamViewActivity extends AppCompatActivity
     MoveListener callbacks;
     GridView gv;
     GridAdapter gridviewAdpt;
+    boolean visiible;
 
     private Timer thumbNailLoaderTimer1;
     private TimerTask mThumbNailLoaderTt1;
@@ -71,6 +76,7 @@ public class MainStreamViewActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        visiible = true;
         counter++;
         setContentView(R.layout.activity_main_stream_view);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -99,9 +105,23 @@ public class MainStreamViewActivity extends AppCompatActivity
         imageURLs = new HashMap<String,String>();
         thumbnails = new HashMap<String,Bitmap>();
         cameraIDs = new ArrayList<String>();
-        gv = (GridView) findViewById(R.id.gridview);
+
+        LinearLayout viewContents = (LinearLayout) findViewById(R.id.viewContent);
+
+        //create the gridview
+        gv = new GridView(this);
+        gv.setId(R.id.previewGridView);
+        gv.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT,GridView.LayoutParams.MATCH_PARENT));
+        gv.setBackgroundColor(Color.WHITE);
+        gv.setNumColumns(1);
+        gv.setColumnWidth(GridView.AUTO_FIT);
+        gv.setVerticalSpacing(5);
+        gv.setHorizontalSpacing(5);
+        gv.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
+
         gridviewAdpt = new GridAdapter();
         gv.setAdapter(gridviewAdpt);
+        viewContents.addView(gv);
 
         moveClient = StreamView.getMoveClient();
         moveClient.setContext(getApplicationContext());
@@ -246,6 +266,56 @@ public class MainStreamViewActivity extends AppCompatActivity
         });
     }
 
+    public class GridAdapter extends BaseAdapter {
+
+        private Context mContext;
+        private Bitmap[]mis_fotos;
+
+        /*
+        public ImageAdapter(Context c) {
+            mContext = c;
+        }
+        */
+
+        @Override
+        public int getCount() {
+            return cameraIDs.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ImageView imageView;
+            if (convertView == null) {
+                imageView = new ImageView(StreamView.getAppContext());
+
+                DisplayMetrics displaymetrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay()
+                        .getMetrics(displaymetrics);
+                int width = displaymetrics.widthPixels;
+                int height = displaymetrics.heightPixels;
+
+                imageView.setLayoutParams(new GridView.LayoutParams(width, height/3));
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                imageView.setPadding(0, 0, 0, 0);
+            } else {
+                imageView = (ImageView) convertView;
+            }
+            //imageView.setImageBitmap(mis_fotos[position]);
+            imageView.setImageBitmap(thumbnails.get(cameraIDs.get(position)));
+            return imageView;
+        }
+    }
+    /*
     class GridAdapter extends BaseAdapter{
         @Override
         public int getCount() {
@@ -275,6 +345,8 @@ public class MainStreamViewActivity extends AppCompatActivity
             return view;
         }
     }
+    */
+
 
     @Override
     protected void onStart() {
@@ -286,12 +358,35 @@ public class MainStreamViewActivity extends AppCompatActivity
         ed.putBoolean("active", true);
         ed.commit();
 
-        Log.d(TAG,"Started");
+        Log.d(TAG,"Preview Started");
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        visiible = true;
+
+        startThumbnailTimer();
+        startURLTimer();
+
+        Log.d(TAG,"Preview Resumed");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        visiible = false;
+
+        stopTimer();
+
+        Log.d(TAG,"Preview Paused");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+
+        visiible = false;
 
         // Store our shared preference
         SharedPreferences sp = getSharedPreferences("OURINFO", MODE_PRIVATE);
@@ -344,18 +439,23 @@ public class MainStreamViewActivity extends AppCompatActivity
         if (id == R.id.nav_account) {
             Intent h=new Intent(MainStreamViewActivity.this,Account.class);
             startActivity(h);
+            finish();
         } else if (id == R.id.nav_events) {
             Intent e=new Intent(MainStreamViewActivity.this,Events.class);
             startActivity(e);
+            finish();
         } else if (id == R.id.nav_home) {
             Intent e=new Intent(MainStreamViewActivity.this,MainStreamViewActivity.class);
             startActivity(e);
+            finish();
         } else if (id == R.id.nav_provisionQR) {
             Intent e=new Intent(MainStreamViewActivity.this,ProvisionSoftQR.class);
             startActivity(e);
+            finish();
         } else if (id == R.id.nav_provisionSAP) {
             Intent e=new Intent(MainStreamViewActivity.this,ProvisionSoftAP.class);
             startActivity(e);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -382,9 +482,13 @@ public class MainStreamViewActivity extends AppCompatActivity
         protected void onPostExecute( Bitmap result ) {
             super.onPostExecute( result );
             if (result != null){
-                Log.d(TAG, "The bitmap loaded into the array");
-                thumbnails.put(deviceId,result);
-                gv.setAdapter(gridviewAdpt);
+                if (visiible) {
+                    Log.d(TAG, "The bitmap loaded into the array");
+                    thumbnails.put(deviceId, result);
+                    gv.setAdapter(gridviewAdpt);
+                } else {
+                    Log.d(TAG,"preview is not visible");
+                }
             } else {
                 Log.d(TAG,"Nothing returned");
             }
@@ -424,6 +528,10 @@ public class MainStreamViewActivity extends AppCompatActivity
         if(thumbNailLoaderTimer1 != null){
             thumbNailLoaderTimer1.cancel();
             thumbNailLoaderTimer1.purge();
+        }
+        if(thbUrlLoaderTimer1 != null){
+            thbUrlLoaderTimer1.cancel();
+            thbUrlLoaderTimer1.purge();
         }
     }
 

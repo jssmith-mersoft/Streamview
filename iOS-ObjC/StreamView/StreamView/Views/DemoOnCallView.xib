@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="DemoOnCallViewController" customClass="DemoOnCallViewController" customModule="StreamView" customModuleProvider="target">
             <connections>
                 <outlet property="callIDLabel" destination="KUx-ZJ-6AA" id="LPc-Th-CbW"/>
+                <outlet property="callTimeLabel" destination="EYP-ag-65O" id="YDa-R5-X1N"/>
                 <outlet property="timerLabel" destination="09f-Hj-vcA" id="0AN-yj-cTd"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Kae-TV-reI"/>
             </connections>
@@ -67,7 +68,7 @@
                         <constraint firstAttribute="width" constant="50" id="nxi-ml-kWq"/>
                         <constraint firstAttribute="height" constant="50" id="zSQ-BP-dON"/>
                     </constraints>
-                    <state key="normal" image="icon-switch-camera.png"/>
+                    <state key="normal" image="icon-switch-camera"/>
                     <connections>
                         <action selector="flipCameraButtonTapped:" destination="-1" eventType="touchUpInside" id="gcz-sB-0Cy"/>
                     </connections>
@@ -79,8 +80,8 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="09f-Hj-vcA">
-                    <rect key="frame" x="166" y="572" width="42" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="09f-Hj-vcA">
+                    <rect key="frame" x="166" y="559" width="42" height="21"/>
                     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -98,9 +99,17 @@
                         <action selector="remoteMuteButtonTapped:" destination="-1" eventType="touchUpInside" id="BGh-eo-lpX"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EYP-ag-65O">
+                    <rect key="frame" x="166" y="585.5" width="42" height="20.5"/>
+                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstItem="hK5-n1-ZF9" firstAttribute="top" secondItem="EYP-ag-65O" secondAttribute="bottom" constant="4" id="2ca-GA-ITx"/>
                 <constraint firstItem="u0P-CJ-nlC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="4rG-pY-U3j"/>
                 <constraint firstAttribute="bottom" secondItem="hK5-n1-ZF9" secondAttribute="bottom" constant="5" id="6vh-AN-NoL"/>
                 <constraint firstAttribute="trailing" secondItem="hK5-n1-ZF9" secondAttribute="trailing" constant="5" id="81s-Kh-5x7"/>
@@ -111,6 +120,7 @@
                 <constraint firstItem="Gi8-Di-GJG" firstAttribute="leading" secondItem="EHt-LP-ajD" secondAttribute="trailing" constant="5" id="ZrI-uP-9OK"/>
                 <constraint firstItem="hK5-n1-ZF9" firstAttribute="top" secondItem="09f-Hj-vcA" secondAttribute="bottom" constant="19" id="auG-2w-pZj"/>
                 <constraint firstItem="hK5-n1-ZF9" firstAttribute="top" secondItem="u0P-CJ-nlC" secondAttribute="bottom" constant="5" id="fNN-d6-cbg"/>
+                <constraint firstItem="EYP-ag-65O" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ghv-IF-YZe"/>
                 <constraint firstItem="hK5-n1-ZF9" firstAttribute="top" secondItem="EHt-LP-ajD" secondAttribute="bottom" constant="5" id="jYN-4y-xzF"/>
                 <constraint firstItem="hK5-n1-ZF9" firstAttribute="top" secondItem="i1O-LM-CSp" secondAttribute="bottom" constant="5" id="jh2-xn-B1j"/>
                 <constraint firstItem="i1O-LM-CSp" firstAttribute="trailing" secondItem="EHt-LP-ajD" secondAttribute="trailing" constant="48" id="mZG-Zn-Gcq"/>
@@ -121,7 +131,7 @@
     </objects>
     <resources>
         <image name="icon-pause.png" width="44" height="44"/>
-        <image name="icon-switch-camera.png" width="25" height="25"/>
+        <image name="icon-switch-camera" width="25" height="25"/>
         <image name="icon_mic_off" width="36" height="36"/>
         <image name="icon_speaker_on" width="54" height="54"/>
     </resources>

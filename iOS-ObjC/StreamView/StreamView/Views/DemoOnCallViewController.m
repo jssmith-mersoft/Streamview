@@ -18,8 +18,10 @@ static CGFloat const kLocalViewPaddingBottom = 65;
 
 //timer
 @property NSTimer *clockTicks;
+@property NSTimer *callTicks;
 @property NSDate *start_date;
 @property (strong, nonatomic) IBOutlet UILabel *timerLabel;
+@property (strong, nonatomic) IBOutlet UILabel *callTimeLabel;
 
 @end
 
@@ -37,6 +39,11 @@ static CGFloat const kLocalViewPaddingBottom = 65;
     [_callIDLabel setText:_callID];
 }
 
+- (void) setDeviceID:(NSString *)deviceID {
+    _deviceID = deviceID;
+    [_callIDLabel setText:_deviceID];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"DEMO APP: LOADING ONCALLVIEW...");
@@ -47,6 +54,11 @@ static CGFloat const kLocalViewPaddingBottom = 65;
     _remoteViews = [[ NSMutableDictionary alloc] init];
     _remoteVideoTracks = [[ NSMutableDictionary alloc] init];
     [self startTimer];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [_callTicks invalidate];
+    _callTicks = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -182,12 +194,7 @@ static CGFloat const kLocalViewPaddingBottom = 65;
 }
 
 - (IBAction)flipCameraButtonTapped:(UIButton*)sender {
-    sender.enabled = NO;
-    cameraIsFront = !cameraIsFront;
-    [_delegate flipCamera:cameraIsFront];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
-        sender.enabled = YES;
-    });
+    [_delegate flipCamera:@""];
 }
 
 - (IBAction)endButtonTapped:(id)sender {
@@ -230,6 +237,11 @@ static CGFloat const kLocalViewPaddingBottom = 65;
                                                  selector:@selector(updateTimer)
                                                  userInfo:nil
                                                   repeats:YES];
+    _callTicks = [NSTimer scheduledTimerWithTimeInterval:1.0/100.0
+                                                   target:self
+                                                 selector:@selector(updateCallTimer)
+                                                 userInfo:nil
+                                                  repeats:YES];
 }
 -(void)stopTimer{
     [_clockTicks invalidate];
@@ -250,6 +262,17 @@ static CGFloat const kLocalViewPaddingBottom = 65;
     NSString *timeString=[dateFormatter stringFromDate:timerDate];
     _timerLabel.text = timeString;
     NSLog(@"timer = %@",timeString);
+}
+
+-(void)updateCallTimer{
+    NSDate *currentDate = [NSDate date];
+    NSTimeInterval timeInterval = [currentDate timeIntervalSinceDate:_start_date];
+    NSDate *timerDate = [NSDate dateWithTimeIntervalSince1970:timeInterval];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm:ss.SS"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0.0]];
+    NSString *timeString=[dateFormatter stringFromDate:timerDate];
+    _callTimeLabel.text = timeString;
 }
 
 

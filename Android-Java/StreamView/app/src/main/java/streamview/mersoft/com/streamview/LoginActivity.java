@@ -216,7 +216,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
+            try {
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        showProgress(true);
+                    }
+                });
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
             mAuthTask = new UserLoginTask(this, email, password, vendor);
             mAuthTask.execute((Void) null);
         }
@@ -348,8 +361,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            String pepperAuthURL = "https://dev.api.pepperos.io/authentication/byEmail";
-            //String pepperAuthURL = "https://staging.api.pepperos.io/authentication/byEmail";
+            //String pepperAuthURL = "https://dev.api.pepperos.io/authentication/byEmail";
+            String pepperAuthURL = "https://staging.api.pepperos.io/authentication/byEmail";
 
             if (mVendor == "pepper") {
                 String jsonResponse = null;
@@ -415,8 +428,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             String moveURL = "wss://move-dev.mersoft.biz/ws";
             if(!moveClient.isRegistered()) {
                 if (mVendor == "pepper") {
-                    moveURL = "wss://dev.move.pepperos.io/ws";
-                    //moveURL = "wss://stage.move.pepperos.io/ws";
+                    //moveURL = "wss://dev.move.pepperos.io/ws";
+                    moveURL = "wss://stage.move.pepperos.io/ws";
                 } else {
 
                 }
@@ -441,6 +454,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                         Log.d(TAG, "Registered... ");
                                         Intent intent = new Intent(mContext, MainStreamViewActivity.class);
                                         startActivity(intent);
+                                        finish();
 
                                         //send FB Token to move
                                         String token = MoveFireBaseService.getToken(mContext);
@@ -480,10 +494,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 });
             } else {
                 //Some how we are already registered
-                showProgress(false);
+                LoginActivity.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        Intent intent = new Intent(mContext, MainStreamViewActivity.class);
+                        startActivity(intent);
+                        finish();
+                        //showProgress(false);
+                    }
+                });
                 Log.d(TAG, "Already Registered... ");
-                Intent intent = new Intent(mContext, MainStreamViewActivity.class);
-                startActivity(intent);
             }
 
             return true;
