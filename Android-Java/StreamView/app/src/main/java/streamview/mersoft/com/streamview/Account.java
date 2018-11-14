@@ -8,17 +8,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mersoft.move.MoveClient;
+
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 public class Account extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,23 +46,99 @@ public class Account extends AppCompatActivity
 
         LinearLayout a = new LinearLayout(this);
         a.setOrientation(LinearLayout.HORIZONTAL);
-        // Create TextView programmatically.
         TextView textLabel = new TextView(this);
-        //textLabel.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        //textLabel.setGravity(Gravity.LEFT);
         textLabel.setText(R.string.account_name);
         a.addView(textLabel);
 
         if (moveClient.getCurrentRegistration() != null) {
             textLabel = new TextView(this);
-            //textLabel.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            //textLabel.setGravity(Gravity.LEFT);
             textLabel.setText(moveClient.getCurrentRegistration().getName());
+            textLabel.setPadding(25,0,0,0);
             a.addView(textLabel);
             viewContents.addView(a);
         }
 
-/*
+        a = new LinearLayout(this);
+        a.setOrientation(LinearLayout.HORIZONTAL);
+        textLabel = new TextView(this);
+        textLabel.setText(R.string.account_userName);
+        a.addView(textLabel);
+
+        if (moveClient.getCurrentRegistration() != null) {
+            textLabel = new TextView(this);
+            textLabel.setText(moveClient.getCurrentRegistration().getUsername());
+            textLabel.setPadding(25,0,0,0);
+            a.addView(textLabel);
+            viewContents.addView(a);
+        }
+
+        a = new LinearLayout(this);
+        a.setOrientation(LinearLayout.HORIZONTAL);
+        textLabel = new TextView(this);
+        textLabel.setText(R.string.account_accountId);
+        a.addView(textLabel);
+
+        if (moveClient.getCurrentRegistration() != null) {
+            textLabel = new TextView(this);
+            textLabel.setText(moveClient.getCurrentRegistration().getAccountId());
+            textLabel.setPadding(25,0,0,0);
+            a.addView(textLabel);
+            viewContents.addView(a);
+        }
+
+        a = new LinearLayout(this);
+        a.setOrientation(LinearLayout.HORIZONTAL);
+        textLabel = new TextView(this);
+        textLabel.setText(R.string.account_createDate);
+        a.addView(textLabel);
+
+        if (moveClient.getCurrentRegistration() != null) {
+            textLabel = new TextView(this);
+            /*
+            String createDate = moveClient.getCurrentRegistration().getCreated().toInstant()  // Convert `java.util.Date` to `Instant`.
+                    .atOffset( ZoneOffset.UTC )  // Transform `Instant` to `OffsetDateTime`.
+                    .format( DateTimeFormatter.ISO_LOCAL_DATE_TIME )  // Generate a String.
+                    .replace( "T" , " " );
+            textLabel.setText(createDate);
+            */
+            textLabel.setPadding(25,0,0,0);
+
+            a.addView(textLabel);
+            viewContents.addView(a);
+        }
+
+        a = new LinearLayout(this);
+        a.setOrientation(LinearLayout.HORIZONTAL);
+        textLabel = new TextView(this);
+        textLabel.setText(R.string.account_updatedDate);
+        a.addView(textLabel);
+
+        if (moveClient.getCurrentRegistration() != null) {
+            textLabel = new TextView(this);
+            /*
+            String updateDate = moveClient.getCurrentRegistration().getUpdated().toInstant()  // Convert `java.util.Date` to `Instant`.
+                    .atOffset( ZoneOffset.UTC )  // Transform `Instant` to `OffsetDateTime`.
+                    .format( DateTimeFormatter.ISO_LOCAL_DATE_TIME )  // Generate a String.
+                    .replace( "T" , " " );
+            textLabel.setText(updateDate);
+            */
+            a.addView(textLabel);
+            viewContents.addView(a);
+        }
+
+        a = new LinearLayout(this);
+        a.setOrientation(LinearLayout.HORIZONTAL);
+        textLabel = new TextView(this);
+        textLabel.setText(R.string.account_server);
+        a.addView(textLabel);
+
+        if (moveClient.getCurrentRegistration() != null) {
+            textLabel = new TextView(this);
+            textLabel.setText(moveClient.getServerURL());
+            a.addView(textLabel);
+            viewContents.addView(a);
+        }
+        /*
         // Create TextView programmatically.
         TextView textView = new TextView(this);
         textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));

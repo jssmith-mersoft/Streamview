@@ -311,7 +311,12 @@ public class MainStreamViewActivity extends AppCompatActivity
                 imageView = (ImageView) convertView;
             }
             //imageView.setImageBitmap(mis_fotos[position]);
-            imageView.setImageBitmap(thumbnails.get(cameraIDs.get(position)));
+            Bitmap thumbnail = thumbnails.get(cameraIDs.get(position));
+            if (thumbnail != null) {
+                imageView.setImageBitmap(thumbnail);
+            } else {
+                //set a default pic
+            }
             return imageView;
         }
     }
