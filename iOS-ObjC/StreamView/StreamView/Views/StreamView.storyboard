@@ -1051,8 +1051,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AMc-KG-lLc">
-                                <rect key="frame" x="281" y="50.5" width="55" height="30"/>
-                                <state key="normal" title="Get Info"/>
+                                <rect key="frame" x="288" y="50.5" width="48" height="30"/>
+                                <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="TestButton:" destination="wdu-g7-NFj" eventType="touchUpInside" id="4O3-QX-Nae"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1109,6 +1112,7 @@
                         <outlet property="rawOut" destination="eoE-I5-Ubp" id="jLV-B4-j9d"/>
                         <outlet property="updatedLabel" destination="DaN-gI-3jb" id="Rsf-Yy-nc1"/>
                         <outlet property="usernameLabel" destination="H5a-uB-dxq" id="bs4-eO-ec4"/>
+                        <segue destination="mwU-8J-cLs" kind="showDetail" identifier="showLogin" id="SgJ-sA-V6r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KGk-4H-vQM" userLabel="First Responder" sceneMemberID="firstResponder"/>

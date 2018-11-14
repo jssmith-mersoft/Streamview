@@ -51,6 +51,27 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)TestButton:(id)sender {
+    //Logout
+    [appDelegate.moveClient unregister];
+    
+    //go back to login page
+   
+        [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                         target:self
+                                       selector: @selector(goToLogin)
+                                       userInfo:nil
+                                        repeats:NO];
+       
+    
+}
+
+-(void) goToLogin {
+     NSLog(@"Logging out %@",[appDelegate.moveClient isRegistered]);
+     if (![appDelegate.moveClient isRegistered]) {
+            [self performSegueWithIdentifier:@"showLogin" sender:nil];
+     }
+}
 
 /*
 #pragma mark - Navigation
