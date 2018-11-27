@@ -180,8 +180,10 @@
                     //NSLog(@"***********************************************************************************");
                     NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_url_Arr[row]] options:NSDataReadingUncached error:&error];
                     //NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:_url_Arr[row]]];
-                    if ( data == nil )
+                    if ( data == nil ) {
+                        NSLog(@"Error Message %v",error);
                         return;
+                    }
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         imageView.image =  [UIImage imageWithData: data];

@@ -228,6 +228,7 @@ public class MainStreamViewActivity extends AppCompatActivity
         MoveRegistration curReg = moveClient.getCurrentRegistration();
 
         if (curReg != null) {
+            cameraIDs.clear();
             for (MoveService service : curReg.services) {
                 if (service.type.equalsIgnoreCase("Camera")) {
                     String currentDeviceId = service.getCameraAddress();
@@ -532,11 +533,8 @@ public class MainStreamViewActivity extends AppCompatActivity
         MoveRegistration curReg = moveClient.getCurrentRegistration();
 
         if (curReg != null) {
-            for (MoveService service : curReg.services) {
-                if (service.type.equalsIgnoreCase("Camera")) {
-                    String currentDeviceId = service.getCameraAddress();
+            for (String currentDeviceId : cameraIDs) {
                     moveClient.getCameraURL(currentDeviceId);
-                }
             }
         }
 
@@ -549,12 +547,10 @@ public class MainStreamViewActivity extends AppCompatActivity
                         MoveRegistration curReg = moveClient.getCurrentRegistration();
 
                         if (curReg != null) {
-                            for (MoveService service : curReg.services) {
-                                if (service.type.equalsIgnoreCase("Camera")) {
+                            for (String currentDeviceId : cameraIDs) {
                                     Log.d(TAG,"getting the URLs - timer");
-                                    String currentDeviceId = service.getCameraAddress();
                                     moveClient.getCameraURL(currentDeviceId);
-                                }
+
                             }
                         }
                     }
