@@ -83,18 +83,19 @@ public class Events extends AppCompatActivity
         if (id == R.id.nav_account) {
             Intent h=new Intent(Events.this,Account.class);
             startActivity(h);
+            this.finish();
         } else if (id == R.id.nav_events) {
-            Intent e=new Intent(Events.this,Events.class);
-            startActivity(e);
+            //Nothing to do
         } else if (id == R.id.nav_home) {
-            Intent e=new Intent(Events.this,MainStreamViewActivity.class);
-            startActivity(e);
+            this.finish();
         } else if (id == R.id.nav_provisionQR) {
             Intent e=new Intent(Events.this,ProvisionSoftQR.class);
             startActivity(e);
+            this.finish();
         } else if (id == R.id.nav_provisionSAP) {
             Intent e=new Intent(Events.this,ProvisionSoftAP.class);
             startActivity(e);
+            this.finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

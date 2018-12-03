@@ -18,9 +18,6 @@ import android.widget.Toast;
 
 import com.mersoft.move.MoveClient;
 
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-
 public class Account extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -212,20 +209,21 @@ public class Account extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_account) {
-            Intent h=new Intent(Account.this,Account.class);
-            startActivity(h);
+            // Nothing to do
         } else if (id == R.id.nav_events) {
             Intent e=new Intent(Account.this,Events.class);
             startActivity(e);
+            finish();
         } else if (id == R.id.nav_home) {
-            Intent e=new Intent(Account.this,MainStreamViewActivity.class);
-            startActivity(e);
+            finish();
         } else if (id == R.id.nav_provisionQR) {
             Intent e=new Intent(Account.this,ProvisionSoftQR.class);
             startActivity(e);
+            finish();
         } else if (id == R.id.nav_provisionSAP) {
             Intent e=new Intent(Account.this,ProvisionSoftAP.class);
             startActivity(e);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

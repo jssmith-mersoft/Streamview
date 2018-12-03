@@ -83,18 +83,19 @@ public class ProvisionSoftAP extends AppCompatActivity
         if (id == R.id.nav_account) {
             Intent h=new Intent(ProvisionSoftAP.this,Account.class);
             startActivity(h);
+            finish();
         } else if (id == R.id.nav_events) {
             Intent e=new Intent(ProvisionSoftAP.this,Events.class);
             startActivity(e);
+            finish();
         } else if (id == R.id.nav_home) {
-            Intent e=new Intent(ProvisionSoftAP.this,MainStreamViewActivity.class);
-            startActivity(e);
+            finish();
         } else if (id == R.id.nav_provisionQR) {
             Intent e=new Intent(ProvisionSoftAP.this,ProvisionSoftQR.class);
             startActivity(e);
+            finish();
         } else if (id == R.id.nav_provisionSAP) {
-            Intent e=new Intent(ProvisionSoftAP.this,ProvisionSoftAP.class);
-            startActivity(e);
+            //Nothing to Do
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

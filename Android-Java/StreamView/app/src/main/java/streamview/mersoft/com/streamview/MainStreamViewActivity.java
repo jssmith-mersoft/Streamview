@@ -51,8 +51,6 @@ public class MainStreamViewActivity extends AppCompatActivity
     public static int counter = 0;
 
     final static String TAG = "MainStreamViewActivity";
-    MoveClient moveClient;
-
     DrawerLayout drawer;
     NavigationView navigationView;
     Toolbar toolbar;
@@ -76,6 +74,7 @@ public class MainStreamViewActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         visiible = true;
         counter++;
         setContentView(R.layout.activity_main_stream_view);
@@ -123,7 +122,7 @@ public class MainStreamViewActivity extends AppCompatActivity
         gv.setAdapter(gridviewAdpt);
         viewContents.addView(gv);
 
-        moveClient = StreamView.getMoveClient();
+        MoveClient moveClient = StreamView.getMoveClient();
         moveClient.setContext(getApplicationContext());
         callbacks = new MoveListener();
         moveClient.addListener(new MoveListener() {
@@ -224,9 +223,7 @@ public class MainStreamViewActivity extends AppCompatActivity
 
         });
 
-        moveClient = StreamView.getMoveClient();
         MoveRegistration curReg = moveClient.getCurrentRegistration();
-
         if (curReg != null) {
             cameraIDs.clear();
             for (MoveService service : curReg.services) {
@@ -413,23 +410,17 @@ public class MainStreamViewActivity extends AppCompatActivity
         if (id == R.id.nav_account) {
             Intent h=new Intent(MainStreamViewActivity.this,Account.class);
             startActivity(h);
-            finish();
         } else if (id == R.id.nav_events) {
             Intent e=new Intent(MainStreamViewActivity.this,Events.class);
             startActivity(e);
-            finish();
         } else if (id == R.id.nav_home) {
-            Intent e=new Intent(MainStreamViewActivity.this,MainStreamViewActivity.class);
-            startActivity(e);
-            finish();
+            //nothing to do
         } else if (id == R.id.nav_provisionQR) {
             Intent e=new Intent(MainStreamViewActivity.this,ProvisionSoftQR.class);
             startActivity(e);
-            finish();
         } else if (id == R.id.nav_provisionSAP) {
             Intent e=new Intent(MainStreamViewActivity.this,ProvisionSoftAP.class);
             startActivity(e);
-            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -488,6 +479,7 @@ public class MainStreamViewActivity extends AppCompatActivity
     public void startCall(String deviceID) {
         deviceID = "Stream-DB11-befrd47sbmh02jkoceo0";
         Log.d(TAG,"Starting activity for call operation");
+        MoveClient moveClient = StreamView.getMoveClient();
         moveClient.sendAudio = false;
         moveClient.sendVideo = false;
         moveClient.receiveAudio = true;
@@ -529,7 +521,7 @@ public class MainStreamViewActivity extends AppCompatActivity
 
     private void startURLTimer(){
 
-        moveClient = StreamView.getMoveClient();
+        MoveClient moveClient = StreamView.getMoveClient();
         MoveRegistration curReg = moveClient.getCurrentRegistration();
 
         if (curReg != null) {
@@ -543,7 +535,7 @@ public class MainStreamViewActivity extends AppCompatActivity
             public void run() {
                 thbUrlLoaderHandler.post(new Runnable() {
                     public void run(){
-                        moveClient = StreamView.getMoveClient();
+                        MoveClient moveClient = StreamView.getMoveClient();
                         MoveRegistration curReg = moveClient.getCurrentRegistration();
 
                         if (curReg != null) {

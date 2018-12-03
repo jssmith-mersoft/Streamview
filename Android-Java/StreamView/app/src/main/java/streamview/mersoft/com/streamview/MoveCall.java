@@ -28,7 +28,7 @@ public class MoveCall extends Activity {
     final static String TAG = "CallActivity";
 
     MoveClient moveClient;
-
+    Activity currentActivity;
     LinearLayout remoteViewsParent;
     ImageButton hangupBtn;
     ImageButton cameraBtn;
@@ -62,7 +62,9 @@ public class MoveCall extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d(TAG, "On create!");
+        currentActivity = this;
+        //LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
+        //lbm.registerReceiver(receiver, new IntentFilter("Hangup"));
 
         String contactID = this.getIntent().getStringExtra("contact");
         final String callID = this.getIntent().getStringExtra("callID");
@@ -139,8 +141,10 @@ public class MoveCall extends Activity {
                 runOnUiThread(new Runnable() {
                     public void run() {
                         Renderers removedRenderer = remoteRenderers.remove(callId + ":" + peerId);
+                        Log.d(TAG,"Removing the track from the view");
                         if(removedRenderer != null){
                             remoteViewsParent.removeView(removedRenderer.viewRenderer);
+                            Log.d(TAG,"Removed view")
                             //resizeRemote();
                         }
                     }
@@ -150,23 +154,14 @@ public class MoveCall extends Activity {
 
         moveClient.setVideoTrackCallbacks(onAdd, onRemove);
 
-        moveClient.hangupCallback = new MoveClient.Callback() {
-            @Override
-            public void onSuccess() {
-                //Intent i = new Intent(StreamView.getAppContext(), MainStreamViewActivity.class);
-                //startActivity(i);
-            }
-
-            @Override
-            public void onFailure() {
-
-            }
-        };
-
         moveClient.addListener(new MoveListener() {
             @Override
             public void onCallId(String callId, String peerId){
                 returnedCallId = callId;
+            }
+            @Override
+            public void onHangup(String callID) {
+                currentActivity.finish();
             }
         });
 
@@ -213,7 +208,6 @@ public class MoveCall extends Activity {
                         remoteRenderers.clear();
                     }
                 });
-
 
                 moveClient.hangupCall(callID != null ? callID : returnedCallId);
             }

@@ -1,5 +1,6 @@
 package streamview.mersoft.com.streamview;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,8 @@ public class StreamView extends Application {
     static final String TAG = "StreamView";
     private static MoveClient moveClient;
     private static Context appContext;
+    private static Activity currentActivity;
+
 
     static public MoveClient getMoveClient(){
         return moveClient;
@@ -42,14 +45,11 @@ public class StreamView extends Application {
 
             @Override
             public void onHangup(String callID) {
-                //ActivityManager am = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
                 Log.d(TAG, "Hanging up call: " + callID );
 
-                //Intent intent = new Intent("MainStreamViewActivity");
-                //LocalBroadcastManager.getInstance(getAppContext()).sendBroadcast(intent);
-                Intent e=new Intent(appContext,MainStreamViewActivity.class);
-                appContext.startActivity(e);
-
+                Intent intent = new Intent("Hangup");
+                intent.getStringExtra(callID);
+                LocalBroadcastManager.getInstance(getAppContext()).sendBroadcast(intent);
             }
 
             @Override
