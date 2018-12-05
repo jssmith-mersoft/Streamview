@@ -114,32 +114,63 @@
         
         if (parms[@"DND"] != nil) {
             NSLog(@"DND is a NOT string %@ %@", NSStringFromClass([[parms valueForKey:@"DND"] class]),[parms valueForKey:@"DND"]);
-            if (parms[@"DND"] > 0) {
-                [_switchDND setOn:YES];
+            if ([NSStringFromClass([[parms valueForKey:@"DND"] class]) isEqualToString:@"__NSCFBoolean"]) {
+                if ([[parms valueForKey:@"DND"] boolValue] == NO) {
+                    NSLog(@"DND Turning off");
+                    [_switchDND setOn:NO];
+                } else {
+                    NSLog(@"DND Turning on");
+                    [_switchDND setOn:YES];
+                }
             } else {
-                [_switchDND setOn:NO];
+                if (parms[@"DND"] > 0) {
+                    [_switchDND setOn:YES];
+                } else {
+                    [_switchDND setOn:NO];
+                }
             }
         }
         
         if (parms[@"nightVision"] != nil) {
             NSLog(@"nightVision is a %@ %@", NSStringFromClass([[parms valueForKey:@"nightVision"] class]),[parms valueForKey:@"nightVision"]);
-            if (parms[@"nightVision"] > 0) {
-                [_switchNightVision setOn:YES];
+            if ([NSStringFromClass([[parms valueForKey:@"nightVision"] class]) isEqualToString:@"__NSCFBoolean"]) {
+                if ([[parms valueForKey:@"nightVision"] boolValue] == NO) {
+                    NSLog(@"nightVision Turning off");
+                    [_switchNightVision setOn:NO];
+                } else {
+                    NSLog(@"nightVision Turning on");
+                    [_switchNightVision setOn:YES];
+                }
             } else {
-                [_switchNightVision setOn:NO];
+                if (parms[@"nightVision"] > 0) {
+                    [_switchNightVision setOn:YES];
+                } else {
+                    [_switchNightVision setOn:NO];
+                }
             }
         }
         
         
         if (parms[@"privacyMode"] != nil) {
             NSLog(@"privacyMode is a %@ %@", NSStringFromClass([[parms valueForKey:@"privacyMode"] class]),[parms valueForKey:@"privacyMode"]);
-            if (parms[@"privacyMode"] > 0) {
-                 NSLog(@"privacyMode Turning on");
-                [_switchPrivacyMode setOn:YES];
+            if ([NSStringFromClass([[parms valueForKey:@"privacyMode"] class]) isEqualToString:@"__NSCFBoolean"]) {
+                if ([[parms valueForKey:@"privacyMode"] boolValue] == NO) {
+                    NSLog(@"privacyMode Turning off");
+                    [_switchPrivacyMode setOn:NO];
+                } else {
+                    NSLog(@"privacyMode Turning on");
+                    [_switchPrivacyMode setOn:YES];
+                }
             } else {
-                NSLog(@"privacyMode Turning off");
-                [_switchPrivacyMode setOn:NO];
+                if (parms[@"privacyMode"] > 0) {
+                    NSLog(@"privacyMode Turning on");
+                    [_switchPrivacyMode setOn:YES];
+                } else {
+                    NSLog(@"privacyMode Turning off");
+                    [_switchPrivacyMode setOn:NO];
+                }
             }
+           
         }
         
         //NSLog(@"timeZone is %@", parms[@"timeZone"], class_getClassName([parms[@"timeZone"] class]));
@@ -163,6 +194,8 @@
             NSString *imageFlip; //= (NSString*) parms[@"imageFlip"];
             if ([NSStringFromClass([[parms valueForKey:@"imageFlip"] class]) containsString:@"NSCFNumber"]) {
                 imageFlip = [(NSNumber*)parms[@"imageFlip"] stringValue];
+            } else {
+                imageFlip = (NSString*)parms[@"imageFlip"];
             }
             
             if ([imageFlip isEqualToString:@"0"]) {
@@ -195,31 +228,34 @@
             
             NSString *imageQuality =  (NSString*) parms[@"imageQuality"];
             if ([imageQuality isEqualToString:@"LOW"]) {
+                NSLog(@"imageQuality LOW");
                 [_switchVideoImage setSelectedSegmentIndex:0];
             } else if ([imageQuality isEqualToString:@"MED"]) {
+                NSLog(@"imageQuality MED");
                 [_switchVideoImage setSelectedSegmentIndex:1];
             } else if ([imageQuality isEqualToString:@"HIGH"]) {
+                NSLog(@"imageQuality HIGH");
                 [_switchVideoImage setSelectedSegmentIndex:2];
             }
         }
         
         if (parms[@"sirenDur"] != nil) {
              NSLog(@"sirenDur is a %@ %@", [parms valueForKey:@"sirenDur"], NSStringFromClass([[parms valueForKey:@"sirenDur"] class]));
-             NSString *imageQuality =  (NSString*) parms[@"sirenDur"];
-             if ([imageQuality isEqualToString:@"5 secs"]) {
-                 [_switchVideoImage setSelectedSegmentIndex:0];
-             } else if ([imageQuality isEqualToString:@"10 secs"]) {
-                 [_switchVideoImage setSelectedSegmentIndex:1];
-             } else if ([imageQuality isEqualToString:@"15 secs"]) {
-                 [_switchVideoImage setSelectedSegmentIndex:2];
-             } else if ([imageQuality isEqualToString:@"30 secs"]) {
-                 [_switchVideoImage setSelectedSegmentIndex:3];
-             } else if ([imageQuality isEqualToString:@"1 min"]) {
-                 [_switchVideoImage setSelectedSegmentIndex:4];
-             } else if ([imageQuality isEqualToString:@"2 min"]) {
-                 [_switchVideoImage setSelectedSegmentIndex:5];
-             } else if ([imageQuality isEqualToString:@"5 min"]) {
-                 [_switchVideoImage setSelectedSegmentIndex:6];
+             NSString *sirenDur =  (NSString*) parms[@"sirenDur"];
+             if ([sirenDur isEqualToString:@"5 secs"]) {
+                 [_switchSirenDur setSelectedSegmentIndex:0];
+             } else if ([sirenDur isEqualToString:@"10 secs"]) {
+                 [_switchSirenDur setSelectedSegmentIndex:1];
+             } else if ([sirenDur isEqualToString:@"15 secs"]) {
+                 [_switchSirenDur setSelectedSegmentIndex:2];
+             } else if ([sirenDur isEqualToString:@"30 secs"]) {
+                 [_switchSirenDur setSelectedSegmentIndex:3];
+             } else if ([sirenDur isEqualToString:@"1 min"]) {
+                 [_switchSirenDur setSelectedSegmentIndex:4];
+             } else if ([sirenDur isEqualToString:@"2 min"]) {
+                 [_switchSirenDur setSelectedSegmentIndex:5];
+             } else if ([sirenDur isEqualToString:@"5 min"]) {
+                 [_switchSirenDur setSelectedSegmentIndex:6];
              }
         }
         
@@ -233,11 +269,53 @@
                  [_switchRecordDur setSelectedSegmentIndex:0];
              }
         }
+        if (parms[@"PIRZoneMode"] != nil) {
+            NSLog(@"PIRZoneMode is a %@ %@", [parms valueForKey:@"PIRZoneMode"], NSStringFromClass([[parms valueForKey:@"PIRZoneMode"] class]));
+            
+            NSNumber *pirZoneMode; //= (NSString*) parms[@"imageFlip"];
+            if ([NSStringFromClass([[parms valueForKey:@"PIRZoneMode"] class]) containsString:@"NSCFNumber"]) {
+                pirZoneMode = (NSNumber*)parms[@"PIRZoneMode"];
+                u_int16_t shortNumber = [pirZoneMode unsignedShortValue];
+                 NSLog(@"shortNumber is a %d",shortNumber);
+                NSLog(@"shortNumber0 is a %d",shortNumber>>0);
+                NSLog(@"shortNumber1 is a %d",shortNumber>>1);
+                NSLog(@"shortNumber2 is a %d",shortNumber>>2);
+                
+                NSLog(@"PIRZone1 is a %d",(shortNumber & (1<<0))>>0 == 1) ;
+                [_switchZone1 setOn:(shortNumber & (1<<0))>>0 == 1];
+                NSLog(@"PIRZone2 is a %d",(shortNumber & (1<<1))>>1 == 1);
+                [_switchZone2 setOn:(shortNumber & (1<<1))>>1 == 1];
+                NSLog(@"PIRZone3 is a %d",(shortNumber & (1<<2))>>2 == 1);
+                [_switchZone3 setOn:(shortNumber & (1<<2))>>2 == 1];
+            }
+        }
         
+        if (parms[@"watermark"] != nil) {
+            NSLog(@"watermark is a %@ %@", NSStringFromClass([[parms valueForKey:@"watermark"] class]),[parms valueForKey:@"watermark"]);
+            if ([NSStringFromClass([[parms valueForKey:@"watermark"] class]) isEqualToString:@"__NSCFBoolean"]) {
+                if ([[parms valueForKey:@"watermark"] boolValue] == NO) {
+                    NSLog(@"watermark Turning off");
+                    [_switchWaterMark setOn:NO];
+                } else {
+                    NSLog(@"watermark Turning on");
+                    [_switchWaterMark setOn:YES];
+                }
+            }
+        }
         
+        if (parms[@"timeStamp"] != nil) {
+            NSLog(@"timeStamp is a %@ %@", NSStringFromClass([[parms valueForKey:@"timeStamp"] class]),[parms valueForKey:@"timeStamp"]);
+            if ([NSStringFromClass([[parms valueForKey:@"timeStamp"] class]) isEqualToString:@"__NSCFBoolean"]) {
+                if ([[parms valueForKey:@"timeStamp"] boolValue] == NO) {
+                    NSLog(@"timeStamp Turning off");
+                    [_switchTimeStamp setOn:NO];
+                } else {
+                    NSLog(@"timeStamp Turning on");
+                    [_switchTimeStamp setOn:YES];
+                }
+            }
+        }
         /*
-        
-         PIRZoneMode = 7;
          chime = 150;
          imageMotionGrid =         (
                                    4194303,

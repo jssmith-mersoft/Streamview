@@ -92,34 +92,44 @@
 -(void)refreshThumbs {
     if (!incall) {
         NSLog(@"Refreshing images");
-        [_accountCameras reloadItemsAtIndexPaths:_accountCameras.indexPathsForVisibleItems];
+        //clean out array of images
+        
+        for (int i = 0; i < [_address_Arr count]; i++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            NSLog(@"Refreshing images %zd",indexPath.row);
+            [self loadImage:indexPath intoImageView:nil];
+        }
+        
+        //[_accountCameras reloadItemsAtIndexPaths:_accountCameras.indexPathsForVisibleItems];
     }
 }
 
 -(void)getCameraThumbURL {
-    NSLog(@"get images urls");
-    MoveRegistration* currReg = [[appDelegate moveClient] currentReg];
-    NSArray* cameraServiceArray = [currReg getCameras];
-    
-    //clear all arrays
-    [_label_Arr removeAllObjects];
-    [_image_Arr removeAllObjects];
-    [_url_Arr removeAllObjects];
-    [_address_Arr removeAllObjects];
-    
-    for (MoveService* itService in cameraServiceArray) {
-        [_label_Arr addObject:[itService name]];
-        [_image_Arr addObject:[NSNull null]];
-        [_url_Arr addObject:[NSNull null]];
+     if (!incall) {
+        NSLog(@"get images urls");
+        MoveRegistration* currReg = [[appDelegate moveClient] currentReg];
+        NSArray* cameraServiceArray = [currReg getCameras];
         
+        //clear all arrays
+        [_label_Arr removeAllObjects];
+        [_image_Arr removeAllObjects];
+        [_url_Arr removeAllObjects];
+        [_address_Arr removeAllObjects];
         
-        //Ask for an URL
-        NSArray *addrArray = [[itService addresses] allObjects];
-        for (MoveServiceAddress* msa in addrArray) {
-            [_address_Arr addObject:[msa address]];
-            [[appDelegate moveClient] getCameraURL: [msa address]];
+        for (MoveService* itService in cameraServiceArray) {
+            [_label_Arr addObject:[itService name]];
+            [_image_Arr addObject:[NSNull null]];
+            [_url_Arr addObject:[NSNull null]];
+            
+            
+            //Ask for an URL
+            NSArray *addrArray = [[itService addresses] allObjects];
+            for (MoveServiceAddress* msa in addrArray) {
+                [_address_Arr addObject:[msa address]];
+                [[appDelegate moveClient] getCameraURL: [msa address]];
+            }
         }
-    }
+     }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -146,7 +156,6 @@
         Image_View.image= [UIImage imageNamed:@"AllCameras"];
         Image_View.contentMode = UIViewContentModeScaleAspectFit;
     } else  {
-        [self loadImage:indexPath.row intoImageView:Image_View];
         if (_image_Arr[indexPath.row] != [NSNull null]) {
             Image_View.image = _image_Arr[indexPath.row];
             Image_View.contentMode = UIViewContentModeScaleAspectFill;
@@ -162,32 +171,31 @@
     return 1;
 }
 
-- (void) loadImage:(NSInteger)row intoImageView:(UIImageView*)imageView {
+- (void) loadImage:(NSIndexPath *)indexPath intoImageView:(UIImageView*)imageView {
     //NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     //[formatter setDateFormat:@"yyyyMMddHHmmss"];
     //NSDate *currentDate = [NSDate date];
     //NSString *dateString = [formatter stringFromDate:currentDate];
     
-    if ([_url_Arr count] > row) {
+    if ([_url_Arr count] > indexPath.row) {
         dispatch_async(dispatch_get_global_queue(0,0), ^{
             @try {
                // NSString *fileURL =[NSString stringWithFormat:@"%@&%@",_url_Arr[row],dateString];
                 //NSLog(@"the image for row %@",(long)row);
                 NSError* error = nil;
-                if (_url_Arr[row] != [NSNull null]) {
-                    //NSLog(@"***********************************************************************************");
-                    NSLog(@"URL is %@",_url_Arr[row]);
-                    //NSLog(@"***********************************************************************************");
-                    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_url_Arr[row]] options:NSDataReadingUncached error:&error];
-                    //NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:_url_Arr[row]]];
+                if (_url_Arr[indexPath.row] != [NSNull null]) {
+                    NSLog(@"URL is got %zd is %@",indexPath.row, _url_Arr[indexPath.row]);
+                    NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_url_Arr[indexPath.row]] options:NSDataReadingUncached error:&error];
+               
                     if ( data == nil ) {
-                        NSLog(@"Error Message %v",error);
+                        NSLog(@"Error Message %@",error);
                         return;
                     }
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        imageView.image =  [UIImage imageWithData: data];
-                        _image_Arr[row] =  [UIImage imageWithData: data];
+                        //imageView.image =  [UIImage imageWithData: data];
+                        _image_Arr[indexPath.row] =  [UIImage imageWithData: data];
+                        [_accountCameras reloadItemsAtIndexPaths:@[indexPath]];
                     });
                 }
             } @catch (NSException* e) {
