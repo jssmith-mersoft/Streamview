@@ -788,7 +788,7 @@
          "size":"4095680",
          "used":"59648"
          */
-        NSLog(@"======================== SD-card info ==================================");
+        NSLog(@"======================== SD-card info 1==================================");
         NSLog(@"avaiable Space in bytes: %@",data[@"available"]);
         NSLog(@"used Space in bytes: %@",data[@"used"]);
         NSLog(@"total Space in bytes: %@",data[@"size"]);

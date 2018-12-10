@@ -688,19 +688,34 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uCB-h4-WDN">
                                 <rect key="frame" x="303" y="68" width="54" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Dismiss"/>
                                 <connections>
                                     <action selector="dismissView:" destination="Oun-Ce-4au" eventType="touchUpInside" id="9JS-vz-2Qy"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IMR-uJ-ceL">
-                                <rect key="frame" x="293" y="100" width="75" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                                <state key="normal" title="PRESS-ME"/>
+                                <rect key="frame" x="304" y="100" width="53" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="SDCard"/>
                                 <connections>
-                                    <action selector="dismissView:" destination="Oun-Ce-4au" eventType="touchUpInside" id="Ukq-TD-Xfj"/>
                                     <action selector="miscDevButton:" destination="Oun-Ce-4au" eventType="touchUpInside" id="Ooh-ax-tIg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wKb-55-B42">
+                                <rect key="frame" x="306" y="127" width="50" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Reboot"/>
+                                <connections>
+                                    <action selector="sendReboot:" destination="Oun-Ce-4au" eventType="touchUpInside" id="11v-2U-Cfe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ug4-Po-fzA">
+                                <rect key="frame" x="326" y="156" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Wifi"/>
+                                <connections>
+                                    <action selector="sendWifiStrength:" destination="Oun-Ce-4au" eventType="touchUpInside" id="8aA-eW-xHk"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1185,7 +1200,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EventCell" rowHeight="80" id="FEs-56-Tkv">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EventCell" rowHeight="80" id="FEs-56-Tkv">
                                         <rect key="frame" x="0.0" y="28" width="343" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FEs-56-Tkv" id="WNj-YD-vXI">

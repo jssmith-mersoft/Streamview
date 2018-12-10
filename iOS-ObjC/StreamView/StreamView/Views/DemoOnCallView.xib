@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="callIDLabel" destination="KUx-ZJ-6AA" id="LPc-Th-CbW"/>
                 <outlet property="callTimeLabel" destination="EYP-ag-65O" id="YDa-R5-X1N"/>
+                <outlet property="remoteMuteButton" destination="i1O-LM-CSp" id="NHa-c2-OI9"/>
                 <outlet property="timerLabel" destination="09f-Hj-vcA" id="0AN-yj-cTd"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Kae-TV-reI"/>
             </connections>

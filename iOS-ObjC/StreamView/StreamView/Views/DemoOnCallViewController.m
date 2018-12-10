@@ -22,6 +22,7 @@ static CGFloat const kLocalViewPaddingBottom = 65;
 @property NSDate *start_date;
 @property (strong, nonatomic) IBOutlet UILabel *timerLabel;
 @property (strong, nonatomic) IBOutlet UILabel *callTimeLabel;
+@property (strong, nonatomic) IBOutlet UIButton *remoteMuteButton;
 
 @end
 
@@ -214,6 +215,10 @@ static CGFloat const kLocalViewPaddingBottom = 65;
         _remoteVideoSize = size;
          [self stopTimer];
     }
+    
+    remoteMuted = YES;
+    [_delegate muteRemoteCall:remoteMuted callId:_callID];
+    [_remoteMuteButton setImage:[UIImage imageNamed:@"icon_speaker_off"] forState:UIControlStateNormal];
     
     [self updateVideoViewLayout];
 }

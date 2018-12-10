@@ -116,6 +116,7 @@ typedef enum {
 - (void) deleteEvent:(NSString*)id;
 
 - (void)sendCameraNotif:(NSString *)deviceID class:(NSString*)class data:(NSDictionary*)data;
+- (void)signalInfo:(NSString *)deviceID;
 - (void)sdCardInfo:(NSString *)deviceID;
 - (void)sdCardFormat:(NSString *)deviceID;
 - (void)sdCardDeleteFile:(NSString *)deviceID filename:(NSString *)filename;

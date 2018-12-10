@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StreamView/Views/CameraSettingsViewController.m"
-            timestampString = "565653273.936553"
+            timestampString = "566175729.754305"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "490"
-            endingLineNumber = "490"
+            startingLineNumber = "494"
+            endingLineNumber = "494"
             landmarkName = "-changedDebug:"
             landmarkType = "7">
          </BreakpointContent>

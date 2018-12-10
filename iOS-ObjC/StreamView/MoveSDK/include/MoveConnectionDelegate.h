@@ -481,7 +481,7 @@
 - (void)unexpectedMoveError:(NSString*)message title:(NSString*)title hangup:(BOOL)hangup;
 - (void)addVideoCallRecord:(NSString*)callHistoryID duration:(double)duration location:(NSString*)location
               dateReceived:(NSDate*)date dest:(NSString*)dest wasMissed:(BOOL)wasMissed wasOutgoing:(BOOL)wasOutgoing;
-
+- (void)SignalInfo:(NSDictionary *)data;
 - (void)SdCardInfo:(NSDictionary *)data;
 - (void)SdCardFormat:(NSString*)status;
 - (void)SdCardDeleteFile:(NSString*)status;

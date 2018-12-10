@@ -348,6 +348,10 @@
     NSLog(@"DEMO APP: got configupdate : %@    %@", data, deviceID);
 }
 
+- (void)SignalInfo:(NSDictionary *)data deviceID:(NSString*)deviceID {
+    NSLog(@"DEMO APP: got SignalInfo : %@    %@", data, deviceID);
+}
+
 - (void)SdCardInfo:(NSDictionary *)data{
     NSLog(@"DEMO APP: got configupdate ");
     if (data != nil) {
@@ -359,7 +363,7 @@
          "size":"4095680",
          "used":"59648"
          */
-        NSLog(@"======================== SD-card info ==================================");
+        NSLog(@"======================== SD-card info 2==================================");
         NSLog(@"avaiable Space in bytes: %@",data[@"available"]);
         NSLog(@"used Space in bytes: %@",data[@"used"]);
         NSLog(@"total Space in bytes: %@",data[@"size"]);
@@ -541,6 +545,12 @@
 }
 - (IBAction)miscDevButton:(id)sender {
     [[appDelegate moveClient] sdCardInfo:_deviceID];
+}
+- (IBAction)sendReboot:(id)sender {
+    [[appDelegate moveClient] createEvent:@"Reboot" forDevice:_deviceID];
+}
+- (IBAction)sendWifiStrength:(id)sender {
+     [[appDelegate moveClient] signalInfo:_deviceID];
 }
 
 /*
