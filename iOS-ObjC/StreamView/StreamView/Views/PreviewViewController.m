@@ -636,6 +636,14 @@
     [onCallViewController unsetRemoteVideoTrack:remoteVideoTrack callId:callId peerId:peerId];
 }
 
+- (void)addRemoteAudioTrack:(id)remoteAudioTrack callId:(NSString *)callId peerId:(NSString *)peerId {
+    [onCallViewController setRemoteAudioTrack:remoteAudioTrack callId:callId peerId:peerId];
+}
+- (void)removeRemoteAudioTrack:(id)remoteAudioTrack callId:(NSString *)callId peerId:(NSString *)peerId {
+    [onCallViewController unsetRemoteAudioTrack:remoteAudioTrack callId:callId peerId:peerId];
+}
+
+
 - (void)onCallId:(NSString *)callId withPeer:cid{
     NSLog(@"DEMO APP: Call ID: %@ peer: %@", callId, cid);
     callID = callId;

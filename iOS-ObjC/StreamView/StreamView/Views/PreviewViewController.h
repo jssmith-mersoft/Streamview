@@ -42,6 +42,8 @@
 - (void)addLocalVideoTrack:(id)localVideoTrack;
 - (void)addRemoteVideoTrack:(id)remoteVideoTrack callId:(NSString *)callID peerId:(NSString *)peerID;
 - (void)removeRemoteVideoTrack:(id)remoteVideoTrack callId:(NSString *)callID peerId:(NSString *)peerID;
+- (void)addRemoteAudioTrack:(id)remoteAudioTrack callId:(NSString *)callID peerId:(NSString *)peerID;
+- (void)removeRemoteAudioTrack:(id)remoteAudioTrack callId:(NSString *)callID peerId:(NSString *)peerID;
 - (void)onCallId:(NSString *)callId withPeer:(NSString*)peerId;
 - (void)onForwardResponse:(NSString *)connectionId callId:(NSString *)callId;
 - (void)setupForwardJoinCall:(NSString *)callId peerId:(NSString *)peerId;

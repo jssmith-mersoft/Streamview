@@ -2,6 +2,7 @@ package streamview.mersoft.com.streamview;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -19,12 +20,15 @@ import org.webrtc.VideoRenderer;
 import org.webrtc.VideoTrack;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class MoveCall extends Activity {
+public class MoveCall extends AppCompatActivity {
     final static String TAG = "CallActivity";
 
     MoveClient moveClient;
@@ -34,9 +38,13 @@ public class MoveCall extends Activity {
     ImageButton cameraBtn;
     ImageButton muteBtn;
     ImageButton remoteMuteBtn;
+    ImageButton sirenBtn;
+    ImageButton rotateBtn;
+    ImageButton settingBtn;
     boolean muteState = true;
     boolean remoteMuteState = true;
     private EglBase rootEglBase;
+    private Date startTime;
 
     private ScaleGestureDetector mScaleGestureDetector;
 
@@ -47,6 +55,7 @@ public class MoveCall extends Activity {
     //SurfaceViewRenderer pipRenderer;
 
     String returnedCallId;
+    private Timer timer;
 
 
     class Renderers{
@@ -128,6 +137,28 @@ public class MoveCall extends Activity {
                     }
                 });
             }
+
+
+            timer = new Timer();
+            this.startTime = new Date();
+            TimerTask updateTask = new TimerTask() {
+
+                @Override
+                public void run() {
+                    long diff = new Date().getTime() - startTime.getTime();
+                    long diffMills = diff / 10 % 100;
+                    long diffSeconds = diff / 1000 % 60;
+                    long diffMinutes = diff / (60 * 1000) % 60;
+                    long diffHours = diff / (60 * 60 * 1000);
+
+
+                    String counter = String.format("%2d:%2d:%2d:%2d",0,diffHours,diffMinutes,diffSeconds,diffMills);
+                    Log.d(TAG,"timer - "+counter);
+                };
+            };
+
+
+            timer.schedule(updateTask, 1, 240000);
         };
 
         MoveClient.VideoTrackCallback onRemove = new MoveClient.VideoTrackCallback() {
@@ -144,7 +175,7 @@ public class MoveCall extends Activity {
                         Log.d(TAG,"Removing the track from the view");
                         if(removedRenderer != null){
                             remoteViewsParent.removeView(removedRenderer.viewRenderer);
-                            Log.d(TAG,"Removed view")
+                            Log.d(TAG,"Removed view");
                             //resizeRemote();
                         }
                     }
@@ -238,6 +269,31 @@ public class MoveCall extends Activity {
                 } else {
                     remoteMuteBtn.setImageResource(R.drawable.ic_speaker_on);
                 }
+            }
+        });
+
+        sirenBtn = (ImageButton) findViewById(R.id.siren_btn);
+        sirenBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               //call move to turn on siren
+            }
+        });
+
+        rotateBtn = (ImageButton) findViewById(R.id.rotate_btn);
+        rotateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //call move to turn to rotate
+            }
+        });
+
+        settingBtn = (ImageButton) findViewById(R.id.setting_btn);
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SettingDialog settingDialog =  new SettingDialog();
+                settingDialog.show(getSupportFragmentManager(), "setting dialog");
             }
         });
     }

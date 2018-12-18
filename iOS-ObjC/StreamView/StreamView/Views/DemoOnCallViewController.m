@@ -23,6 +23,7 @@ static CGFloat const kLocalViewPaddingBottom = 65;
 @property (strong, nonatomic) IBOutlet UILabel *timerLabel;
 @property (strong, nonatomic) IBOutlet UILabel *callTimeLabel;
 @property (strong, nonatomic) IBOutlet UIButton *remoteMuteButton;
+@property (strong, nonatomic) IBOutlet UIButton *muteButton;
 
 @end
 
@@ -110,6 +111,24 @@ static CGFloat const kLocalViewPaddingBottom = 65;
     _remoteVideoTracks[peerID] = nil;
     [_remoteVideoTracks removeObjectForKey:peerID];
     [self updateVideoViewLayout];
+}
+
+- (void) setRemoteAudioTrack:(RTCVideoTrack *)remoteVideoTrack callId:(NSString *)callID peerId:(NSString *)peerID {
+    
+    //turn off remote sound
+    remoteMuted = YES;
+    [_delegate muteRemoteCall:remoteMuted callId:_callID];
+    [_remoteMuteButton setImage:[UIImage imageNamed:@"icon_speaker_off"] forState:UIControlStateNormal];
+    
+    //turn mic off
+    muted = YES;
+    [_delegate muteCall:muted];
+    [_muteButton setImage:[UIImage imageNamed:@"icon_mic_off"] forState:UIControlStateNormal];
+    
+     NSLog(@"DEMO APP: setRemoteAudioTrack peer %@", peerID);
+}
+- (void) unsetRemoteAudioTrack:(RTCVideoTrack *)remoteVideoTrack callId:(NSString *)callID peerId:(NSString *)peerID {
+     NSLog(@"DEMO APP: unsetRemoteAudioTrack peer %@", peerID);
 }
 
 - (void)updateVideoViewLayout {
@@ -215,10 +234,6 @@ static CGFloat const kLocalViewPaddingBottom = 65;
         _remoteVideoSize = size;
          [self stopTimer];
     }
-    
-    remoteMuted = YES;
-    [_delegate muteRemoteCall:remoteMuted callId:_callID];
-    [_remoteMuteButton setImage:[UIImage imageNamed:@"icon_speaker_off"] forState:UIControlStateNormal];
     
     [self updateVideoViewLayout];
 }

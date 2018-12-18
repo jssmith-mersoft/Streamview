@@ -526,8 +526,11 @@
     if (!_setup) {
         if ( [_switchTimeStamp isOn]) {
             [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"timeStamp": @"true"}];
+            [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"sdcardwrite": @"true"}];
+            
         } else {
             [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"timeStamp": @"false"}];
+            [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"sdcardwrite": @"false"}];
         }
     }
 }
@@ -551,6 +554,9 @@
 }
 - (IBAction)sendWifiStrength:(id)sender {
      [[appDelegate moveClient] signalInfo:_deviceID];
+    
+    //get logfile
+    [[appDelegate moveClient] createEvent:@"UploadLogFile" forDevice:_deviceID];
 }
 
 /*

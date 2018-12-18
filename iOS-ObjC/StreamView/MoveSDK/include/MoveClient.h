@@ -54,6 +54,7 @@ typedef enum {
  */
 @property (nonatomic) BOOL receiveVideo;
 @property (nonatomic) BOOL offer;
+@property (nonatomic) BOOL startMuted;
 
 // WebRTC Call Variables (temps help with interrupted calls)
 @property (nonatomic, copy) NSMutableDictionary* calls;

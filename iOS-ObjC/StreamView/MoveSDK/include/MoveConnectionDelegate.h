@@ -191,6 +191,7 @@
  @param peerID Peer CID of peer that is sending track
  */
 - (void)addRemoteVideoTrack:(id)remoteVideoTrack callId:(NSString *)callID peerId:(NSString *)peerID;
+- (void)addRemoteAudioTrack:(id)remoteAudioTrack callId:(NSString *)callID peerId:(NSString *)peerID;
 
 /**
  Called when a peer disconnects and no longer provides a video track
@@ -200,6 +201,7 @@
  @param peerID Peer CID of peer that is ending the track
  */
 - (void)removeRemoteVideoTrack:(id)remoteVideoTrack callId:(NSString *)callID peerId:(NSString *)peerID;
+- (void)removeRemoteAudioTrack:(id)remoteAudioTrack callId:(NSString *)callID peerId:(NSString *)peerID;
 
 
 /**

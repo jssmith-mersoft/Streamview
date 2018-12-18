@@ -55,39 +55,86 @@
         <streamview.mersoft.com.streamview.FlowLayout
             android:id="@+id/firstRow"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:background="#64000000"
+            android:orientation="horizontal"
             android:layout_alignParentBottom="true">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
                 android:orientation="horizontal">
                 <ImageButton
                     android:id="@+id/hangup_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/ic_menu_close_clear_cancel"/>
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="9dp"
+                    android:src="@android:drawable/ic_menu_close_clear_cancel"
+                    android:background="@color/transparent"/>
                 <ImageButton
                     android:id="@+id/mute_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@android:drawable/stat_notify_call_mute"/>
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="9dp"
+                    android:src="@drawable/ic_speaker_on"
+                    android:background="@color/transparent"/>
                 <ImageButton
                     android:id="@+id/remote_mute_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="9dp"
+                    android:src="@drawable/ic_mic_on"
+                    android:background="@color/transparent"/>
+                />
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@android:drawable/stat_notify_call_mute"/>
-
-                <TextView
-                    android:id="@+id/start_timer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/call_timer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                    android:layout_marginLeft="150dp"
+                    android:layout_marginTop="9dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:text="00:00:00:00"
+                        android:id="@+id/start_timer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/light_gray_color"/>
+                    <TextView
+                        android:text="00:00:00:00"
+                        android:id="@+id/call_timer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/light_gray_color"/>
+                </LinearLayout>
+                <ImageButton
+                    android:id="@+id/rotate_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="110dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@android:drawable/ic_menu_rotate"
+                    android:background="@color/transparent"/>
+                <ImageButton
+                    android:id="@+id/siren_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="60dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@android:drawable/ic_dialog_alert"
+                    android:background="@color/transparent"/>
+                <ImageButton
+                    android:id="@+id/setting_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@android:drawable/ic_menu_edit"
+                    android:background="@color/transparent"/>
+            </RelativeLayout>
 
         </streamview.mersoft.com.streamview.FlowLayout>
     </RelativeLayout>

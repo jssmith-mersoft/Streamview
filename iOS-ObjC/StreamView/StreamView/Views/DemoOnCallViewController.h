@@ -38,6 +38,8 @@
 - (void) setLocalVideoTrack:(RTCVideoTrack *)localVideoTrack;
 - (void) setRemoteVideoTrack:(RTCVideoTrack *)remoteVideoTrack callId:(NSString *)callID peerId:(NSString *)peerID;
 - (void) unsetRemoteVideoTrack:(RTCVideoTrack *)remoteVideoTrack callId:(NSString *)callID peerId:(NSString *)peerID;
+- (void) setRemoteAudioTrack:(RTCVideoTrack *)remoteVideoTrack callId:(NSString *)callID peerId:(NSString *)peerID;
+- (void) unsetRemoteAudioTrack:(RTCVideoTrack *)remoteVideoTrack callId:(NSString *)callID peerId:(NSString *)peerID;
 
 - (void) viewDidLoad;
 
