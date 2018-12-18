@@ -17,7 +17,6 @@
 		620BEE0021602AF900D86E09 /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 620BEDF821602AF800D86E09 /* FirebaseCoreDiagnostics.framework */; };
 		620BEE0121602AF900D86E09 /* GoogleAppMeasurement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 620BEDF921602AF900D86E09 /* GoogleAppMeasurement.framework */; };
 		620BEE0421602B0900D86E09 /* FirebaseMessaging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 620BEE0221602B0900D86E09 /* FirebaseMessaging.framework */; };
-		620BEE0521602B0900D86E09 /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 620BEE0321602B0900D86E09 /* Protobuf.framework */; };
 		6215639920763E1500362E83 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6215639820763E1500362E83 /* Reachability.m */; };
 		6215639C2076416C00362E83 /* DemoOnCallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6215639B2076416C00362E83 /* DemoOnCallView.xib */; };
 		621563A0207641C600362E83 /* DemoOnCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6215639D2076418800362E83 /* DemoOnCallViewController.m */; };
@@ -28,8 +27,9 @@
 		6272958720A5BBAF002122B1 /* RecordingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272958620A5BBAF002122B1 /* RecordingsViewController.m */; };
 		6272958A20A5BBBD002122B1 /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272958920A5BBBD002122B1 /* EventsViewController.m */; };
 		6272958D20A5BBE1002122B1 /* MersoftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6272958C20A5BBE1002122B1 /* MersoftViewController.m */; };
-		627FE22720D3018D000503E2 /* libmove-ios-sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 627FE22620D30123000503E2 /* libmove-ios-sdk.a */; };
 		627FE22A20D3153E000503E2 /* CameraSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 627FE22920D3153E000503E2 /* CameraSettingsViewController.m */; };
+		62952FF021C9371A0010C63E /* libmove-ios-sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A22BA82076684500B56AED /* libmove-ios-sdk.a */; };
+		62952FF121C937C50010C63E /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 620BEE0321602B0900D86E09 /* Protobuf.framework */; };
 		62A22BAB2076769400B56AED /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A22BAA2076769400B56AED /* WebRTC.framework */; };
 		62A22BAC2076769400B56AED /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 62A22BAA2076769400B56AED /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		62B7A4C2207292AF005C5130 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62B7A4C1207292AF005C5130 /* LoginViewController.m */; };
@@ -183,8 +183,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				627FE22720D3018D000503E2 /* libmove-ios-sdk.a in Frameworks */,
-				620BEE0521602B0900D86E09 /* Protobuf.framework in Frameworks */,
+				62952FF021C9371A0010C63E /* libmove-ios-sdk.a in Frameworks */,
+				62952FF121C937C50010C63E /* Protobuf.framework in Frameworks */,
 				620BEE0021602AF900D86E09 /* FirebaseCoreDiagnostics.framework in Frameworks */,
 				620BEE0121602AF900D86E09 /* GoogleAppMeasurement.framework in Frameworks */,
 				62B7C43820CECFA400336359 /* NetworkExtension.framework in Frameworks */,
@@ -442,7 +442,7 @@
 		62BF0BED2072774D004ED41F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = Mersoft;
 				TargetAttributes = {
 					62BF0BF42072774D004ED41F = {
@@ -639,6 +639,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -646,6 +647,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -695,6 +697,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -702,6 +705,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -734,10 +738,6 @@
 		62BF0C222072774D004ED41F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD)",
-					arm7s,
-				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StreamView/StreamView.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -766,15 +766,15 @@
 		62BF0C232072774D004ED41F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD)",
-					arm7s,
-				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StreamView/StreamView.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P76NDY4BKW;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Frameworks",
+					"$(inherited)",
+				);
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MoveSDK/**";
 				INFOPLIST_FILE = StreamView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

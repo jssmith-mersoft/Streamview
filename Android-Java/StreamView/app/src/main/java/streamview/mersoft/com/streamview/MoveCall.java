@@ -2,6 +2,7 @@ package streamview.mersoft.com.streamview;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.mersoft.move.MoveClient;
 import com.mersoft.move.MoveListener;
@@ -20,7 +22,6 @@ import org.webrtc.VideoRenderer;
 import org.webrtc.VideoTrack;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -41,10 +42,13 @@ public class MoveCall extends AppCompatActivity {
     ImageButton sirenBtn;
     ImageButton rotateBtn;
     ImageButton settingBtn;
+    TextView startTimerView;
+    TextView callTimerView;
     boolean muteState = true;
     boolean remoteMuteState = true;
     private EglBase rootEglBase;
-    private Date startTime;
+    private long startTime;
+    boolean firstFame = false;
 
     private ScaleGestureDetector mScaleGestureDetector;
 
@@ -55,7 +59,7 @@ public class MoveCall extends AppCompatActivity {
     //SurfaceViewRenderer pipRenderer;
 
     String returnedCallId;
-    private Timer timer;
+    private Timer clocktimer;
 
 
     class Renderers{
@@ -130,6 +134,8 @@ public class MoveCall extends AppCompatActivity {
                         newRenderer.callbacks.setTarget(newRenderer.viewRenderer);
                         remoteViewsParent.addView(newRenderer.viewRenderer);
 
+                        firstFame = true;
+
                         //default it as off.
                         muteState = false;
                         moveClient.mute(muteState);
@@ -137,28 +143,6 @@ public class MoveCall extends AppCompatActivity {
                     }
                 });
             }
-
-
-            timer = new Timer();
-            this.startTime = new Date();
-            TimerTask updateTask = new TimerTask() {
-
-                @Override
-                public void run() {
-                    long diff = new Date().getTime() - startTime.getTime();
-                    long diffMills = diff / 10 % 100;
-                    long diffSeconds = diff / 1000 % 60;
-                    long diffMinutes = diff / (60 * 1000) % 60;
-                    long diffHours = diff / (60 * 60 * 1000);
-
-
-                    String counter = String.format("%2d:%2d:%2d:%2d",0,diffHours,diffMinutes,diffSeconds,diffMills);
-                    Log.d(TAG,"timer - "+counter);
-                };
-            };
-
-
-            timer.schedule(updateTask, 1, 240000);
         };
 
         MoveClient.VideoTrackCallback onRemove = new MoveClient.VideoTrackCallback() {
@@ -218,6 +202,9 @@ public class MoveCall extends AppCompatActivity {
 
                 }
             });
+            startTimerView = (TextView) findViewById(R.id.start_timer);
+            callTimerView = (TextView)findViewById(R.id.call_timer);
+            startClock();
         } else if(operation.equals("accept_call")) {
             Log.d(TAG, "Answering call from: " + callID);
             moveClient.acceptCall(callID);
@@ -320,6 +307,41 @@ public class MoveCall extends AppCompatActivity {
         for(SurfaceViewRenderer rendererView : remoteRendererViews){
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, remoteViewsParent.getHeight() / (remoteRenderers.size() == 0 ? 1 : remoteRenderers.size()));
             rendererView.setLayoutParams(params);
+        }
+    }
+
+    public void startClock() {
+        clocktimer = new Timer();
+        this.startTime = SystemClock.uptimeMillis();
+        TimerTask updateTask = new TimerTask() {
+
+            @Override
+            public void run() {
+                int Seconds, Minutes, MilliSeconds,Hour;
+                long MillisecondTime = SystemClock.uptimeMillis() - startTime;
+
+                Seconds = (int) (MillisecondTime / 1000);
+                Minutes = Seconds / 60;
+                Seconds = Seconds % 60;
+                MilliSeconds = (int) (MillisecondTime % 1000);
+                Hour = 0;
+
+                String counter = String.format("%02d:%02d:%02d:%02d",0,Hour,Minutes,Seconds,MilliSeconds);
+                //if (!firstFame) {
+                //    startTimerView.setText(counter);
+                //}
+                //callTimerView.setText(counter);
+                Log.d(TAG,"timer - "+counter);
+            };
+        };
+
+        clocktimer.schedule(updateTask, 1, 100);
+    }
+
+    public void stopClock() {
+        if(clocktimer != null){
+            clocktimer.cancel();
+            clocktimer.purge();
         }
     }
 
