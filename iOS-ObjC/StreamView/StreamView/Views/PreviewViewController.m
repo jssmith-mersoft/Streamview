@@ -194,8 +194,10 @@
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         //imageView.image =  [UIImage imageWithData: data];
-                        _image_Arr[indexPath.row] =  [UIImage imageWithData: data];
-                        [_accountCameras reloadItemsAtIndexPaths:@[indexPath]];
+                        if ( [UIImage imageWithData: data] != nil) {
+                            _image_Arr[indexPath.row] =  [UIImage imageWithData: data];
+                            [_accountCameras reloadItemsAtIndexPaths:@[indexPath]];
+                        }
                     });
                 }
             } @catch (NSException* e) {

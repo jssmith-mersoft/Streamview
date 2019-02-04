@@ -186,6 +186,9 @@ public class MainStreamViewActivity extends AppCompatActivity
                 i.putExtra("operation", "accept_call");
                 i.putExtra("contact", contact);
                 i.putExtra("callID", callId);
+                i.putExtra("deviceID", "");
+                i.putExtra("name", "");
+                i.putExtra("rotation", "");
                 startActivity(i);
             }
 
@@ -258,6 +261,8 @@ public class MainStreamViewActivity extends AppCompatActivity
                 Intent i = new Intent(StreamView.getAppContext(), MoveCall.class);
                 i.putExtra("operation", "call");
                 i.putExtra("contact", cameraIDs.get(position));
+                i.putExtra("rotation", 0);
+                i.putExtra("name", "");
                 //i.putExtra("callID", callId);
                 startActivity(i);
             }
@@ -305,6 +310,9 @@ public class MainStreamViewActivity extends AppCompatActivity
                 imageView.setLayoutParams(new GridView.LayoutParams(width, height/3));
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 imageView.setPadding(0, 0, 0, 0);
+
+                //set label
+
             } else {
                 imageView = (ImageView) convertView;
             }

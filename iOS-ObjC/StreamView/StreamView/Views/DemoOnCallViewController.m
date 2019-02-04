@@ -13,7 +13,7 @@
 // Padding space for local video view with its parent.
 static CGFloat const kLocalViewPaddingSide = 15;
 static CGFloat const kLocalViewPaddingBottom = 65;
-
+static CGFloat lastScale;
 @interface DemoOnCallViewController ()
 
 //timer
@@ -79,6 +79,38 @@ static CGFloat const kLocalViewPaddingBottom = 65;
     [_localVideoTrack addRenderer:_localVideoView];
 }
 
+- (void)handlePinchGesture:(UIPinchGestureRecognizer *)gestureRecognizer {
+    
+    if([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        // Reset the last scale, necessary if there are multiple objects with different scales.
+        lastScale = [gestureRecognizer scale];
+    }
+    
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan ||
+        [gestureRecognizer state] == UIGestureRecognizerStateChanged) {
+        
+        CGFloat currentScale = [[[gestureRecognizer view].layer valueForKeyPath:@"transform.scale"] floatValue];
+        
+        // Constants to adjust the max/min values of zoom.
+        const CGFloat kMaxScale = 2.0;
+        const CGFloat kMinScale = 1.0;
+        
+        CGFloat newScale = 1 -  (lastScale - [gestureRecognizer scale]); // new scale is in the range (0-1)
+        newScale = MIN(newScale, kMaxScale / currentScale);
+        newScale = MAX(newScale, kMinScale / currentScale);
+        CGAffineTransform transform = CGAffineTransformScale([[gestureRecognizer view] transform], newScale, newScale);
+        [gestureRecognizer view].transform = transform;
+        
+        lastScale = [gestureRecognizer scale];  // Store the previous. scale factor for the next pinch gesture call
+    }
+}
+- (void)handlePanGesture:(UIPanGestureRecognizer *)gestureRecognizer {
+    CGPoint translation = [gestureRecognizer translationInView:self.view];
+    gestureRecognizer.view.center = CGPointMake(gestureRecognizer.view.center.x + translation.x,
+                                         gestureRecognizer.view.center.y + translation.y);
+    [gestureRecognizer setTranslation:CGPointMake(0, 0) inView:self.view];
+}
+
 - (void) setRemoteVideoTrack:(RTCVideoTrack *)remoteVideoTrack callId:(NSString *)callID peerId:(NSString *)peerID{
     NSLog(@"DEMO APP: setRemoteVideoTrack %@ peer %@", remoteVideoTrack.source, peerID);
     if(_localVideoTrack == nil){
@@ -90,6 +122,14 @@ static CGFloat const kLocalViewPaddingBottom = 65;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
     CGRect fullScreenFrame = CGRectMake(0, 0, screenWidth, screenHeight);
     RTCEAGLVideoView* newView = [[RTCEAGLVideoView alloc] initWithFrame:fullScreenFrame];
+    UIPinchGestureRecognizer *pgr = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
+    pgr.delegate = self;
+    [newView addGestureRecognizer:pgr];
+    
+    UIPanGestureRecognizer *pangr =[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+    pangr.delegate = self;
+    [newView addGestureRecognizer:pangr];
+    
     //newView.transform = CGAffineTransformMakeScale(-1, 1);
     [self.view addSubview:newView];
     [self.view sendSubviewToBack:newView];

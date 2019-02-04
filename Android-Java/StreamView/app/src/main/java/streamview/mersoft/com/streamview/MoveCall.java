@@ -2,6 +2,7 @@ package streamview.mersoft.com.streamview;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -50,6 +51,13 @@ public class MoveCall extends AppCompatActivity {
     private long startTime;
     boolean firstFame = false;
 
+
+
+    String deviceID;
+    int currentRotation = 0;
+    String name;
+    boolean sirenPlaying = false;
+
     private ScaleGestureDetector mScaleGestureDetector;
 
 
@@ -80,10 +88,14 @@ public class MoveCall extends AppCompatActivity {
         //lbm.registerReceiver(receiver, new IntentFilter("Hangup"));
 
         String contactID = this.getIntent().getStringExtra("contact");
+        deviceID = contactID;
         final String callID = this.getIntent().getStringExtra("callID");
         boolean owner = this.getIntent().getBooleanExtra("Owner", false);
         final String cid = this.getIntent().getStringExtra("cid");
+        currentRotation = this.getIntent().getIntExtra("rotation",0);
+        name = this.getIntent().getStringExtra("name");
         final String operation = this.getIntent().getStringExtra("operation");
+
 
         setContentView(R.layout.call);
         
@@ -227,6 +239,7 @@ public class MoveCall extends AppCompatActivity {
                     }
                 });
 
+                stopClock();
                 moveClient.hangupCall(callID != null ? callID : returnedCallId);
             }
         });
@@ -264,6 +277,24 @@ public class MoveCall extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                //call move to turn on siren
+               if (deviceID != null && deviceID != "") {
+                   if (sirenPlaying) {
+                       moveClient.createEvent("PlaySiren", deviceID);
+                       sirenPlaying = true;
+                       sirenBtn.setImageResource(R.drawable.ic_speaker_off);
+
+                       new Handler().postDelayed(new Runnable() {
+                           @Override
+                           public void run() {
+                               sirenPlaying = false;
+                               sirenBtn.setImageResource(android.R.drawable.ic_dialog_alert);
+                           }
+                       }, 5000);
+                   } else {
+                       moveClient.createEvent("StopSiren",deviceID);
+                       sirenBtn.setImageResource(android.R.drawable.ic_dialog_alert);
+                   }
+               }
             }
         });
 
@@ -272,6 +303,12 @@ public class MoveCall extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //call move to turn to rotate
+                if (deviceID != null && deviceID != "") {
+                    Map<String, String> setDebug = new HashMap<String, String>();
+                    setDebug.put("debug", "true");
+                    setDebug.put("imageFlip", String.valueOf(currentRotation));
+                    moveClient.updateConfig(deviceID,setDebug);
+                }
             }
         });
 
@@ -286,6 +323,18 @@ public class MoveCall extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG,"onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d(TAG,"onDestroy");
+        super.onDestroy();
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         // Dispatch activity on touch event to the scale gesture detector.
         mScaleGestureDetector.onTouchEvent(motionEvent);
@@ -293,7 +342,8 @@ public class MoveCall extends AppCompatActivity {
     }
 
     public SurfaceViewRenderer createNewRemote(){
-        SurfaceViewRenderer renderer = new SurfaceViewRenderer(this);
+        //SurfaceViewRenderer renderer = new SurfaceViewRenderer(this);
+        SurfaceViewRenderer renderer = new SurfaceViewRenderer(getApplicationContext());
         remoteRendererViews.add(renderer);
         //resizeRemote();
         renderer.init(rootEglBase.getEglBaseContext(), null);
@@ -324,14 +374,20 @@ public class MoveCall extends AppCompatActivity {
                 Minutes = Seconds / 60;
                 Seconds = Seconds % 60;
                 MilliSeconds = (int) (MillisecondTime % 1000);
-                Hour = 0;
+                Hour = Minutes / 60;
+                Minutes = Minutes % 60;
 
-                String counter = String.format("%02d:%02d:%02d:%02d",0,Hour,Minutes,Seconds,MilliSeconds);
-                //if (!firstFame) {
-                //    startTimerView.setText(counter);
-                //}
-                //callTimerView.setText(counter);
-                Log.d(TAG,"timer - "+counter);
+                String counter = String.format("%02d:%02d:%02d:%03d",Hour,Minutes,Seconds,MilliSeconds);
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        if (!firstFame) {
+                            startTimerView.setText(counter);
+                        }
+                        callTimerView.setText(counter);
+                    }
+                });
+
+                //Log.d(TAG,"timer - "+counter);
             };
         };
 
@@ -343,6 +399,18 @@ public class MoveCall extends AppCompatActivity {
             clocktimer.cancel();
             clocktimer.purge();
         }
+    }
+
+    public void setDeviceID(String deviceID) {
+        this.deviceID = deviceID;
+    }
+
+    public void setCurrentRotation(int currentRotation) {
+        this.currentRotation = currentRotation;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {

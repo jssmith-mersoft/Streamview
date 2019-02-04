@@ -11,6 +11,7 @@
 #import "Reachability.h"
 #import "Firebase.h"
 
+//#define kMoveURL @"wss://192.168.2.1:3443/ws"
 #define kMoveURL @"wss://move-dev.mersoft.biz/ws"
 //Dev
 #define kMoveURLPepper @"wss://dev.move.pepperos.io/ws"
@@ -22,7 +23,7 @@
 //#define kMoveURLPepper @"wss://prod.move.pepperos.io/ws"
 //#define kPepperAPIURL @"https://api.pepperos.io/authentication/byEmail";
 
-#define kMoveURLdev @"wss://172.16.30.66:3443/ws"
+#define kMoveURLdev @"ws://172.16.30.66:3000/ws"
 //#define kMoveURLdev @"wss://192.168.86.41:3443/ws"
 #define kStreamURL @"https://stream.mersoft.biz"
 

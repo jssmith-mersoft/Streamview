@@ -133,7 +133,9 @@
 }
 - (IBAction)VendorSwitchUpdate:(id)sender {
      if ([_switchPepper isOn]) {
-         _loginTextField.text = @"staging3.pepper@gmail.com";
+         _loginTextField.text = @"dev5.pepper@gmail.com";
+         //_loginTextField.text = @"staging3.pepper@gmail.com";
+         //_loginTextField.text = @"jeff.smith.smith@mersoft.com";
          _passwordTextField.text = @"Pepper12345";
          _moveURL = kMoveURLPepper;
      } else {

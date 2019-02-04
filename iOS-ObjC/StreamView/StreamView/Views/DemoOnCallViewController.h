@@ -19,7 +19,7 @@
 
 @end
 
-@interface DemoOnCallViewController : UIViewController <RTCEAGLVideoViewDelegate>
+@interface DemoOnCallViewController : UIViewController <RTCEAGLVideoViewDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) id<DemoOnCallViewControllerDelegate> delegate;
 @property (nonatomic, strong) RTCEAGLVideoView *localVideoView;
