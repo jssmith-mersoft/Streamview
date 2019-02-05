@@ -153,7 +153,7 @@ static CGFloat lastScale;
     [self updateVideoViewLayout];
 }
 
-- (void) setRemoteAudioTrack:(RTCVideoTrack *)remoteVideoTrack callId:(NSString *)callID peerId:(NSString *)peerID {
+- (void) setRemoteAudioTrack:(RTCVideoTrack *)remoteAudioTrack callId:(NSString *)callID peerId:(NSString *)peerID {
     
     //turn off remote sound
     remoteMuted = YES;
@@ -167,7 +167,7 @@ static CGFloat lastScale;
     
      NSLog(@"DEMO APP: setRemoteAudioTrack peer %@", peerID);
 }
-- (void) unsetRemoteAudioTrack:(RTCVideoTrack *)remoteVideoTrack callId:(NSString *)callID peerId:(NSString *)peerID {
+- (void) unsetRemoteAudioTrack:(RTCVideoTrack *)remoteAudioTrack callId:(NSString *)callID peerId:(NSString *)peerID {
      NSLog(@"DEMO APP: unsetRemoteAudioTrack peer %@", peerID);
 }
 
