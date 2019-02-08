@@ -361,8 +361,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            //String pepperAuthURL = "https://dev.api.pepperos.io/authentication/byEmail";
-            String pepperAuthURL = "https://staging.api.pepperos.io/authentication/byEmail";
+            String pepperAuthURL = "https://dev.api.pepperos.io/authentication/byEmail";
+            //String pepperAuthURL = "https://staging.api.pepperos.io/authentication/byEmail";
 
             if (mVendor == "pepper") {
                 String jsonResponse = null;

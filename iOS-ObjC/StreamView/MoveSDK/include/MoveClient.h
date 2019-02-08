@@ -114,9 +114,10 @@ typedef enum {
 - (void) retrieveEventHistoryByDevice:(NSString *)deviceID;
 - (void) retrieveEventById:(NSString *)eventID;
 - (void) createEvent:(NSString *)eventType forDevice:(NSString*)deviceID;
+- (void) createEvent:(NSString *)eventType forDevice:(NSString*)deviceID withData:(NSDictionary *)data;
 - (void) deleteEvent:(NSString*)id;
 
-- (void)sendCameraNotif:(NSString *)deviceID class:(NSString*)class data:(NSDictionary*)data;
+- (void)sendCameraNotif:(NSString *)deviceID class:(NSString*)class withData:(NSDictionary *)data;
 - (void)signalInfo:(NSString *)deviceID;
 - (void)sdCardInfo:(NSString *)deviceID;
 - (void)sdCardFormat:(NSString *)deviceID;
@@ -258,7 +259,7 @@ typedef enum {
 -(void) streamSetup:(NSString *)RTSPUrl;
 -(void) startMonitor:(NSString *)callID withPeer:(NSString *)CID;
 -(void) resetStates:(NSString*)callID;
--(void)sendCallNotify:(NSString*)name withValue:(NSString*)value;
+-(void)sendCallNotify:(NSString*)callID forName:(NSString*)name withValue:(NSString*)value;
 -(RTCSessionDescription *) descriptionForDescription:(RTCSessionDescription *)description
                                  preferredVideoCodec:(NSString *)codec;
 /**
