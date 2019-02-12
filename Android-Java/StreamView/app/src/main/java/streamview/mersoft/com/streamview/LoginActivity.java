@@ -450,10 +450,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             public void onSuccess() {
                                 LoginActivity.this.runOnUiThread(new Runnable() {
                                     public void run() {
-                                        showProgress(false);
                                         Log.d(TAG, "Registered... ");
                                         Intent intent = new Intent(mContext, MainStreamViewActivity.class);
                                         startActivity(intent);
+                                        //showProgress(false);
                                         finish();
 
                                         //send FB Token to move

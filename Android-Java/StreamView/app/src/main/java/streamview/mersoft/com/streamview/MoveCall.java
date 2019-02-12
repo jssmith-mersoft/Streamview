@@ -137,21 +137,29 @@ public class MoveCall extends AppCompatActivity {
             public void onRemoteTrack(final String callId, final String peerId, final VideoTrack track) {
                 runOnUiThread(new Runnable() {
                     public void run() {
+                        Log.d(TAG,"Adding view");
                         Renderers newRenderer = new Renderers();
                         remoteRenderers.put(callId + ":" + peerId, newRenderer);
-                        newRenderer.callbacks = new MoveClient.ProxyRenderer();
+                        newRenderer.callbacks = new MoveClient.ProxyRenderer() {
+                            @Override
+                            public void firstFame() {
+                                firstFame = true;
+                            }
+                        };
                         newRenderer.viewRenderer = createNewRemote();
                         newRenderer.renderer = new VideoRenderer(newRenderer.callbacks);
                         track.addRenderer(newRenderer.renderer);
                         newRenderer.callbacks.setTarget(newRenderer.viewRenderer);
                         remoteViewsParent.addView(newRenderer.viewRenderer);
 
-                        firstFame = true;
-
-                        //default it as off.
+                        //Mute Mic
+                        moveClient.mute(true);
                         muteState = false;
-                        moveClient.mute(muteState);
                         muteBtn.setImageResource(R.drawable.ic_mic_off);
+                        //Mute Stream from Camera
+                        moveClient.muteRemote(callId, remoteMuteState);
+                        remoteMuteBtn.setImageResource(R.drawable.ic_speaker_off);
+
                     }
                 });
             }
@@ -248,8 +256,8 @@ public class MoveCall extends AppCompatActivity {
         muteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                muteState = !muteState;
                 moveClient.mute(muteState);
+                muteState = !muteState;
                 if (muteState) {
                     muteBtn.setImageResource(R.drawable.ic_mic_on);
                 } else {
@@ -278,11 +286,11 @@ public class MoveCall extends AppCompatActivity {
             public void onClick(View view) {
                //call move to turn on siren
                if (deviceID != null && deviceID != "") {
-                   if (sirenPlaying) {
+                   if (!sirenPlaying) {
                        moveClient.createEvent("PlaySiren", deviceID);
                        sirenPlaying = true;
-                       sirenBtn.setImageResource(R.drawable.ic_speaker_off);
-
+                       //sirenBtn.setImageResource(R.drawable.ic_speaker_off);
+                       sirenBtn.setImageResource(R.drawable.ic_siren_off);
                        new Handler().postDelayed(new Runnable() {
                            @Override
                            public void run() {
@@ -303,11 +311,13 @@ public class MoveCall extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //call move to turn to rotate
+                currentRotation = currentRotation+1;
+                if (currentRotation > 3) currentRotation = 0;
                 if (deviceID != null && deviceID != "") {
-                    Map<String, String> setDebug = new HashMap<String, String>();
-                    setDebug.put("debug", "true");
-                    setDebug.put("imageFlip", String.valueOf(currentRotation));
-                    moveClient.updateConfig(deviceID,setDebug);
+                    Map<String, String> setFlip = new HashMap<String, String>();
+                    //setDebug.put("debug", "true");
+                    setFlip.put("imageFlip", String.valueOf(currentRotation));
+                    moveClient.updateConfig(deviceID,setFlip);
                 }
             }
         });

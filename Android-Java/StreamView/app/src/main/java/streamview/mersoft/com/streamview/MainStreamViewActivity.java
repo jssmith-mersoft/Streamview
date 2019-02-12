@@ -322,6 +322,8 @@ public class MainStreamViewActivity extends AppCompatActivity
                 imageView.setImageBitmap(thumbnail);
             } else {
                 //set a default pic
+                //imageView.setImageBitmap(null);
+                imageView.setImageResource(android.R.color.transparent);
             }
             return imageView;
         }
@@ -455,14 +457,12 @@ public class MainStreamViewActivity extends AppCompatActivity
         protected void onPostExecute( Bitmap result ) {
             super.onPostExecute( result );
             if (result != null){
-                if (visiible) {
                     Log.d(TAG, "The bitmap loaded into the array");
                     thumbnails.put(deviceId, result);
                     gridviewAdpt.notifyDataSetChanged();
-                } else {
-                    Log.d(TAG,"preview is not visible");
-                }
+
             } else {
+                //loading screen
                 Log.d(TAG,"Nothing returned");
             }
         }
@@ -515,8 +515,10 @@ public class MainStreamViewActivity extends AppCompatActivity
             public void run() {
                 mThumbNailLoaderHandler.post(new Runnable() {
                     public void run(){
-                        for (String deviceId : cameraIDs) {
-                            new LoadImagefromUrl().execute(deviceId);
+                        if (visiible) {
+                            for (String deviceId : cameraIDs) {
+                                new LoadImagefromUrl().execute(deviceId);
+                            }
                         }
                         //gridviewAdpt.notifyDataSetChanged();
                     }
