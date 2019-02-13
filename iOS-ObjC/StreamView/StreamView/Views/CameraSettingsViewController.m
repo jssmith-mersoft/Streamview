@@ -352,37 +352,32 @@
     NSLog(@"DEMO APP: got SignalInfo : %@    %@", data, deviceID);
 }
 
-- (void)SdCardInfo:(NSDictionary *)data{
+- (void)SdCardInfo:(NSDictionary *)data deviceID:(NSString*)deviceID{
     NSLog(@"DEMO APP: got configupdate ");
     if (data != nil) {
-        /*
-         "available":"4036032",
-         "files":["image","kernel.img"],
-         "kind":"msdos",
-         "percent":"1%",
-         "size":"4095680",
-         "used":"59648"
-         */
-        NSLog(@"======================== SD-card info 2==================================");
+        NSLog(@"======================== SD-card info %@ ==================================",deviceID);
         NSLog(@"avaiable Space in bytes: %@",data[@"available"]);
         NSLog(@"used Space in bytes: %@",data[@"used"]);
         NSLog(@"total Space in bytes: %@",data[@"size"]);
         NSLog(@"percent Space used: %@",data[@"percent"]);
-        NSLog(@"List of files: %@",data[@"files"]);
+        NSLog(@"List of video files: %@",data[@"videos"]);
+        NSLog(@"List of image files: %@",data[@"images"]);
         NSLog(@"Kinda of SD-card: %@",data[@"kind"]);
     } else {
         NSLog(@"No SD-Card Present");
     }
 }
-- (void)SdCardFormat:(NSString*)status{
-    
+- (void)SdCardFormat:(NSString*)status deviceID:(NSString*)deviceID{
+    NSLog(@"======================== SD-card SdCardFormat %@ ==================================",deviceID);
+    [[appDelegate moveClient] sdCardInfo:deviceID];
 }
-- (void)SdCardDeleteFile:(NSString*)status{
-    ///UGH---what's the filename???
+- (void)SdCardDeleteFile:(NSString*)status filename:(NSString*)filename deviceID:(NSString*)deviceID {
+    NSLog(@"======================== SD-card SdCardFormat %@ ==================================",deviceID);
     if ([status isEqualToString:@"true"]){
-        NSLog(@"file files was deleted");
+        NSLog(@"file %@ was deleted",filename);
+        [[appDelegate moveClient] sdCardInfo:deviceID];
     } else {
-        NSLog(@"file files was deleted");
+        NSLog(@"file %@ was NOT deleted",filename);
     }
 }
 
@@ -547,7 +542,12 @@
     }
 }
 - (IBAction)miscDevButton:(id)sender {
-    [[appDelegate moveClient] sdCardInfo:_deviceID];
+    //[[appDelegate moveClient] sdCardInfo:_deviceID];
+    //[[appDelegate moveClient] sdCardDeleteFile:_deviceID filename:@"V92.MP4"];
+    [[appDelegate moveClient] sdCardDeleteFile:_deviceID filename:@"snapshot-192.jpg"];
+    //[[appDelegate moveClient] sdCardUploadFile:_deviceID filename:@"20190206221423.mp4"];
+    //[[appDelegate moveClient] sdCardUploadFile:_deviceID filename:@"20190206221403.jpg"];
+    //[[appDelegate moveClient] sdCardFormat:_deviceID];
 }
 - (IBAction)sendReboot:(id)sender {
     [[appDelegate moveClient] createEvent:@"Reboot" forDevice:_deviceID];

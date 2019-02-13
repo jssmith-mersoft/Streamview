@@ -474,10 +474,10 @@
 -(void)PlaySirenEvent:(NSString *)eventID  deviceID:(NSString*)deviceID;
 -(void)StopPlaySirenEvent:(NSString *)eventID  deviceID:(NSString*)deviceID;
 
-- (void)SignalInfo:(NSDictionary *)data deviceID:(NSString*)deviceID;;
-- (void)SdCardInfo:(NSDictionary *)data deviceID:(NSString*)deviceID;;
-- (void)SdCardFormat:(NSString*)status deviceID:(NSString*)deviceID;;
-- (void)SdCardDeleteFile:(NSString*)status deviceID:(NSString*)deviceID;;
+- (void)SignalInfo:(NSDictionary *)data deviceID:(NSString*)deviceID;
+- (void)SdCardInfo:(NSDictionary *)data deviceID:(NSString*)deviceID;
+- (void)SdCardFormat:(NSString*)status deviceID:(NSString*)deviceID;
+- (void)SdCardDeleteFile:(NSString*)status filename:(NSString*)filename deviceID:(NSString*)deviceID;
 
 - (void)accountReceived:(MoveAccount *)account;
 - (void)invalidAccountReceived:(NSString*)username contact:(NSString*)contact;
