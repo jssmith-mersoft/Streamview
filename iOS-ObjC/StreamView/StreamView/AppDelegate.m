@@ -125,8 +125,8 @@
     } else if  (remoteHostStatus == ReachableViaWiFi) {
         NSLog(@"Network chnage: wifi %@",[reachability currentReachabilityString]);
         self.hasInet =YES;
-        //[[self moveClient] reconnect];  //move the Move Websocket for signaling to wifi
-        //[[self moveClient] renegotiate];//move current PeerConnects to wifi
+        [[self moveClient] reconnect];  //move the Move Websocket for signaling to wifi
+        [[self moveClient] renegotiate];//move current PeerConnects to wifi
     }
     else if (remoteHostStatus == ReachableViaWWAN) {
         NSLog(@"Network change:cell");
