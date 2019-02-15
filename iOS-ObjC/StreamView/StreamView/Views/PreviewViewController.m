@@ -183,20 +183,23 @@
                // NSString *fileURL =[NSString stringWithFormat:@"%@&%@",_url_Arr[row],dateString];
                 //NSLog(@"the image for row %@",(long)row);
                 NSError* error = nil;
-                if (_url_Arr[indexPath.row] != [NSNull null]) {
-                    NSLog(@"URL is got %zd is %@",indexPath.row, _url_Arr[indexPath.row]);
-                    NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_url_Arr[indexPath.row]] options:NSDataReadingUncached error:&error];
-               
-                    if ( data == nil ) {
-                        NSLog(@"Error Message %@",error);
-                        return;
+                if (self.url_Arr[indexPath.row] != [NSNull null]) {
+                    NSLog(@"URL is got %zd is %@",indexPath.row, self.url_Arr[indexPath.row]);
+                    NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.url_Arr[indexPath.row]] options:NSDataReadingUncached error:&error];
+                    if (error != nil) {
+                         NSLog(@"Error Message %@",error);
                     }
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        //imageView.image =  [UIImage imageWithData: data];
-                        if ( [UIImage imageWithData: data] != nil) {
-                            _image_Arr[indexPath.row] =  [UIImage imageWithData: data];
-                            [_accountCameras reloadItemsAtIndexPaths:@[indexPath]];
+                        if ( data == nil ) {
+                             self.image_Arr[indexPath.row] = [NSNull null];
+                             [self.accountCameras reloadItemsAtIndexPaths:@[indexPath]];
+                        } else {
+                            //imageView.image =  [UIImage imageWithData: data];
+                            if ( [UIImage imageWithData: data] != nil) {
+                                self.image_Arr[indexPath.row] = [UIImage imageWithData: data];
+                                [self.accountCameras reloadItemsAtIndexPaths:@[indexPath]];
+                            }
                         }
                     });
                 }
