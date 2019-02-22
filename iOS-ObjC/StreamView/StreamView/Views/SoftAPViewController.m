@@ -138,16 +138,15 @@
 
 - (NSString*)offsetStringBy4:(NSString*)source{
     unsigned long len = [source length];
-    char buffer[len];
-    strncpy(buffer, [source UTF8String],len);
+    UniChar buffer[len];
     
     for(int i = 0; i < len; ++i) {
-        char current = buffer[i];
+        UniChar current = [source characterAtIndex:i];
         buffer[i] = current+4;
-        NSLog(@"%d %c => %c",i,current,current+4);
+        NSLog(@"%d %c => %c   ||   %d => %d",i,current,current+4,current,current+4);
     }
     buffer[len] = 0;
-    return [NSString stringWithUTF8String:buffer];
+    return [NSString stringWithCharacters:buffer length:len];
 }
 
 - (IBAction)SetNetwork:(id)sender {
