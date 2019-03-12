@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StreamView/Views/CameraSettingsViewController.m"
-            timestampString = "571895513.697925"
+            timestampString = "573687650.555595"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "489"
@@ -54,16 +54,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../../ios/move-ios-sdk/move-ios-sdk/MoveClient.m"
-            timestampString = "571895513.698037"
+            filePath = "StreamView/Views/CameraSettingsViewController.m"
+            timestampString = "573687650.555681"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1932"
-            endingLineNumber = "1932"
-            landmarkName = "-webSocket:didFailWithError:"
+            startingLineNumber = "545"
+            endingLineNumber = "545"
+            landmarkName = "-miscDevButton:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

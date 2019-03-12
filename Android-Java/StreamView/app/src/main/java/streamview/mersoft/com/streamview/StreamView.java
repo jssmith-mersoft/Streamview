@@ -46,10 +46,11 @@ public class StreamView extends Application {
             @Override
             public void onHangup(String callID) {
                 Log.d(TAG, "Hanging up call: " + callID );
-
+/*
                 Intent intent = new Intent("Hangup");
                 intent.getStringExtra(callID);
                 LocalBroadcastManager.getInstance(getAppContext()).sendBroadcast(intent);
+*/
             }
 
             @Override

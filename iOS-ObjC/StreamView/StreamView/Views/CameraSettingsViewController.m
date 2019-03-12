@@ -542,9 +542,9 @@
     }
 }
 - (IBAction)miscDevButton:(id)sender {
-    //[[appDelegate moveClient] sdCardInfo:_deviceID];
+    [[appDelegate moveClient] sdCardInfo:_deviceID];
     //[[appDelegate moveClient] sdCardDeleteFile:_deviceID filename:@"V92.MP4"];
-    [[appDelegate moveClient] sdCardDeleteFile:_deviceID filename:@"snapshot-192.jpg"];
+    //[[appDelegate moveClient] sdCardDeleteFile:_deviceID filename:@"snapshot-192.jpg"];
     //[[appDelegate moveClient] sdCardUploadFile:_deviceID filename:@"20190206221423.mp4"];
     //[[appDelegate moveClient] sdCardUploadFile:_deviceID filename:@"20190206221403.jpg"];
     //[[appDelegate moveClient] sdCardFormat:_deviceID];

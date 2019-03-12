@@ -1,13 +1,13 @@
 package streamview.mersoft.com.streamview;
 
 import android.app.Activity;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -19,7 +19,8 @@ import com.mersoft.move.MoveListener;
 
 import org.webrtc.EglBase;
 import org.webrtc.SurfaceViewRenderer;
-import org.webrtc.VideoRenderer;
+import org.webrtc.RendererCommon.ScalingType;
+import org.webrtc.VideoSink;
 import org.webrtc.VideoTrack;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class MoveCall extends AppCompatActivity {
 
     MoveClient moveClient;
     Activity currentActivity;
-    LinearLayout remoteViewsParent;
+    //LinearLayout remoteViewsParent;
     ImageButton hangupBtn;
     ImageButton cameraBtn;
     ImageButton muteBtn;
@@ -58,9 +59,6 @@ public class MoveCall extends AppCompatActivity {
     String name;
     boolean sirenPlaying = false;
 
-    private ScaleGestureDetector mScaleGestureDetector;
-
-
     //MoveClient.ProxyRenderer localRender;
     //VideoRenderer localRenderer;
     //VideoTrack localTrack;
@@ -72,12 +70,11 @@ public class MoveCall extends AppCompatActivity {
 
     class Renderers{
         SurfaceViewRenderer viewRenderer;
-        MoveClient.ProxyRenderer callbacks;
-        VideoRenderer renderer;
+        MoveClient.ProxyVideoSink callbacks;
+        VideoSink renderer;
     }
 
     HashMap<String, Renderers> remoteRenderers = new HashMap<String, Renderers>();
-    List<SurfaceViewRenderer> remoteRendererViews = new ArrayList<SurfaceViewRenderer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +96,7 @@ public class MoveCall extends AppCompatActivity {
 
         setContentView(R.layout.call);
         
-        remoteViewsParent = (LinearLayout) findViewById(R.id.parent);
+        //remoteViewsParent = (LinearLayout) findViewById(R.id.parent);
 
         rootEglBase = EglBase.create();
         /*
@@ -111,15 +108,22 @@ public class MoveCall extends AppCompatActivity {
         pipRenderer.setMirror(true);
         */
 
+        AudioManager audioManager =
+                ((AudioManager) this.getSystemService(this.AUDIO_SERVICE));
+        boolean isWiredHeadsetOn = audioManager.isWiredHeadsetOn();
+        audioManager.setMode(isWiredHeadsetOn ?
+                AudioManager.MODE_IN_CALL : AudioManager.MODE_IN_COMMUNICATION);
+        audioManager.setSpeakerphoneOn(!isWiredHeadsetOn);
+
         moveClient = StreamView.getMoveClient();
         moveClient.setEglBase(rootEglBase.getEglBaseContext());
 
         Log.d(TAG, "Set activity");
-        mScaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
 
         MoveClient.VideoTrackCallback onAdd = new MoveClient.VideoTrackCallback() {
             @Override
             public void onLocalTrack(VideoTrack track) {
+                Log.d(TAG,"Adding local view");
                 /*
                 if(localRender == null){
                     localRender = new MoveClient.ProxyRenderer();
@@ -140,50 +144,77 @@ public class MoveCall extends AppCompatActivity {
                         Log.d(TAG,"Adding view");
                         Renderers newRenderer = new Renderers();
                         remoteRenderers.put(callId + ":" + peerId, newRenderer);
-                        newRenderer.callbacks = new MoveClient.ProxyRenderer() {
-                            @Override
-                            public void firstFame() {
+                        newRenderer.callbacks = new MoveClient.ProxyVideoSink(){
+                           @Override
+                           public void firstFame() {
                                 firstFame = true;
-                            }
+                           }
                         };
-                        newRenderer.viewRenderer = createNewRemote();
-                        newRenderer.renderer = new VideoRenderer(newRenderer.callbacks);
-                        track.addRenderer(newRenderer.renderer);
+                        //newRenderer.viewRenderer =  new SurfaceViewRenderer(getApplicationContext());
+                        newRenderer.viewRenderer = (SurfaceViewRenderer) findViewById(R.id.remoteView);
+                        newRenderer.viewRenderer.setScalingType(ScalingType.SCALE_ASPECT_FILL);
+                        //newRenderer.viewRenderer.setScalingType(ScalingType.SCALE_ASPECT_FIT);
+                        newRenderer.viewRenderer.init(rootEglBase.getEglBaseContext(), null);
+                        newRenderer.viewRenderer.setEnableHardwareScaler(false);
                         newRenderer.callbacks.setTarget(newRenderer.viewRenderer);
-                        remoteViewsParent.addView(newRenderer.viewRenderer);
+                        //remoteViewsParent.addView(newRenderer.viewRenderer);
+                        track.addSink(newRenderer.callbacks);
+
 
                         //Mute Mic
                         moveClient.mute(true);
                         muteState = false;
                         muteBtn.setImageResource(R.drawable.ic_mic_off);
+
                         //Mute Stream from Camera
                         moveClient.muteRemote(callId, remoteMuteState);
                         remoteMuteBtn.setImageResource(R.drawable.ic_speaker_off);
-
                     }
                 });
             }
         };
 
+
         MoveClient.VideoTrackCallback onRemove = new MoveClient.VideoTrackCallback() {
             @Override
             public void onLocalTrack(VideoTrack track) {
+                //Log.d(TAG,"removing local view");
                 //track.removeRenderer(localRenderer);
             }
 
             @Override
             public void onRemoteTrack(final String callId, final String peerId, final VideoTrack track) {
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        Renderers removedRenderer = remoteRenderers.remove(callId + ":" + peerId);
-                        Log.d(TAG,"Removing the track from the view");
-                        if(removedRenderer != null){
-                            remoteViewsParent.removeView(removedRenderer.viewRenderer);
-                            Log.d(TAG,"Removed view");
+
+                Renderers removedRenderer = remoteRenderers.remove(callId + ":" + peerId);
+                Log.d(TAG,"Removing the track from the view");
+                if(removedRenderer != null) {
+                    //runOnUiThread(new Runnable() {
+                    //    public void run() {
+
+                            //Log.d(TAG, "removing the view ");
+                            //remoteViewsParent.removeView(removedRenderer.viewRenderer);
+
+
+                            Log.d(TAG, "clearing the sync target");
+                            removedRenderer.callbacks.setTarget(null);
+                            track.removeSink(removedRenderer.callbacks);
+
+
+                            Log.d(TAG, "releasing the reneder ");
+                            if (rootEglBase.hasSurface()) {
+                                Log.d(TAG, "has a surface connected ot the EglBase");
+                                rootEglBase.releaseSurface();
+                            } else {
+                                Log.d(TAG, "NO surface connected ot the EglBase");
+                            }
+
+                            removedRenderer.viewRenderer.release();
+                            removedRenderer.viewRenderer = null;
+
                             //resizeRemote();
-                        }
-                    }
-                });
+                  //      }
+                  //  });
+                }
             }
         };
 
@@ -196,6 +227,12 @@ public class MoveCall extends AppCompatActivity {
             }
             @Override
             public void onHangup(String callID) {
+                Log.d(TAG, "OnHangup CAllback is called "+callID);
+                if (rootEglBase.hasSurface()) {
+                    Log.d(TAG, "has surface "+callID);
+                    rootEglBase.release();
+                }
+
                 currentActivity.finish();
             }
         });
@@ -205,6 +242,7 @@ public class MoveCall extends AppCompatActivity {
             moveClient.sendAudio = true;
             moveClient.receiveVideo = true;
             moveClient.receiveAudio = true;
+
 
             moveClient.placeCall(contactID, "TN", new MoveClient.Callback() {
                 @Override
@@ -239,16 +277,33 @@ public class MoveCall extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     public void run() {
                         Log.d(TAG,"the Hangup button pressed");
-                        for(SurfaceViewRenderer rendererView : remoteRendererViews) {
-                            remoteViewsParent.removeView(rendererView);
-                            //resizeRemote();
+
+                        /*
+                        Iterator it = remoteRenderers.entrySet().iterator();
+                        while (it.hasNext()) {
+                            Map.Entry pair = (Map.Entry) it.next();
+                            Renderers videoRender = (Renderers) pair.getValue();
+
+                            Log.d(TAG, "removing render: " + videoRender.viewRenderer);
+                            try {
+                                if (videoRender.viewRenderer != null) {
+                                    remoteViewsParent.removeView(videoRender.viewRenderer);
+                                }
+                                //resizeRemote();
+                            } catch (Exception e) {
+                                Log.d(TAG, "excepton in call: " + e.toString());
+                            }
                         }
-                        remoteRenderers.clear();
+                        //Log.d(TAG, "clear remoteRenders");
+                        //remoteRenderers.clear();
+                        Log.d(TAG, "done with cleanup renderView ");
+                        */
                     }
                 });
 
                 stopClock();
                 moveClient.hangupCall(callID != null ? callID : returnedCallId);
+                Log.d(TAG, "done with onHangup Click ");
             }
         });
 
@@ -346,28 +401,24 @@ public class MoveCall extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
-        // Dispatch activity on touch event to the scale gesture detector.
-        mScaleGestureDetector.onTouchEvent(motionEvent);
         return true;
     }
 
-    public SurfaceViewRenderer createNewRemote(){
-        //SurfaceViewRenderer renderer = new SurfaceViewRenderer(this);
-        SurfaceViewRenderer renderer = new SurfaceViewRenderer(getApplicationContext());
-        remoteRendererViews.add(renderer);
-        //resizeRemote();
-        renderer.init(rootEglBase.getEglBaseContext(), null);
-        //renderer.setScalingType(RendererCommon.ScalingType.SCALE_ASPECT_FIT);
-        renderer.setEnableHardwareScaler(true);
-        return renderer;
-    }
 
     //Resizes remote views to fit page
     public void resizeRemote(){
-        for(SurfaceViewRenderer rendererView : remoteRendererViews){
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, remoteViewsParent.getHeight() / (remoteRenderers.size() == 0 ? 1 : remoteRenderers.size()));
-            rendererView.setLayoutParams(params);
+        /*
+        Iterator it = remoteRenderers.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            Renderers videoRender = (Renderers) pair.getValue();
+
+            if (videoRender.viewRenderer != null) {
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, remoteViewsParent.getHeight() / (remoteRenderers.size() == 0 ? 1 : remoteRenderers.size()));
+                videoRender.viewRenderer.setLayoutParams(params);
+            }
         }
+        */
     }
 
     public void startClock() {
@@ -421,28 +472,5 @@ public class MoveCall extends AppCompatActivity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
-
-        private float mScaleFactor = 1.0f;
-
-        @Override
-        public boolean onScale(ScaleGestureDetector scaleGestureDetector){
-            mScaleFactor *= scaleGestureDetector.getScaleFactor();
-            mScaleFactor = Math.max(0.1f, Math.min(mScaleFactor, 10.0f));
-
-            Iterator it = remoteRenderers.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry) it.next();
-                Renderers videoRender = (Renderers) pair.getValue();
-
-                if (videoRender.viewRenderer != null) {
-                    videoRender.viewRenderer.setScaleX(mScaleFactor);
-                    videoRender.viewRenderer.setScaleY(mScaleFactor);
-                }
-            }
-            return true;
-        }
     }
 }

@@ -21,6 +21,7 @@
 //#define kPepperAPIURL @"https://staging.api.pepperos.io/authentication/byEmail";
 //Prod
 //#define kMoveURLPepper @"wss://prod.move.pepperos.io/ws"
+//#define kMoveURLPepper @"wss://MoveS-EcsEl-FAHU33N6TOZ7-1713815330.us-west-2.elb.amazonaws.com/ws"
 //#define kPepperAPIURL @"https://api.pepperos.io/authentication/byEmail";
 
 #define kMoveURLdev @"ws://172.16.30.66:3000/ws"

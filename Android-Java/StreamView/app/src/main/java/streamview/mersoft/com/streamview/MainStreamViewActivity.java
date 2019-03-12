@@ -15,8 +15,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +26,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.mersoft.move.MoveClient;
 import com.mersoft.move.MoveDevice;
@@ -119,6 +120,7 @@ public class MainStreamViewActivity extends AppCompatActivity
         gv.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
 
         gridviewAdpt = new GridAdapter();
+        gridviewAdpt.mContext = this;
         gv.setAdapter(gridviewAdpt);
         viewContents.addView(gv);
 
@@ -297,27 +299,30 @@ public class MainStreamViewActivity extends AppCompatActivity
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView imageView;
             if (convertView == null) {
-                imageView = new ImageView(StreamView.getAppContext());
+                final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+                convertView = layoutInflater.inflate(R.layout.linearlayout_camera, null);
+            }
+
+            final ImageView imageView = (ImageView)convertView.findViewById(R.id.imageview_thumbnail);
+            final TextView nameTextView = (TextView)convertView.findViewById(R.id.camera_name);
+            final TextView idTextView = (TextView)convertView.findViewById(R.id.camera_id);
+            //final ImageView imageViewFavorite = (ImageView)convertView.findViewById(R.id.imageview_favorite);
+           /*
 
                 DisplayMetrics displaymetrics = new DisplayMetrics();
                 getWindowManager().getDefaultDisplay()
                         .getMetrics(displaymetrics);
                 int width = displaymetrics.widthPixels;
                 int height = displaymetrics.heightPixels;
+            */
+                //imageView.setLayoutParams(new GridView.LayoutParams(width, height/3));
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            imageView.setPadding(0, 0, 0, 0);
 
-                imageView.setLayoutParams(new GridView.LayoutParams(width, height/3));
-                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                imageView.setPadding(0, 0, 0, 0);
-
-                //set label
-
-            } else {
-                imageView = (ImageView) convertView;
-            }
             //imageView.setImageBitmap(mis_fotos[position]);
             Bitmap thumbnail = thumbnails.get(cameraIDs.get(position));
+
             if (thumbnail != null) {
                 imageView.setImageBitmap(thumbnail);
             } else {
@@ -325,7 +330,11 @@ public class MainStreamViewActivity extends AppCompatActivity
                 //imageView.setImageBitmap(null);
                 imageView.setImageResource(android.R.color.transparent);
             }
-            return imageView;
+
+            nameTextView.setText(cameraIDs.get(position));
+            idTextView.setText(cameraIDs.get(position));
+
+            return convertView;
         }
     }
 
@@ -339,6 +348,11 @@ public class MainStreamViewActivity extends AppCompatActivity
         ed.putBoolean("active", true);
         ed.commit();
 
+        if (thbUrlLoaderTimer1 == null) {
+            startThumbnailTimer();
+            startURLTimer();
+        }
+
         Log.d(TAG,"Preview Started");
     }
 
@@ -347,8 +361,10 @@ public class MainStreamViewActivity extends AppCompatActivity
         super.onResume();
         visiible = true;
 
-        startThumbnailTimer();
-        startURLTimer();
+        if (thbUrlLoaderTimer1 == null) {
+            startThumbnailTimer();
+            startURLTimer();
+        }
 
         Log.d(TAG,"Preview Resumed");
     }
@@ -358,7 +374,9 @@ public class MainStreamViewActivity extends AppCompatActivity
         super.onPause();
         visiible = false;
 
-        stopTimer();
+        if (thbUrlLoaderTimer1 != null) {
+            stopTimer();
+        }
 
         Log.d(TAG,"Preview Paused");
     }
@@ -366,6 +384,11 @@ public class MainStreamViewActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
+
+        if (thbUrlLoaderTimer1 != null) {
+            stopTimer();
+        }
+
 
         visiible = false;
 
@@ -502,10 +525,15 @@ public class MainStreamViewActivity extends AppCompatActivity
         if(thumbNailLoaderTimer1 != null){
             thumbNailLoaderTimer1.cancel();
             thumbNailLoaderTimer1.purge();
+            thumbNailLoaderTimer1 = null;
+            mThumbNailLoaderTt1 = null;
         }
         if(thbUrlLoaderTimer1 != null){
             thbUrlLoaderTimer1.cancel();
             thbUrlLoaderTimer1.purge();
+
+            thbUrlLoaderTimer1 = null;
+            thbUrlLoaderTt1  = null;
         }
     }
 
