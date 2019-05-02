@@ -533,11 +533,11 @@
 - (IBAction)changeImageMotion:(id)sender {
     if (!_setup) {
         if (_switchImageMotion.selectedSegmentIndex == 0) {
-            [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"timeZone": @"LOW"}];
+            [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"imageMotion": @"LOW"}];
         } else if (_switchImageMotion.selectedSegmentIndex == 1) {
-            [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"timeZone": @"MED"}];
+            [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"imageMotion": @"MED"}];
         } else if (_switchImageMotion.selectedSegmentIndex == 2) {
-            [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"timeZone": @"HIGH"}];
+            [[appDelegate moveClient] updateConfig:_deviceID withData:@{@"imageMotion": @"HIGH"}];
         }
     }
 }
