@@ -14,7 +14,7 @@
 
 @property NSMutableArray *address_Arr;
 @property NSMutableArray *label_Arr;
-@property NSMutableArray *url_Arr;
+@property NSMutableDictionary *url_Arr;
 @property NSMutableArray *image_Arr;
 @property NSTimer *thumbNailTimer;
 @property NSTimer *refreshTimer;
@@ -46,7 +46,7 @@
     
     _address_Arr = [[NSMutableArray alloc] init];
     _label_Arr   = [[NSMutableArray alloc] init];
-    _url_Arr     = [[NSMutableArray array] init];
+    _url_Arr     = [[NSMutableDictionary alloc] init];
     _image_Arr   = [[NSMutableArray array] init];
     
     // lbl.text = @"00.00.00.000";
@@ -111,21 +111,22 @@
         NSArray* cameraServiceArray = [currReg getCameras];
         
         //clear all arrays
-        [_label_Arr removeAllObjects];
-        [_image_Arr removeAllObjects];
-        [_url_Arr removeAllObjects];
-        [_address_Arr removeAllObjects];
+        [self.label_Arr removeAllObjects];
+        [self.image_Arr removeAllObjects];
+        [self.url_Arr removeAllObjects];
+        [self.address_Arr removeAllObjects];
         
         for (MoveService* itService in cameraServiceArray) {
             [_label_Arr addObject:[itService name]];
             [_image_Arr addObject:[NSNull null]];
-            [_url_Arr addObject:[NSNull null]];
+            
             
             
             //Ask for an URL
             NSArray *addrArray = [[itService addresses] allObjects];
             for (MoveServiceAddress* msa in addrArray) {
-                [_address_Arr addObject:[msa address]];
+                [self.address_Arr addObject:[msa address]];
+                [self.url_Arr setObject:[NSNull null] forKey:[msa address]];
                 [[appDelegate moveClient] getCameraURL: [msa address]];
             }
         }
@@ -146,7 +147,7 @@
     
     UIImageView *Image_View = ( UIImageView *)[cell viewWithTag:100];
     UILabel *Label = (UILabel *) [cell viewWithTag:101];
-    UIButton *ConfigButton = (UIButton *) [cell viewWithTag:101];
+    //UIButton *ConfigButton = (UIButton *) [cell viewWithTag:101];
     
     //load image
     Label.text = [_address_Arr objectAtIndex:indexPath.row];
@@ -158,6 +159,7 @@
     } else  {
         if (_image_Arr[indexPath.row] != [NSNull null]) {
             Image_View.image = _image_Arr[indexPath.row];
+            Label.text = _label_Arr[indexPath.row];
             Image_View.contentMode = UIViewContentModeScaleAspectFill;
         } else {
             Image_View.image = nil;
@@ -177,15 +179,15 @@
     //NSDate *currentDate = [NSDate date];
     //NSString *dateString = [formatter stringFromDate:currentDate];
     
-    if ([_url_Arr count] > indexPath.row) {
+    //if ([_url_Arr count] > indexPath.row) {
         dispatch_async(dispatch_get_global_queue(0,0), ^{
             @try {
                // NSString *fileURL =[NSString stringWithFormat:@"%@&%@",_url_Arr[row],dateString];
                 //NSLog(@"the image for row %@",(long)row);
                 NSError* error = nil;
-                if (self.url_Arr[indexPath.row] != [NSNull null]) {
-                    NSLog(@"URL is got %zd is %@",indexPath.row, self.url_Arr[indexPath.row]);
-                    NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.url_Arr[indexPath.row]] options:NSDataReadingUncached error:&error];
+                if ([self.url_Arr objectForKey:self.address_Arr[indexPath.row]] != [NSNull null]) {
+                    NSLog(@"URL is got %zd is %@",indexPath.row, [self.url_Arr objectForKey:self.address_Arr[indexPath.row]]);
+                    NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[self.url_Arr objectForKey:self.address_Arr[indexPath.row]]] options:NSDataReadingUncached error:&error];
                     if (error != nil) {
                          NSLog(@"Error Message %@",error);
                     }
@@ -202,12 +204,14 @@
                             }
                         }
                     });
+                } else {
+                     NSLog(@"URL address is null %@",self.address_Arr[indexPath.row]);
                 }
             } @catch (NSException* e) {
                 NSLog(@"Error loading URL %@",e);
             }
         });
-    }
+    //}
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -776,7 +780,8 @@
             NSLog(@"DEMO APP: got URL for : %@", deviceID);
             //NSString *unEncodeURL = [url stringByRemovingPercentEncoding];
             NSLog(@"URL for getting camera %@ thumbmail is %@",deviceID,url);
-            [_url_Arr insertObject:url atIndex:i];
+            //[self.url_Arr insertObject:url atIndex:i];
+            [self.url_Arr setObject:url forKey:deviceID];
             break;
         }
     }
