@@ -14,11 +14,11 @@
 //#define kMoveURL @"wss://192.168.2.1:3443/ws"
 #define kMoveURL @"wss://move-dev.mersoft.biz/ws"
 //Dev
-#define kMoveURLPepper @"wss://dev.move.pepperos.io/ws"
-#define kPepperAPIURL @"https://dev.api.pepperos.io/authentication/byEmail";
+//#define kMoveURLPepper @"wss://dev.move.pepperos.io/ws"
+//#define kPepperAPIURL @"https://dev.api.pepperos.io/authentication/byEmail";
 //Stage
-//#define kMoveURLPepper @"wss://stage.move.pepperos.io/ws"
-//#define kPepperAPIURL @"https://staging.api.pepperos.io/authentication/byEmail";
+#define kMoveURLPepper @"wss://stage.move.pepperos.io/ws"
+#define kPepperAPIURL @"https://staging.api.pepperos.io/authentication/byEmail";
 //Prod
 //#define kMoveURLPepper @"wss://prod.move.pepperos.io/ws"
 //#define kMoveURLPepper @"wss://MoveS-EcsEl-FAHU33N6TOZ7-1713815330.us-west-2.elb.amazonaws.com/ws"
